@@ -1,0 +1,20 @@
+﻿source_sheet,target_sheet,cell_edges
+Shipmanagement RCVD,SOFP,16
+Shipmanagement Cost,SOFP,9
+Owner Cost,SOFP,9
+Take-Over Cost,SOFP,10
+BMA Flag Change,SOFP,10
+Bank Verification,SOFP,2
+CTM Expenses List,SOFP,1
+DD Cost,SOFP,2
+Shipmanagement RCVD,Cost Checking,9
+Shipmanagement Cost,Cost Checking,17
+Owner Cost,Cost Checking,17
+Take-Over Cost,Cost Checking,17
+BMA Flag Change,Cost Checking,15
+Expenses Lists,Cost Checking,11
+Cost Checking,Bank Verification,30
+CTM Expenses List,Bank Verification,1
+SOFP,Shipmanagement RCVD,3
+CTM Expenses List,Expenses Lists,1
+CTM Expenses List,Shipmanagement Cost,1

@@ -1,0 +1,27 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import vm from 'node:vm';
+const root=path.resolve(path.dirname(new URL(import.meta.url).pathname),'..');
+const html=await fs.readFile(root+'/index.html','utf8');
+const payload=html.match(/<script id="payload" type="application\/json">([\s\S]*?)<\/script>/)[1];
+const source=html.match(/<script>([\s\S]*?)<\/script>/)[1];
+const nodes=new Map();
+const node=id=>{if(!nodes.has(id))nodes.set(id,{value:'',innerHTML:'',textContent:'',disabled:false,addEventListener(){},querySelectorAll(){return[]}});return nodes.get(id)};
+node('payload').textContent=payload;
+const sandbox=vm.createContext({document:{getElementById:node,querySelectorAll(){return[]}},console});
+vm.runInContext(source,sandbox);
+const passedChecks=[];
+function verify(code,name){if(!vm.runInContext(code,sandbox))throw Error(name);passedChecks.push(name)}
+verify(`$('cell-count').textContent.includes('6926')`,'all-cell count 6926');
+verify(`$('kind-filter').value='formula';cellsRender();$('cell-count').textContent.includes('2722')`,'formula count 2722');
+verify(`$('sheet-filter').value='Take-Over Cost';$('cell-search').value='AE15';cellsRender();$('cell-count').textContent.includes('匹配 1 个')`,'coordinate and sheet filtering');
+verify(`detail(bykey.get('Take-Over Cost!AE15'));$('cell-detail').innerHTML.includes('#VALUE!')&&$('cell-detail').innerHTML.includes('Y13')`,'error and formula-dependency detail');
+verify(`detail(bykey.get('Expenses Lists!M70'));$('cell-detail').innerHTML.includes('invoice_usd')&&$('cell-detail').innerHTML.includes('485')`,'business field and original value');
+verify(`detail(bykey.get('Bank Verification!J11'));$('cell-detail').innerHTML.includes('实际选中J14')&&$('cell-detail').innerHTML.includes('92,779.85')`,'array INDEX formula detail');
+verify(`$('output-search').value='D41';outRender();$('outputs-table').innerHTML.includes('SOFP!D41')&&$('outputs-table').innerHTML.includes('D33-D34-D35')`,'output formula mapping filter');
+verify(`$('sheet-filter').value='';$('kind-filter').value='';$('cell-search').value='';page=1;cellsRender();$('cell-count').textContent.includes('第 2 /')`,'pagination');
+verify(`$('cell-search').value='不存在的单元格XYZ';cellsRender();$('cell-count').textContent.includes('匹配 0 个')&&$('prev').disabled&&$('next').disabled`,'empty search boundary');
+verify(`DATA.cells.filter(c=>c.kind==='formula').every(c=>checks.has(c.sheet+'!'+c.cell))`,'all formulas have recomputation entries');
+const result={mode:'offline JavaScript execution with minimal DOM stubs; no server, no network, no browser rendering',checks:passedChecks,passed:true,limitation:'Actual browser rendering unavailable in this environment; local HTTP preview rejected by automatic approval review.'};
+await fs.writeFile(root+'/analysis/offline_verification.json',JSON.stringify(result,null,2));
+console.log(JSON.stringify(result,null,2));

@@ -1,0 +1,15 @@
+﻿relation,sources,targets,amount,evidence,status
+总清单→分类,Expenses Lists!M9,Owner Cost!M6,1660,日期、供应商、金额相同，摘要Rightship补充词不同,候选，待凭证确认
+总清单→分类,Expenses Lists!M17,Shipmanagement Cost!M12 + Take-Over Cost!M4,3000,季度自修奖金3000=船管1000+接船2000，同一3000收据文件名,拆分关系有表内证据，待凭证确认
+总清单→分类,Expenses Lists!M19,Take-Over Cost!M5,522.51,同日同金额相似摘要；总清单Completed，分类状态空，不能只合并金额,候选且状态冲突
+总清单→分类,Expenses Lists!M32,Shipmanagement Cost!M20,70197.08,八月工资、Top Marine、金额一致；入账日期9/4与9/12不同,候选且日期不同
+银行入账→收款分配,Bank Verification!I14,Shipmanagement RCVD!I13,9598.45,2026-10-05顾问款与银行净入账一致,金额日期可勾稽，未读外部回单
+银行入账→收款分配,Bank Verification!I24,Shipmanagement RCVD!K18+J19+L20+I21,202226.07,24996.94+12228.09+15021.04+149980=202226.07；银行毛额202246.07减费20,金额日期可勾稽，未读外部回单
+银行入账→收款分配,Bank Verification!I33,Shipmanagement RCVD!L22+I23,156330,1350+154980=156330；银行毛额156350减费20,金额可勾稽，明细日期分别7/31、8/14，需确认批次
+银行入账→收款分配,Bank Verification!I34,Shipmanagement RCVD!I24,2100,2026-07-24预付款一致,金额日期可勾稽，未读外部回单
+银行入账→收款分配,Bank Verification!I35,Shipmanagement RCVD!I25,1300,2026-07-22维修收款一致,金额日期可勾稽，未读外部回单
+银行支付→费用批次,Bank Verification!G23,Expenses Lists!M30+M31+M32,85263.12,2565+12501.04+70197.08=85263.12；Owner Cost!U10文字记录合并支付工资/换班/旗证,批次候选有表内证据，待回单确认
+银行支付→费用批次,Bank Verification!G32,Take-Over Cost!M17+M18,2230,150+2080=2230；接船U17文字含2230付款凭证名,批次候选有表内证据，待回单确认
+银行→退款,Bank Verification!I15,Expenses Lists!M10+T10（符号相反）,9520,9500本金加20手续费退回；费用端-9500及-20；同日退款说明,退款候选，需实际银行回单确认
+CTM补给→银行,Bank Verification!G25,CTM Expenses List!L18 / Expenses Lists!M87,50000,金额与补给摘要吻合；银行9/8、CTM入账8/4且验收文本8/12，日期不一致,只属候选，需解释预支/交付日期
+CTM支出→费用分摊,CTM Expenses List!L7（支出-3000）,Expenses Lists!M17（3000）及船管1000+接船2000,3000,相同日期、奖金摘要及同名3000收据；现金减少、费用按中心分摊,表内关系候选，系统应只记一次费用

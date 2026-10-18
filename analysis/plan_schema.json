@@ -1,0 +1,3110 @@
+[
+  {
+    "module": "M01",
+    "name": "organization",
+    "title": "公司主体",
+    "meaning": "一条记录代表一个独立核算或管理主体。",
+    "fields": [
+      [
+        "code",
+        "TXT 必填",
+        "公司代码 在系统内唯一"
+      ],
+      [
+        "legal_name",
+        "TXT 必填",
+        "法定名称 由登记资料确认"
+      ],
+      [
+        "short_name",
+        "TXT 必填",
+        "内部显示简称"
+      ],
+      [
+        "base_currency",
+        "C3 必填 FK",
+        "本位币 引用currency.code；示例USD 由财务确认"
+      ],
+      [
+        "timezone",
+        "TXT 必填",
+        "业务时区 示例Asia/Shanghai"
+      ],
+      [
+        "registration_no",
+        "TXT 可空",
+        "公司注册号或税务识别号"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "ACTIVE或INACTIVE 停用后不得新增业务"
+      ]
+    ],
+    "constraint": "公司改名保留审计；已用主体不得删除。"
+  },
+  {
+    "module": "M01",
+    "name": "vessel",
+    "title": "船舶",
+    "meaning": "一条记录代表一艘船。",
+    "fields": [
+      [
+        "organization_id",
+        "ID 必填 FK",
+        "管理或核算主体 指向organization"
+      ],
+      [
+        "code",
+        "TXT 必填",
+        "内部唯一船舶代码 不使用可能变化的船名作主键"
+      ],
+      [
+        "imo_no",
+        "TXT 可空",
+        "IMO编号 已核实后唯一"
+      ],
+      [
+        "name",
+        "TXT 必填",
+        "当前正式船名"
+      ],
+      [
+        "aliases",
+        "JSON 必填",
+        "历史船名和原表别名 可为空数组"
+      ],
+      [
+        "owner_party_id",
+        "ID 可空 FK",
+        "船东 指向party；启用结算前必须确认"
+      ],
+      [
+        "management_start",
+        "DATE 可空",
+        "管理开始日 用于管理天数"
+      ],
+      [
+        "management_end",
+        "DATE 可空",
+        "管理结束日 不早于开始日"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "ACTIVE INACTIVE等"
+      ]
+    ],
+    "constraint": "原表PIONEER LAY和PIONEER LADY先列别名候选，经确认后合并。"
+  },
+  {
+    "module": "M01",
+    "name": "party",
+    "title": "往来方",
+    "meaning": "供应商 船东 管理公司 员工及关联方使用同一主体档案。",
+    "fields": [
+      [
+        "code",
+        "TXT 必填",
+        "系统唯一往来方代码"
+      ],
+      [
+        "legal_name",
+        "TXT 必填",
+        "正式名称"
+      ],
+      [
+        "roles",
+        "JSON 必填",
+        "SUPPLIER OWNER EMPLOYEE AGENT RELATED等角色集合"
+      ],
+      [
+        "aliases",
+        "JSON 必填",
+        "大小写 空格及历史名称变体 供导入匹配"
+      ],
+      [
+        "contact_name",
+        "TXT 可空",
+        "业务联系人"
+      ],
+      [
+        "contact_details",
+        "JSON 可空",
+        "电话和邮箱 按角色控制可见"
+      ],
+      [
+        "registration_no",
+        "TXT 可空",
+        "注册或税务标识"
+      ],
+      [
+        "payment_terms_days",
+        "INT 可空",
+        "约定账期 非负整数；没有约定时不得默认零天"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "ACTIVE或INACTIVE"
+      ]
+    ],
+    "constraint": "银行收款账户信息若需要网银付款制单，应扩展独立受控档案并双人复核；首期不直接发起银行支付。"
+  },
+  {
+    "module": "M01",
+    "name": "currency",
+    "title": "币种",
+    "meaning": "支持原币和本位币分账。",
+    "fields": [
+      [
+        "code",
+        "C3 必填 唯一",
+        "ISO币种码 示例USD CNY HKD EUR"
+      ],
+      [
+        "name",
+        "TXT 必填",
+        "中文名称"
+      ],
+      [
+        "minor_units",
+        "INT 必填",
+        "记账小数位 示例USD为2；按币种配置"
+      ],
+      [
+        "enabled",
+        "BOOL 必填",
+        "是否允许新增交易"
+      ]
+    ],
+    "constraint": ""
+  },
+  {
+    "module": "M01",
+    "name": "fx_rate",
+    "title": "汇率",
+    "meaning": "存一单位原币折合多少目标币。",
+    "fields": [
+      [
+        "from_currency",
+        "C3 必填 FK",
+        "原币 currency.code"
+      ],
+      [
+        "to_currency",
+        "C3 必填 FK",
+        "目标币 currency.code"
+      ],
+      [
+        "rate_date",
+        "DATE 必填",
+        "适用日期"
+      ],
+      [
+        "rate",
+        "RATE 必填",
+        "大于0；目标币金额=原币金额×rate"
+      ],
+      [
+        "source",
+        "TXT 必填",
+        "银行 成交价 财务批准来源等"
+      ],
+      [
+        "effective_at",
+        "TS 必填",
+        "本版本生效时间"
+      ],
+      [
+        "approved_by",
+        "ID 可空 FK",
+        "批准人 app_user；用于记账前必填"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "DRAFT APPROVED RETIRED"
+      ]
+    ],
+    "constraint": "同币种汇率为1；已用于已记账业务的汇率不能被覆盖，新增版本。"
+  },
+  {
+    "module": "M01",
+    "name": "cost_center",
+    "title": "费用中心",
+    "meaning": "按组织配置五类资金用途及费用分类。",
+    "fields": [
+      [
+        "organization_id",
+        "ID 必填 FK",
+        "所属主体 organization"
+      ],
+      [
+        "code",
+        "TXT 必填",
+        "SHIPMANAGEMENT OWNER TAKEOVER FLAG_CHANGE DRYDOCK"
+      ],
+      [
+        "name",
+        "TXT 必填",
+        "船管 船东 接船 换旗 坞修"
+      ],
+      [
+        "description",
+        "TXT 可空",
+        "归类边界及允许的业务"
+      ],
+      [
+        "enabled",
+        "BOOL 必填",
+        "是否启用；坞修即使为零也保留"
+      ]
+    ],
+    "constraint": "同一主体内代码唯一；费用中心和费用承担方是不同字段。"
+  },
+  {
+    "module": "M01",
+    "name": "account_code",
+    "title": "业务科目字典",
+    "meaning": "承接原表160条船管编码和32条船员细项编码。",
+    "fields": [
+      [
+        "namespace",
+        "TXT 必填",
+        "ship_management或crew_detail"
+      ],
+      [
+        "code",
+        "TXT 必填",
+        "原编码 保持文本及前导零"
+      ],
+      [
+        "name",
+        "TXT 必填",
+        "科目名称"
+      ],
+      [
+        "name_en",
+        "TXT 可空",
+        "英文说明"
+      ],
+      [
+        "parent_id",
+        "ID 可空 FK",
+        "上级account_code 不允许循环"
+      ],
+      [
+        "responsible_department",
+        "TXT 可空",
+        "责任部门或PIC"
+      ],
+      [
+        "gl_account_id",
+        "ID 可空 FK",
+        "正式会计科目gl_account；记账时按性质再判断"
+      ],
+      [
+        "enabled",
+        "BOOL 必填",
+        "停用保留历史"
+      ]
+    ],
+    "constraint": "namespace加code唯一。业务科目不是正式会计科目的替代品。"
+  },
+  {
+    "module": "M01",
+    "name": "gl_account",
+    "title": "正式会计科目",
+    "meaning": "在财务确认账套后启用。",
+    "fields": [
+      [
+        "organization_id",
+        "ID 必填 FK",
+        "所属账套 organization"
+      ],
+      [
+        "code",
+        "TXT 必填",
+        "会计科目代码 主体内唯一"
+      ],
+      [
+        "name",
+        "TXT 必填",
+        "会计科目名称"
+      ],
+      [
+        "parent_id",
+        "ID 可空 FK",
+        "上级gl_account"
+      ],
+      [
+        "account_type",
+        "ENUM 必填",
+        "ASSET LIABILITY EQUITY INCOME EXPENSE"
+      ],
+      [
+        "normal_side",
+        "ENUM 必填",
+        "DEBIT或CREDIT 正常余额方向"
+      ],
+      [
+        "is_postable",
+        "BOOL 必填",
+        "是否允许直接记账 章节科目为否"
+      ],
+      [
+        "requires_party",
+        "BOOL 必填",
+        "是否必须记录往来方"
+      ],
+      [
+        "requires_vessel",
+        "BOOL 必填",
+        "是否必须记录船舶辅助核算"
+      ],
+      [
+        "enabled",
+        "BOOL 必填",
+        "是否允许新凭证引用"
+      ]
+    ],
+    "constraint": ""
+  },
+  {
+    "module": "M12",
+    "name": "app_user",
+    "title": "系统用户",
+    "meaning": "使用受控账号登录，不直接共享财务账号。",
+    "fields": [
+      [
+        "login_name",
+        "TXT 必填 唯一",
+        "登录名"
+      ],
+      [
+        "display_name",
+        "TXT 必填",
+        "显示姓名"
+      ],
+      [
+        "password_hash",
+        "TXT 必填",
+        "使用框架强哈希 存哈希而非明文"
+      ],
+      [
+        "mfa_secret_ciphertext",
+        "TXT 可空",
+        "管理和高权限用户的加密MFA密钥"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "ACTIVE LOCKED DISABLED"
+      ],
+      [
+        "last_login_at",
+        "TS 可空",
+        "最近成功登录时间"
+      ],
+      [
+        "failed_login_count",
+        "INT 必填",
+        "连续失败次数 触发限流和锁定"
+      ]
+    ],
+    "constraint": ""
+  },
+  {
+    "module": "M12",
+    "name": "role",
+    "title": "角色",
+    "meaning": "权限的集合，如录入 财务审核 出纳 运维。",
+    "fields": [
+      [
+        "code",
+        "TXT 必填 唯一",
+        "稳定角色码"
+      ],
+      [
+        "name",
+        "TXT 必填",
+        "显示名称"
+      ],
+      [
+        "description",
+        "TXT 可空",
+        "职责边界及冲突角色说明"
+      ],
+      [
+        "enabled",
+        "BOOL 必填",
+        "是否可授予用户"
+      ]
+    ],
+    "constraint": ""
+  },
+  {
+    "module": "M12",
+    "name": "permission",
+    "title": "权限点",
+    "meaning": "代码发布时维护的操作目录。",
+    "fields": [
+      [
+        "code",
+        "TXT 必填 唯一",
+        "例如payment.approve period.close backup.restore"
+      ],
+      [
+        "name",
+        "TXT 必填",
+        "中文操作名"
+      ],
+      [
+        "resource_type",
+        "TXT 必填",
+        "受保护业务对象类型"
+      ],
+      [
+        "action",
+        "TXT 必填",
+        "READ CREATE APPROVE POST EXPORT等"
+      ]
+    ],
+    "constraint": ""
+  },
+  {
+    "module": "M12",
+    "name": "user_role",
+    "title": "用户角色与数据范围",
+    "meaning": "一条授权覆盖一个主体及可选一艘船。",
+    "fields": [
+      [
+        "user_id",
+        "ID 必填 FK",
+        "app_user"
+      ],
+      [
+        "role_id",
+        "ID 必填 FK",
+        "role"
+      ],
+      [
+        "organization_id",
+        "ID 必填 FK",
+        "organization；运维跨主体需逐项授权"
+      ],
+      [
+        "vessel_id",
+        "ID 可空 FK",
+        "vessel；空表示该主体所有授权业务船"
+      ],
+      [
+        "valid_from",
+        "TS 必填",
+        "授权开始时间"
+      ],
+      [
+        "valid_to",
+        "TS 可空",
+        "到期时间；离职立即失效"
+      ],
+      [
+        "granted_by",
+        "ID 必填 FK",
+        "授权执行人app_user"
+      ]
+    ],
+    "constraint": "后端每次查询和写入校验组织及船舶范围；隐藏前端按钮不足以授权。"
+  },
+  {
+    "module": "M12",
+    "name": "role_permission",
+    "title": "角色权限映射",
+    "meaning": "角色与操作权限多对多。",
+    "fields": [
+      [
+        "role_id",
+        "ID 必填 FK",
+        "role"
+      ],
+      [
+        "permission_id",
+        "ID 必填 FK",
+        "permission"
+      ]
+    ],
+    "constraint": "role_id加permission_id唯一；审批自己创建的付款由服务端额外禁止。"
+  },
+  {
+    "module": "M02",
+    "name": "business_event",
+    "title": "业务单",
+    "meaning": "一条可追溯的经济事项，统一连接订单 发票 收付和凭证。",
+    "fields": [
+      [
+        "organization_id",
+        "ID 必填 FK",
+        "承担记录责任的organization"
+      ],
+      [
+        "event_no",
+        "TXT 必填",
+        "主体内唯一业务单号"
+      ],
+      [
+        "vessel_id",
+        "ID 必填 FK",
+        "主要业务船vessel；跨船详见业务行"
+      ],
+      [
+        "event_type",
+        "ENUM 必填",
+        "EXPENSE FUNDING DEPOSIT LOAN REFUND TRANSFER ADVANCE CREDIT等"
+      ],
+      [
+        "posting_date",
+        "DATE 必填",
+        "入账所属业务日期 受期间控制"
+      ],
+      [
+        "party_id",
+        "ID 可空 FK",
+        "主要往来方party；正式审核按类型要求补齐"
+      ],
+      [
+        "description",
+        "TXT 必填",
+        "完整业务摘要"
+      ],
+      [
+        "recognition_policy",
+        "ENUM 必填",
+        "INVOICE ACCEPTANCE或BALANCE_ONLY；费用确认触发点"
+      ],
+      [
+        "document_status",
+        "ENUM 必填",
+        "DRAFT SUBMITTED APPROVED POSTED REVERSED"
+      ],
+      [
+        "legacy_status",
+        "TXT 可空",
+        "原表状态 原样保留而非驱动正式核销"
+      ],
+      [
+        "reversal_of_id",
+        "ID 可空 FK",
+        "冲回的原business_event"
+      ]
+    ],
+    "constraint": "过账后只允许冲销或更正；同一业务不得因来自两个工作表而重复建单。"
+  },
+  {
+    "module": "M02",
+    "name": "event_line",
+    "title": "业务归属明细",
+    "meaning": "一条金额按受益船 费用中心和性质归属；多中心则拆多行。",
+    "fields": [
+      [
+        "event_id",
+        "ID 必填 FK",
+        "business_event"
+      ],
+      [
+        "line_no",
+        "INT 必填",
+        "同一业务单内唯一行号"
+      ],
+      [
+        "beneficiary_vessel_id",
+        "ID 必填 FK",
+        "实际受益船vessel"
+      ],
+      [
+        "cost_center_id",
+        "ID 必填 FK",
+        "cost_center"
+      ],
+      [
+        "account_code_id",
+        "ID 可空 FK",
+        "account_code；审核前需补齐适用科目"
+      ],
+      [
+        "responsible_party_id",
+        "ID 可空 FK",
+        "费用承担方party；结算前必填"
+      ],
+      [
+        "cost_nature",
+        "ENUM 必填",
+        "OPERATING DEPOSIT LOAN INTERCOMPANY TRANSFER等"
+      ],
+      [
+        "currency_code",
+        "C3 必填 FK",
+        "原币currency.code"
+      ],
+      [
+        "original_amount",
+        "DEC 必填",
+        "正数或经批准的有符号更正金额"
+      ],
+      [
+        "fx_rate_id",
+        "ID 必填 FK",
+        "fx_rate；币种和目标本位币须一致"
+      ],
+      [
+        "base_amount",
+        "DEC 必填 计算",
+        "F01 原币金额×锁定汇率 按本位币舍入"
+      ],
+      [
+        "recognition_date",
+        "DATE 可空",
+        "费用确认日；非费用事项可空"
+      ],
+      [
+        "recognition_status",
+        "ENUM 必填",
+        "UNRECOGNIZED RECOGNIZED REVERSED"
+      ],
+      [
+        "description",
+        "TXT 必填",
+        "本归属行的摘要"
+      ]
+    ],
+    "constraint": "业务行是成本归属的唯一来源；订单 验收和发票是不同阶段，不将三个阶段金额相加作为成本。"
+  },
+  {
+    "module": "M02",
+    "name": "purchase_order_line",
+    "title": "采购订单行",
+    "meaning": "可选采购流程，业务单可无订单。",
+    "fields": [
+      [
+        "event_line_id",
+        "ID 必填 FK",
+        "归属event_line；跨中心订单拆分对应行"
+      ],
+      [
+        "requisition_no",
+        "TXT 可空",
+        "原表RQA 请购或申请编号"
+      ],
+      [
+        "po_no",
+        "TXT 必填",
+        "订单号 不单独假定全系统唯一"
+      ],
+      [
+        "po_line_no",
+        "TXT 必填",
+        "订单行号"
+      ],
+      [
+        "order_date",
+        "DATE 必填",
+        "下单日"
+      ],
+      [
+        "currency_code",
+        "C3 必填 FK",
+        "订单原币"
+      ],
+      [
+        "original_amount",
+        "DEC 必填",
+        "此订单归属行的原币承诺额"
+      ],
+      [
+        "fx_rate_id",
+        "ID 必填 FK",
+        "订单折算汇率"
+      ],
+      [
+        "base_amount",
+        "DEC 必填 计算",
+        "F01 订单USD或本位币额"
+      ],
+      [
+        "approval_status",
+        "ENUM 必填",
+        "DRAFT SUBMITTED APPROVED REJECTED CLOSED"
+      ],
+      [
+        "variance_reason",
+        "TXT 可空",
+        "与业务行 发票或验收不同的原因"
+      ]
+    ],
+    "constraint": "同一订单可有多次验收和多张发票；数量管理为后续可选扩展。"
+  },
+  {
+    "module": "M02",
+    "name": "goods_receipt",
+    "title": "验收记录",
+    "meaning": "一条代表某订单归属行的一次部分或全部验收。",
+    "fields": [
+      [
+        "event_line_id",
+        "ID 必填 FK",
+        "归属event_line"
+      ],
+      [
+        "po_line_id",
+        "ID 可空 FK",
+        "purchase_order_line；无订单验收可空"
+      ],
+      [
+        "receipt_no",
+        "TXT 必填",
+        "验收单号或服务确认号"
+      ],
+      [
+        "receipt_date",
+        "DATE 必填",
+        "验收或服务确认日"
+      ],
+      [
+        "currency_code",
+        "C3 必填 FK",
+        "验收原币"
+      ],
+      [
+        "original_amount",
+        "DEC 必填",
+        "本次验收金额"
+      ],
+      [
+        "fx_rate_id",
+        "ID 必填 FK",
+        "验收汇率"
+      ],
+      [
+        "base_amount",
+        "DEC 必填 计算",
+        "F01 本次验收本位币额"
+      ],
+      [
+        "accepted_by",
+        "ID 必填 FK",
+        "验收人app_user"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "DRAFT ACCEPTED REVERSED"
+      ],
+      [
+        "variance_reason",
+        "TXT 可空",
+        "超额或阶段差异说明"
+      ]
+    ],
+    "constraint": "验收累计=同一订单行有效验收金额之和，超订单金额需审批；按验收应计时到票必须转回原应计。"
+  },
+  {
+    "module": "M03",
+    "name": "invoice",
+    "title": "供应商发票头",
+    "meaning": "一张发票或贷项凭证，不把原表文件名当作发票编号。",
+    "fields": [
+      [
+        "organization_id",
+        "ID 必填 FK",
+        "organization"
+      ],
+      [
+        "supplier_id",
+        "ID 必填 FK",
+        "供应商party"
+      ],
+      [
+        "invoice_no",
+        "TXT 必填",
+        "真实发票号；历史缺失生成待核对内部号并标记异常"
+      ],
+      [
+        "document_type",
+        "ENUM 必填",
+        "INVOICE或CREDIT_NOTE"
+      ],
+      [
+        "invoice_date",
+        "DATE 必填",
+        "发票日期"
+      ],
+      [
+        "due_date",
+        "DATE 可空",
+        "到期日；账龄报表缺失时显示待补；已批准账期时可计算为invoice_date+约定天数，手工覆盖须记录理由"
+      ],
+      [
+        "currency_code",
+        "C3 必填 FK",
+        "发票币种"
+      ],
+      [
+        "fx_rate_id",
+        "ID 必填 FK",
+        "确认应付时使用的锁定汇率"
+      ],
+      [
+        "net_amount",
+        "DEC 可空",
+        "未税额；税务信息不全时保持空"
+      ],
+      [
+        "tax_amount",
+        "DEC 可空",
+        "税额；未知与0不同"
+      ],
+      [
+        "gross_amount",
+        "DEC 必填",
+        "票面含税总额 正数；方向由document_type确定"
+      ],
+      [
+        "base_amount",
+        "DEC 必填 计算",
+        "F01 票面总额折本位币"
+      ],
+      [
+        "approval_status",
+        "ENUM 必填",
+        "DRAFT SUBMITTED APPROVED REJECTED VOID"
+      ],
+      [
+        "verification_status",
+        "ENUM 必填",
+        "PENDING VERIFIED DISPUTED；附件及金额核验状态"
+      ]
+    ],
+    "constraint": "主体 供应商 发票号及凭证类型联合防重；gross_amount=净额+税额仅在税务数据齐全时校验。"
+  },
+  {
+    "module": "M03",
+    "name": "invoice_line",
+    "title": "发票明细",
+    "meaning": "将一张发票分配到业务归属行，可分别核销。",
+    "fields": [
+      [
+        "invoice_id",
+        "ID 必填 FK",
+        "invoice"
+      ],
+      [
+        "line_no",
+        "INT 必填",
+        "发票内唯一"
+      ],
+      [
+        "event_line_id",
+        "ID 必填 FK",
+        "event_line"
+      ],
+      [
+        "po_line_id",
+        "ID 可空 FK",
+        "purchase_order_line"
+      ],
+      [
+        "goods_receipt_id",
+        "ID 可空 FK",
+        "goods_receipt；多次验收通过拆行关联"
+      ],
+      [
+        "description",
+        "TXT 必填",
+        "商品 服务或调整说明"
+      ],
+      [
+        "original_amount",
+        "DEC 必填",
+        "此行含税原币额 正数"
+      ],
+      [
+        "tax_rate",
+        "RATE 可空",
+        "税率 0.13表示13%；未知为空"
+      ],
+      [
+        "tax_amount",
+        "DEC 可空",
+        "此行税额 不默认可抵扣"
+      ],
+      [
+        "base_amount",
+        "DEC 必填 计算",
+        "F01 使用发票头汇率折算"
+      ],
+      [
+        "variance_reason",
+        "TXT 可空",
+        "运费 差价 部分到票等原因"
+      ]
+    ],
+    "constraint": "行原币合计等于发票总额；本位币舍入尾差分配到最后一行并留痕。应付和已付余额为查询结果，不以可手改字段保存。"
+  },
+  {
+    "module": "M03",
+    "name": "credit_allocation",
+    "title": "贷项抵扣分配",
+    "meaning": "贷项与原发票本金之间的多对多抵扣。",
+    "fields": [
+      [
+        "credit_line_id",
+        "ID 必填 FK",
+        "类型为CREDIT_NOTE的invoice_line"
+      ],
+      [
+        "invoice_line_id",
+        "ID 必填 FK",
+        "被抵扣的普通invoice_line"
+      ],
+      [
+        "allocation_date",
+        "DATE 必填",
+        "抵扣生效日"
+      ],
+      [
+        "currency_code",
+        "C3 必填 FK",
+        "双方相同的结算币种"
+      ],
+      [
+        "original_amount",
+        "DEC 必填",
+        "本次抵扣本金 正数；冲回通过状态及关联处理"
+      ],
+      [
+        "base_amount",
+        "DEC 必填",
+        "对应原应付账面值；汇兑差异单独入凭证"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "CONFIRMED REVERSED"
+      ],
+      [
+        "reversal_of_id",
+        "ID 可空 FK",
+        "原credit_allocation"
+      ],
+      [
+        "effect_sign",
+        "INT 必填",
+        "正常记录为1 冲回记录为-1；统计金额=金额×effect_sign，冲回必须关联原记录"
+      ]
+    ],
+    "constraint": "F06 累计抵扣不超过贷项可用额或发票未结清额；跨币种抵扣首期禁止，先兑换或人工批准分录。"
+  },
+  {
+    "module": "M04",
+    "name": "payment",
+    "title": "付款及退款单",
+    "meaning": "记录实际支付事件；现金和银行通过关联流水核实。",
+    "fields": [
+      [
+        "organization_id",
+        "ID 必填 FK",
+        "organization"
+      ],
+      [
+        "payment_no",
+        "TXT 必填",
+        "主体内唯一付款编号"
+      ],
+      [
+        "event_id",
+        "ID 必填 FK",
+        "business_event；支持非发票押金 借款等"
+      ],
+      [
+        "payee_party_id",
+        "ID 必填 FK",
+        "收款方party"
+      ],
+      [
+        "payment_type",
+        "ENUM 必填",
+        "SUPPLIER DEPOSIT LOAN REFUND OTHER"
+      ],
+      [
+        "payment_date",
+        "DATE 必填",
+        "实际支付或退款日期"
+      ],
+      [
+        "currency_code",
+        "C3 必填 FK",
+        "实际结算币种"
+      ],
+      [
+        "signed_principal",
+        "DEC 必填",
+        "出款本金为正 收到原付款退款为负"
+      ],
+      [
+        "signed_fee",
+        "DEC 必填",
+        "实际付费为正 退费为负"
+      ],
+      [
+        "fx_rate_id",
+        "ID 必填 FK",
+        "实际结算汇率"
+      ],
+      [
+        "signed_base_principal",
+        "DEC 必填 计算",
+        "F01 结算本金折本位币 用于现金分析"
+      ],
+      [
+        "signed_base_fee",
+        "DEC 必填 计算",
+        "F01 手续费折本位币；不得再计一次"
+      ],
+      [
+        "bank_transaction_id",
+        "ID 条件 FK",
+        "bank_transaction 与cash_movement_id二选一；执行前可空"
+      ],
+      [
+        "cash_movement_id",
+        "ID 条件 FK",
+        "cash_movement；实际完成时必须指定一个资金来源"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "DRAFT APPROVED EXECUTING SETTLED FAILED REVERSED"
+      ],
+      [
+        "refund_of_id",
+        "ID 可空 FK",
+        "退款关联原payment；退款时必填"
+      ]
+    ],
+    "constraint": "付款不自动改变发票费用金额；SETTLED要求真实资金记录且核销通过。已支付本金不能因付款申请审批而提前增加。"
+  },
+  {
+    "module": "M04",
+    "name": "payment_allocation",
+    "title": "付款核销明细",
+    "meaning": "连接付款和发票，解决一次付多票和一票分次付。",
+    "fields": [
+      [
+        "payment_id",
+        "ID 必填 FK",
+        "payment"
+      ],
+      [
+        "invoice_line_id",
+        "ID 必填 FK",
+        "invoice_line"
+      ],
+      [
+        "allocation_date",
+        "DATE 必填",
+        "核销生效日"
+      ],
+      [
+        "settlement_currency",
+        "C3 必填 FK",
+        "发票币种currency.code"
+      ],
+      [
+        "signed_invoice_amount",
+        "DEC 必填",
+        "发票币种下核销本金 正常付为正 退款解除核销为负"
+      ],
+      [
+        "signed_payment_amount",
+        "DEC 必填",
+        "付款币种下使用本金；同币种时等于发票核销额"
+      ],
+      [
+        "carrying_base_amount",
+        "DEC 必填",
+        "本次核销原应付账面值 有符号"
+      ],
+      [
+        "settlement_base_amount",
+        "DEC 必填",
+        "本次付款本金折本位币 有符号"
+      ],
+      [
+        "fx_difference",
+        "DEC 必填 计算",
+        "F09 结算本位币额−核销账面值；正数通常为损失"
+      ],
+      [
+        "fee_base_allocation",
+        "DEC 必填",
+        "分摊手续费 可0；仅分配已有手续费 不另生成现金"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "CONFIRMED REVERSED"
+      ],
+      [
+        "reversal_of_id",
+        "ID 可空 FK",
+        "冲回的payment_allocation"
+      ]
+    ],
+    "constraint": "F06 核销本金不超发票待付及付款可用本金；两边分别按各自币种校验。退款解除核销必须引用原分配。"
+  },
+  {
+    "module": "M05",
+    "name": "receipt",
+    "title": "实际收款单",
+    "meaning": "仅记录实际到账，借款退回与拨款按性质分开。",
+    "fields": [
+      [
+        "organization_id",
+        "ID 必填 FK",
+        "organization"
+      ],
+      [
+        "receipt_no",
+        "TXT 必填",
+        "主体内唯一收款单号"
+      ],
+      [
+        "payer_party_id",
+        "ID 必填 FK",
+        "付款方party"
+      ],
+      [
+        "receipt_type",
+        "ENUM 必填",
+        "OWNER_FUNDING REIMBURSEMENT LOAN_RETURN REFUND OTHER"
+      ],
+      [
+        "receipt_date",
+        "DATE 必填",
+        "到账确认日"
+      ],
+      [
+        "currency_code",
+        "C3 必填 FK",
+        "到账币种"
+      ],
+      [
+        "gross_amount",
+        "DEC 必填",
+        "毛额 正数；撤销通过业务冲回"
+      ],
+      [
+        "signed_fee",
+        "DEC 必填",
+        "扣费为正 退费为负"
+      ],
+      [
+        "net_amount",
+        "DEC 必填 计算",
+        "F02 毛额−有符号手续费"
+      ],
+      [
+        "fx_rate_id",
+        "ID 必填 FK",
+        "到账折算汇率"
+      ],
+      [
+        "net_base_amount",
+        "DEC 必填 计算",
+        "F01 净到款折本位币"
+      ],
+      [
+        "bank_transaction_id",
+        "ID 条件 FK",
+        "bank_transaction；现金收款时用下一个字段"
+      ],
+      [
+        "cash_movement_id",
+        "ID 条件 FK",
+        "cash_movement；确认收款时资金来源二选一"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "DRAFT CONFIRMED REVERSED"
+      ],
+      [
+        "event_id",
+        "ID 必填 FK",
+        "对应business_event"
+      ],
+      [
+        "effect_sign",
+        "INT 必填",
+        "正常记录为1 冲回记录为-1；统计金额=金额×effect_sign，冲回必须关联原记录"
+      ],
+      [
+        "reversal_of_id",
+        "ID 可空 FK",
+        "冲回关联原receipt；本金额与费用和分配同步反向"
+      ]
+    ],
+    "constraint": "退款如已记录为payment的负付款，不再建receipt增加一次资金；按事件类型选择一种业务路径并共享银行流水。"
+  },
+  {
+    "module": "M05",
+    "name": "receipt_allocation",
+    "title": "收款用途分配",
+    "meaning": "一笔到账分配到多船或五类资金用途，可关联资金申请。",
+    "fields": [
+      [
+        "receipt_id",
+        "ID 必填 FK",
+        "receipt"
+      ],
+      [
+        "vessel_id",
+        "ID 必填 FK",
+        "资金归属船vessel"
+      ],
+      [
+        "cost_center_id",
+        "ID 必填 FK",
+        "资金用途cost_center"
+      ],
+      [
+        "funding_request_id",
+        "ID 可空 FK",
+        "funding_request；一笔分配可只关联一张申请 多申请则拆行"
+      ],
+      [
+        "allocation_date",
+        "DATE 必填",
+        "用途分配生效日"
+      ],
+      [
+        "original_amount",
+        "DEC 必填",
+        "receipt币种下净额分配额 正数"
+      ],
+      [
+        "base_amount",
+        "DEC 必填 计算",
+        "F01 按收款汇率折算"
+      ],
+      [
+        "fund_nature",
+        "ENUM 必填",
+        "CUSTODY MANAGEMENT_FEE LOAN REIMBURSEMENT等财务确认性质"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "CONFIRMED REVERSED"
+      ],
+      [
+        "reversal_of_id",
+        "ID 可空 FK",
+        "原receipt_allocation"
+      ],
+      [
+        "effect_sign",
+        "INT 必填",
+        "正常记录为1 冲回记录为-1；统计金额=金额×effect_sign，冲回必须关联原记录"
+      ]
+    ],
+    "constraint": "F03 用途分配不超净到款；已分配资金是管理资金池指标，不自动形成营业收入。"
+  },
+  {
+    "module": "M09",
+    "name": "funding_request",
+    "title": "资金计划及补款申请",
+    "meaning": "没有到账之前只形成计划。",
+    "fields": [
+      [
+        "organization_id",
+        "ID 必填 FK",
+        "organization"
+      ],
+      [
+        "request_no",
+        "TXT 必填",
+        "主体内唯一申请号"
+      ],
+      [
+        "vessel_id",
+        "ID 必填 FK",
+        "vessel"
+      ],
+      [
+        "cost_center_id",
+        "ID 必填 FK",
+        "cost_center"
+      ],
+      [
+        "request_type",
+        "ENUM 必填",
+        "DAILY_PLAN CASH_SHORTFALL MANUAL"
+      ],
+      [
+        "period_start",
+        "DATE 必填",
+        "计划开始日"
+      ],
+      [
+        "period_end",
+        "DATE 必填",
+        "计划结束日"
+      ],
+      [
+        "daily_rate",
+        "DEC 可空",
+        "日费率 DAILY_PLAN时必填"
+      ],
+      [
+        "billable_days",
+        "INT 可空",
+        "计费天数 按批准的首尾日规则"
+      ],
+      [
+        "currency_code",
+        "C3 必填 FK",
+        "申请币种"
+      ],
+      [
+        "requested_amount",
+        "DEC 必填",
+        "F04 日费率×天数 或经审核手工缺口额"
+      ],
+      [
+        "approved_amount",
+        "DEC 可空",
+        "批准金额；未批准为空不等于0"
+      ],
+      [
+        "reason",
+        "TXT 必填",
+        "用途 缺口解释及人工调整原因"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "DRAFT SUBMITTED APPROVED PART_RECEIVED RECEIVED CANCELLED"
+      ]
+    ],
+    "constraint": "申请实收来自receipt_allocation，批准金额−关联实收为未到账金额；关联收款须同币种，跨币种按另行批准规则处理。"
+  },
+  {
+    "module": "M06",
+    "name": "bank_account",
+    "title": "银行账户",
+    "meaning": "一个账户一个币种，保存受控期初。",
+    "fields": [
+      [
+        "organization_id",
+        "ID 必填 FK",
+        "账户持有主体organization"
+      ],
+      [
+        "account_name",
+        "TXT 必填",
+        "户名"
+      ],
+      [
+        "bank_name",
+        "TXT 必填",
+        "开户行"
+      ],
+      [
+        "account_number_ciphertext",
+        "TXT 必填",
+        "完整账号加密；展示按权限掩码"
+      ],
+      [
+        "currency_code",
+        "C3 必填 FK",
+        "账户币种"
+      ],
+      [
+        "opening_date",
+        "DATE 必填",
+        "期初余额生效日"
+      ],
+      [
+        "opening_balance",
+        "DEC 必填",
+        "当日期初余额；之后只累计该日及以后流水"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "ACTIVE CLOSED"
+      ]
+    ],
+    "constraint": "银行账户可能服务多船，不将一整个账户余额复制归给每条船。"
+  },
+  {
+    "module": "M06",
+    "name": "bank_transaction",
+    "title": "银行流水",
+    "meaning": "来自对账单的唯一资金事实。",
+    "fields": [
+      [
+        "account_id",
+        "ID 必填 FK",
+        "bank_account"
+      ],
+      [
+        "external_reference",
+        "TXT 可空",
+        "银行流水号 优先用于去重"
+      ],
+      [
+        "booking_date",
+        "DATE 必填",
+        "银行记账日"
+      ],
+      [
+        "value_date",
+        "DATE 可空",
+        "价值日 与记账日分开"
+      ],
+      [
+        "sequence_key",
+        "TXT 必填",
+        "银行原序号及稳定排序键 不用导入行号随意替代"
+      ],
+      [
+        "currency_code",
+        "C3 必填 FK",
+        "必须等于账户币种"
+      ],
+      [
+        "signed_principal",
+        "DEC 必填",
+        "入账为正 出账为负；可0以记录独立手续费"
+      ],
+      [
+        "signed_fee_movement",
+        "DEC 必填",
+        "实际扣费为负 退费为正"
+      ],
+      [
+        "signed_net_movement",
+        "DEC 必填 计算",
+        "F07 有符号本金+有符号手续费变动"
+      ],
+      [
+        "statement_balance",
+        "DEC 可空",
+        "银行提供的该笔后余额 不强制由系统覆盖"
+      ],
+      [
+        "counterparty_text",
+        "TXT 可空",
+        "银行原文对方名称"
+      ],
+      [
+        "memo",
+        "TXT 可空",
+        "原始摘要"
+      ],
+      [
+        "fingerprint",
+        "TXT 必填",
+        "账户 日期 金额 参考号等规范化哈希 候选防重"
+      ],
+      [
+        "source_file_id",
+        "ID 可空 FK",
+        "导入source_file"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "IMPORTED CONFIRMED DISPUTED VOID"
+      ]
+    ],
+    "constraint": "fingerprint命中先阻断人工复核，不能自动删除同日同额真实付款；confirmed流水才进入正式余额，void仍留历史。"
+  },
+  {
+    "module": "M06",
+    "name": "bank_match",
+    "title": "银行业务匹配",
+    "meaning": "一条流水可以匹配多个业务构成，候选需人工确认。",
+    "fields": [
+      [
+        "bank_transaction_id",
+        "ID 必填 FK",
+        "bank_transaction"
+      ],
+      [
+        "target_type",
+        "ENUM 必填",
+        "PAYMENT RECEIPT TRANSFER JOURNAL_FEE INTEREST等"
+      ],
+      [
+        "target_id",
+        "ID 必填",
+        "对应目标记录；后端验证目标真实存在且主体相符"
+      ],
+      [
+        "component_type",
+        "ENUM 必填",
+        "PRINCIPAL或FEE"
+      ],
+      [
+        "signed_bank_amount",
+        "DEC 必填",
+        "本次解释的账户币种有符号金额"
+      ],
+      [
+        "match_method",
+        "ENUM 必填",
+        "MANUAL RULE CANDIDATE"
+      ],
+      [
+        "confidence",
+        "RATE 可空",
+        "建议分值0到1 不是核销证据"
+      ],
+      [
+        "confirmed_by",
+        "ID 可空 FK",
+        "确认人app_user"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "SUGGESTED CONFIRMED REVERSED"
+      ]
+    ],
+    "constraint": "F08 本金与手续费分别核对，不允许正负匹配互相抵销掩盖超额；匹配只解释流水 不新增余额。"
+  },
+  {
+    "module": "M07",
+    "name": "cash_account",
+    "title": "船长现金账户",
+    "meaning": "每条船每种现金币种一套余额。",
+    "fields": [
+      [
+        "organization_id",
+        "ID 必填 FK",
+        "organization"
+      ],
+      [
+        "vessel_id",
+        "ID 必填 FK",
+        "vessel"
+      ],
+      [
+        "code",
+        "TXT 必填",
+        "主体内唯一现金账户代码"
+      ],
+      [
+        "currency_code",
+        "C3 必填 FK",
+        "现金币种"
+      ],
+      [
+        "custodian_party_id",
+        "ID 必填 FK",
+        "保管人party"
+      ],
+      [
+        "opening_date",
+        "DATE 必填",
+        "现金期初生效日"
+      ],
+      [
+        "opening_balance",
+        "DEC 必填",
+        "经交接或盘点确认的期初余额"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "ACTIVE CLOSED"
+      ]
+    ],
+    "constraint": ""
+  },
+  {
+    "module": "M07",
+    "name": "cash_movement",
+    "title": "现金流水",
+    "meaning": "每笔现金收支只影响一个现金账户一次。",
+    "fields": [
+      [
+        "account_id",
+        "ID 必填 FK",
+        "cash_account"
+      ],
+      [
+        "movement_no",
+        "TXT 必填",
+        "现金账户内唯一流水号"
+      ],
+      [
+        "movement_date",
+        "DATE 必填",
+        "现金实际收付日"
+      ],
+      [
+        "movement_type",
+        "ENUM 必填",
+        "TOPUP EXPENSE RETURN ADJUSTMENT RECEIPT"
+      ],
+      [
+        "signed_amount",
+        "DEC 必填",
+        "入金为正 支出为负"
+      ],
+      [
+        "event_id",
+        "ID 必填 FK",
+        "business_event"
+      ],
+      [
+        "internal_transfer_id",
+        "ID 可空 FK",
+        "internal_transfer；补给或退回时必填"
+      ],
+      [
+        "counterparty_id",
+        "ID 可空 FK",
+        "party"
+      ],
+      [
+        "counted_balance",
+        "DEC 可空",
+        "本笔后实盘余额 盘点时填写"
+      ],
+      [
+        "adjustment_reason",
+        "TXT 可空",
+        "调整或盘点差异原因"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "DRAFT CONFIRMED REVERSED"
+      ]
+    ],
+    "constraint": "F10 现金期末=期初+有效有符号现金流水；现金消费经payment连接发票核销，费用来源仍为业务行。"
+  },
+  {
+    "module": "M07",
+    "name": "internal_transfer",
+    "title": "内部划拨",
+    "meaning": "连接银行和现金的两端，首期仅支持同主体同币种。",
+    "fields": [
+      [
+        "organization_id",
+        "ID 必填 FK",
+        "organization"
+      ],
+      [
+        "transfer_no",
+        "TXT 必填",
+        "主体内唯一划拨编号"
+      ],
+      [
+        "transfer_date",
+        "DATE 必填",
+        "划拨实际生效日"
+      ],
+      [
+        "from_account_type",
+        "ENUM 必填",
+        "BANK或CASH"
+      ],
+      [
+        "from_account_id",
+        "ID 必填",
+        "对应bank_account或cash_account"
+      ],
+      [
+        "to_account_type",
+        "ENUM 必填",
+        "BANK或CASH"
+      ],
+      [
+        "to_account_id",
+        "ID 必填",
+        "对应账户 与来源不同"
+      ],
+      [
+        "currency_code",
+        "C3 必填 FK",
+        "两端相同币种"
+      ],
+      [
+        "principal_amount",
+        "DEC 必填",
+        "转出及转入本金 正数"
+      ],
+      [
+        "fee_amount",
+        "DEC 必填",
+        "手续费 正数或0；资金端单独扣除"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "DRAFT IN_TRANSIT CONFIRMED CANCELLED"
+      ]
+    ],
+    "constraint": "F11 已确认划拨转出本金+转入本金=0；一端未到时标记在途并跟踪，不虚增收款。跨主体按往来，跨币种按兑换，首期不套此简化模型。"
+  },
+  {
+    "module": "M08",
+    "name": "owner_settlement",
+    "title": "船东或关联方结算单",
+    "meaning": "一张向责任主体申请报销或收回代付的结算单。",
+    "fields": [
+      [
+        "organization_id",
+        "ID 必填 FK",
+        "发起结算主体organization"
+      ],
+      [
+        "settlement_no",
+        "TXT 必填",
+        "主体内唯一结算号"
+      ],
+      [
+        "vessel_id",
+        "ID 必填 FK",
+        "结算船vessel"
+      ],
+      [
+        "debtor_party_id",
+        "ID 必填 FK",
+        "应付款给公司的船东或关联方party"
+      ],
+      [
+        "period_start",
+        "DATE 必填",
+        "结算开始日"
+      ],
+      [
+        "period_end",
+        "DATE 必填",
+        "结算结束日"
+      ],
+      [
+        "issue_date",
+        "DATE 必填",
+        "出单日"
+      ],
+      [
+        "due_date",
+        "DATE 可空",
+        "约定回款日"
+      ],
+      [
+        "currency_code",
+        "C3 必填 FK",
+        "结算币种"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "DRAFT APPROVED ISSUED PART_RECEIVED SETTLED DISPUTED VOID"
+      ]
+    ],
+    "constraint": "结算单不是供应商发票；单据总额和待收余额由有效明细及回款计算。"
+  },
+  {
+    "module": "M08",
+    "name": "owner_settlement_line",
+    "title": "结算明细",
+    "meaning": "将费用或跨船代付按责任协议计入应收。",
+    "fields": [
+      [
+        "settlement_id",
+        "ID 必填 FK",
+        "owner_settlement"
+      ],
+      [
+        "event_line_id",
+        "ID 必填 FK",
+        "被结算的event_line"
+      ],
+      [
+        "invoice_line_id",
+        "ID 可空 FK",
+        "关联invoice_line；没有发票的批准代付可空"
+      ],
+      [
+        "actual_payer_party_id",
+        "ID 必填 FK",
+        "实际出款人party"
+      ],
+      [
+        "settlement_basis",
+        "ENUM 必填",
+        "COMPANY_ADVANCE OWNER_DIRECT INTERVESSEL OTHER"
+      ],
+      [
+        "eligible_amount",
+        "DEC 必填",
+        "按合同可报销额 结算币种 正数"
+      ],
+      [
+        "claim_amount",
+        "DEC 必填",
+        "本单申报额 不超剩余可结算额"
+      ],
+      [
+        "approved_adjustment",
+        "DEC 必填",
+        "批准调减为负 调增为正 默认0"
+      ],
+      [
+        "explanation",
+        "TXT 可空",
+        "差异 船东直接付或跨船说明"
+      ]
+    ],
+    "constraint": "F12 可收=claim_amount+approved_adjustment；船东直接支付通常claim_amount为0，保留发生额用于说明；同一业务不得被重复结算。"
+  },
+  {
+    "module": "M08",
+    "name": "owner_receipt_allocation",
+    "title": "船东回款核销",
+    "meaning": "用途分配不等于报销核销，本表将真实收款核到结算行。",
+    "fields": [
+      [
+        "receipt_allocation_id",
+        "ID 必填 FK",
+        "receipt_allocation；对应真实收款资金"
+      ],
+      [
+        "settlement_line_id",
+        "ID 必填 FK",
+        "owner_settlement_line"
+      ],
+      [
+        "allocation_date",
+        "DATE 必填",
+        "报销核销日"
+      ],
+      [
+        "receipt_currency_amount",
+        "DEC 必填",
+        "占用收款币种金额 正数"
+      ],
+      [
+        "settlement_currency_amount",
+        "DEC 必填",
+        "结算币种下冲减应收金额 正数"
+      ],
+      [
+        "carrying_base_amount",
+        "DEC 必填",
+        "应收被核销账面本位币值"
+      ],
+      [
+        "received_base_amount",
+        "DEC 必填",
+        "该部分实际收款本位币额"
+      ],
+      [
+        "fx_difference",
+        "DEC 必填 计算",
+        "实际收款本位币−账面值 正数通常为收益"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "CONFIRMED REVERSED"
+      ],
+      [
+        "reversal_of_id",
+        "ID 可空 FK",
+        "原owner_receipt_allocation"
+      ],
+      [
+        "effect_sign",
+        "INT 必填",
+        "正常记录为1 冲回记录为-1；统计金额=金额×effect_sign，冲回必须关联原记录"
+      ]
+    ],
+    "constraint": "核销不超结算待收或该收款用途分配未核销额；同币种金额相等；两边分别校验，不能通过重复用途分配重复报销。"
+  },
+  {
+    "module": "M10",
+    "name": "inventory_month",
+    "title": "金额型库存月结",
+    "meaning": "一条记录对应一船 一月 一种库存和一种币种。",
+    "fields": [
+      [
+        "organization_id",
+        "ID 必填 FK",
+        "organization"
+      ],
+      [
+        "vessel_id",
+        "ID 必填 FK",
+        "vessel"
+      ],
+      [
+        "month",
+        "DATE 必填",
+        "月份第一天"
+      ],
+      [
+        "inventory_type",
+        "ENUM 必填",
+        "FOOD或BONDED"
+      ],
+      [
+        "currency_code",
+        "C3 必填 FK",
+        "估值币种"
+      ],
+      [
+        "opening_value",
+        "DEC 必填",
+        "期初库存估值 非负"
+      ],
+      [
+        "purchase_value",
+        "DEC 必填 计算",
+        "当月有效PURCHASE变动合计"
+      ],
+      [
+        "transfer_net",
+        "DEC 必填 计算",
+        "当月调入减调出"
+      ],
+      [
+        "other_adjustment",
+        "DEC 必填 计算",
+        "批准的其他库存调整 有符号"
+      ],
+      [
+        "closing_count_value",
+        "DEC 可空",
+        "实盘期末库存估值；未盘点保持空"
+      ],
+      [
+        "consumption_value",
+        "DEC 可空 计算",
+        "F13 期初+采购+调拨净额+调整−期末"
+      ],
+      [
+        "income_value",
+        "DEC 必填",
+        "本月伙食或招待品收入 经审核录入或关联业务"
+      ],
+      [
+        "surplus_value",
+        "DEC 可空 计算",
+        "F14 收入−实际耗用"
+      ],
+      [
+        "counted_by",
+        "ID 可空 FK",
+        "盘点app_user；结账前必填"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "OPEN COUNTED CLOSED"
+      ]
+    ],
+    "constraint": "船 月 类型 币种联合唯一；结账要求非空盘点值。按金额倒轧耗用无法独立识别盘亏，需数量台账后才能分开。"
+  },
+  {
+    "module": "M10",
+    "name": "inventory_movement",
+    "title": "库存金额变动",
+    "meaning": "承接采购 调拨及批准调整，不等同于现金付款。",
+    "fields": [
+      [
+        "inventory_month_id",
+        "ID 必填 FK",
+        "inventory_month"
+      ],
+      [
+        "movement_date",
+        "DATE 必填",
+        "必须在对应月份"
+      ],
+      [
+        "movement_type",
+        "ENUM 必填",
+        "PURCHASE TRANSFER_IN TRANSFER_OUT ADJUSTMENT"
+      ],
+      [
+        "signed_value",
+        "DEC 必填",
+        "增加为正 减少为负"
+      ],
+      [
+        "event_line_id",
+        "ID 可空 FK",
+        "相关event_line；采购确认后要求有关联"
+      ],
+      [
+        "description",
+        "TXT 必填",
+        "采购或调整说明"
+      ],
+      [
+        "approved_by",
+        "ID 可空 FK",
+        "调整审批app_user"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "DRAFT CONFIRMED REVERSED"
+      ]
+    ],
+    "constraint": "现金付款关联同一采购业务，不再生成第二笔库存采购；本方案不包含商品数量 批次和成本计价。"
+  },
+  {
+    "module": "M09",
+    "name": "settlement_term",
+    "title": "合同与计算参数版本",
+    "meaning": "存已批准的汇率方向 分成和估算策略。",
+    "fields": [
+      [
+        "organization_id",
+        "ID 必填 FK",
+        "organization"
+      ],
+      [
+        "vessel_id",
+        "ID 可空 FK",
+        "适用vessel 空为主体通用"
+      ],
+      [
+        "term_code",
+        "TXT 必填",
+        "同参数代码允许多个生效版本"
+      ],
+      [
+        "effective_from",
+        "DATE 必填",
+        "生效日"
+      ],
+      [
+        "effective_to",
+        "DATE 可空",
+        "失效日"
+      ],
+      [
+        "term_type",
+        "ENUM 必填",
+        "SHARE ESTIMATE DAY_COUNT RECOGNITION ROUNDING"
+      ],
+      [
+        "parameters",
+        "JSON 必填",
+        "参数对象；例如share_ratio=0.45 low_policy=ZERO day_mode=INCLUSIVE"
+      ],
+      [
+        "formula_version",
+        "TXT 必填",
+        "服务端公式版本 不执行任意用户脚本"
+      ],
+      [
+        "approved_by",
+        "ID 必填 FK",
+        "财务或业务负责人app_user"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "DRAFT APPROVED RETIRED"
+      ]
+    ],
+    "constraint": "同一适用范围与代码的已批准生效区间不可重叠；原表自由常数未经确认不自动生效。"
+  },
+  {
+    "module": "M09",
+    "name": "estimate_item",
+    "title": "费用估算项",
+    "meaning": "保留低 中 高估算和缺失值，不自动记账。",
+    "fields": [
+      [
+        "vessel_id",
+        "ID 必填 FK",
+        "vessel"
+      ],
+      [
+        "term_id",
+        "ID 可空 FK",
+        "settlement_term；自动估算必须引用批准版本"
+      ],
+      [
+        "description",
+        "TXT 必填",
+        "估算事项"
+      ],
+      [
+        "catalogue",
+        "TXT 必填",
+        "Shipowner Flag DOC等分类"
+      ],
+      [
+        "agreement_type",
+        "TXT 可空",
+        "Take-over或OPEX等协议归属"
+      ],
+      [
+        "supplier_id",
+        "ID 可空 FK",
+        "party"
+      ],
+      [
+        "requisition_no",
+        "TXT 可空",
+        "原RQA"
+      ],
+      [
+        "po_no",
+        "TXT 可空",
+        "原订单号"
+      ],
+      [
+        "currency_code",
+        "C3 必填 FK",
+        "估算原币"
+      ],
+      [
+        "original_amount",
+        "DEC 可空",
+        "未提供保持空 不默认0"
+      ],
+      [
+        "rate_value",
+        "RATE 必填",
+        "大于0"
+      ],
+      [
+        "rate_direction",
+        "ENUM 必填",
+        "MULTIPLY或DIVIDE；原分析模板为除法"
+      ],
+      [
+        "base_amount",
+        "DEC 可空 计算",
+        "F01 方向为乘时原币×rate 方向为除时原币÷rate"
+      ],
+      [
+        "place_factor",
+        "DEC 可空",
+        "地区因素 仅在批准公式引用时参与"
+      ],
+      [
+        "overtime_factor",
+        "DEC 可空",
+        "加班因素 仅在批准公式引用时参与"
+      ],
+      [
+        "low_amount",
+        "DEC 可空",
+        "F15 按批准策略取0或估算基数 可手工有理由覆盖"
+      ],
+      [
+        "mid_amount",
+        "DEC 可空",
+        "无统一公式 手工批准值 不自动取高低平均"
+      ],
+      [
+        "high_amount",
+        "DEC 可空",
+        "F15 多数取估算基数 具体按版本"
+      ],
+      [
+        "override_reason",
+        "TXT 可空",
+        "人工覆盖原因"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "DRAFT APPROVED CONVERTED CANCELLED"
+      ]
+    ],
+    "constraint": "空值表示未知，零表示确认零；估算转正式业务需新建business_event并保留source映射。"
+  },
+  {
+    "module": "M12",
+    "name": "attachment",
+    "title": "附件对象",
+    "meaning": "元数据在数据库，文件放不可变对象目录。",
+    "fields": [
+      [
+        "organization_id",
+        "ID 必填 FK",
+        "organization"
+      ],
+      [
+        "original_name",
+        "TXT 必填",
+        "上传文件原名或旧表中出现的文件名"
+      ],
+      [
+        "object_key",
+        "TXT 可空",
+        "实际文件存储键；只有缺档占位可空"
+      ],
+      [
+        "content_sha256",
+        "TXT 可空",
+        "实际文件字节SHA256；补档后必填"
+      ],
+      [
+        "byte_size",
+        "BIGINT 可空",
+        "文件长度 补档后必填"
+      ],
+      [
+        "mime_type",
+        "TXT 可空",
+        "服务端识别类型"
+      ],
+      [
+        "document_type",
+        "ENUM 必填",
+        "INVOICE BANK_SLIP APPROVAL CREDIT_NOTE OTHER"
+      ],
+      [
+        "uploaded_by",
+        "ID 可空 FK",
+        "app_user；旧表占位可空"
+      ],
+      [
+        "uploaded_at",
+        "TS 可空",
+        "实际上传完成时间"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "MISSING QUARANTINED AVAILABLE RETAINED"
+      ]
+    ],
+    "constraint": "文件先写入并校验后才提交AVAILABLE引用；覆盖上传生成新对象键。关账附件和源文件禁止直接覆盖或删除。"
+  },
+  {
+    "module": "M12",
+    "name": "attachment_link",
+    "title": "附件业务关联",
+    "meaning": "一份文件可关联多笔业务，一笔业务可有多份文件。",
+    "fields": [
+      [
+        "attachment_id",
+        "ID 必填 FK",
+        "attachment"
+      ],
+      [
+        "entity_type",
+        "TXT 必填",
+        "已注册业务对象类型"
+      ],
+      [
+        "entity_id",
+        "ID 必填",
+        "对应业务ID 后端及迁移校验存在性"
+      ],
+      [
+        "purpose",
+        "ENUM 必填",
+        "INVOICE_PROOF PAYMENT_PROOF APPROVAL OTHER"
+      ]
+    ],
+    "constraint": "关联记录与文件访问范围必须同时满足组织和船舶授权；多态外键由服务层及完整性扫描校验。"
+  },
+  {
+    "module": "M12",
+    "name": "source_file",
+    "title": "源文件与导入批次",
+    "meaning": "留存原Excel和银行对账单字节。",
+    "fields": [
+      [
+        "organization_id",
+        "ID 必填 FK",
+        "organization"
+      ],
+      [
+        "original_name",
+        "TXT 必填",
+        "原文件名"
+      ],
+      [
+        "sha256",
+        "TXT 必填",
+        "源文件字节SHA256"
+      ],
+      [
+        "object_key",
+        "TXT 必填",
+        "原文件只读存储键"
+      ],
+      [
+        "file_type",
+        "ENUM 必填",
+        "WORKBOOK BANK_STATEMENT OTHER"
+      ],
+      [
+        "imported_by",
+        "ID 必填 FK",
+        "app_user"
+      ],
+      [
+        "imported_at",
+        "TS 必填",
+        "导入时间"
+      ],
+      [
+        "parser_version",
+        "TXT 必填",
+        "提取和清洗程序版本"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "STAGED REVIEWED IMPORTED REJECTED"
+      ]
+    ],
+    "constraint": "同主体同文件哈希防重复整批入账；文件存储纳入附件备份和恢复清单。"
+  },
+  {
+    "module": "M12",
+    "name": "source_cell_mapping",
+    "title": "原表单元格到系统映射",
+    "meaning": "保留所有源单元格，包括暂未采用的公式和空状态。",
+    "fields": [
+      [
+        "source_file_id",
+        "ID 必填 FK",
+        "source_file"
+      ],
+      [
+        "sheet_name",
+        "TXT 必填",
+        "工作表名"
+      ],
+      [
+        "cell_address",
+        "TXT 必填",
+        "如M70或AE15"
+      ],
+      [
+        "raw_type",
+        "TXT 必填",
+        "number text date formula error等"
+      ],
+      [
+        "raw_value",
+        "JSON 可空",
+        "原字面值或原缓存值；可区分空文本 空值 数字零"
+      ],
+      [
+        "raw_formula",
+        "TXT 可空",
+        "精确原Excel公式 不执行宏或外部内容"
+      ],
+      [
+        "target_type",
+        "TXT 可空",
+        "映射目标类型；纯归档单元格可空"
+      ],
+      [
+        "target_id",
+        "ID 可空",
+        "映射目标ID；与target_type同时有值"
+      ],
+      [
+        "transform_rule",
+        "TXT 必填",
+        "归并 换算 保留或排除规则及版本"
+      ],
+      [
+        "review_status",
+        "ENUM 必填",
+        "PENDING CONFIRMED EXCLUDED ARCHIVED"
+      ]
+    ],
+    "constraint": "一个单元格可对应多个归属行；多页重复业务可映射同一目标。目标类型和ID由服务层验证。"
+  },
+  {
+    "module": "M12",
+    "name": "migration_issue",
+    "title": "迁移异常与待办",
+    "meaning": "逐项处理币种缺失 重复候选 状态冲突及差额。",
+    "fields": [
+      [
+        "source_file_id",
+        "ID 必填 FK",
+        "source_file"
+      ],
+      [
+        "source_ref",
+        "TXT 必填",
+        "工作表 行或单元格定位"
+      ],
+      [
+        "issue_type",
+        "ENUM 必填",
+        "DUPLICATE CURRENCY STATUS AMOUNT FORMULA MISSING_FILE BALANCE OTHER"
+      ],
+      [
+        "severity",
+        "ENUM 必填",
+        "BLOCKING WARNING INFO"
+      ],
+      [
+        "description",
+        "TXT 必填",
+        "事实 影响和待补资料"
+      ],
+      [
+        "resolution",
+        "TXT 可空",
+        "确认依据和处理结果 不能只填已解决"
+      ],
+      [
+        "assigned_to",
+        "ID 可空 FK",
+        "负责人app_user"
+      ],
+      [
+        "resolved_by",
+        "ID 可空 FK",
+        "复核人app_user"
+      ],
+      [
+        "resolved_at",
+        "TS 可空",
+        "关闭时间"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "OPEN INVESTIGATING RESOLVED ACCEPTED_LEGACY"
+      ]
+    ],
+    "constraint": "ACCEPTED_LEGACY只允许保留在兼容层；未解决的关键异常不得直接进入正式凭证。"
+  },
+  {
+    "module": "M12",
+    "name": "workflow_action",
+    "title": "审批和状态事件",
+    "meaning": "保存每次提交 审批 拒绝 撤回及核销确认。",
+    "fields": [
+      [
+        "organization_id",
+        "ID 必填 FK",
+        "organization"
+      ],
+      [
+        "entity_type",
+        "TXT 必填",
+        "审批对象类型"
+      ],
+      [
+        "entity_id",
+        "ID 必填",
+        "审批对象ID"
+      ],
+      [
+        "action",
+        "ENUM 必填",
+        "SUBMIT APPROVE REJECT WITHDRAW CONFIRM REOPEN"
+      ],
+      [
+        "from_status",
+        "TXT 必填",
+        "操作前状态"
+      ],
+      [
+        "to_status",
+        "TXT 必填",
+        "操作后状态"
+      ],
+      [
+        "actor_id",
+        "ID 必填 FK",
+        "app_user"
+      ],
+      [
+        "acted_at",
+        "TS 必填",
+        "操作时间"
+      ],
+      [
+        "comment",
+        "TXT 可空",
+        "意见 拒绝和重开时必填"
+      ],
+      [
+        "approved_limit",
+        "DEC 可空",
+        "本次批准金额及原币范围"
+      ],
+      [
+        "request_id",
+        "TXT 必填",
+        "关联请求及幂等键"
+      ]
+    ],
+    "constraint": "追加写入 不覆盖旧审批；审批和核心状态变更在同一数据库事务内完成。"
+  },
+  {
+    "module": "M12",
+    "name": "audit_log",
+    "title": "审计日志",
+    "meaning": "记录查询导出之外的关键变更和敏感操作。",
+    "fields": [
+      [
+        "organization_id",
+        "ID 可空 FK",
+        "未登录事件可空 已登录业务事件必须有主体"
+      ],
+      [
+        "actor_id",
+        "ID 可空 FK",
+        "app_user；系统任务单独标记"
+      ],
+      [
+        "actor_type",
+        "ENUM 必填",
+        "USER SYSTEM SERVICE"
+      ],
+      [
+        "occurred_at",
+        "TS 必填",
+        "UTC操作时间"
+      ],
+      [
+        "action",
+        "TXT 必填",
+        "登录 修改 授权 导出 下载 记账 恢复等"
+      ],
+      [
+        "entity_type",
+        "TXT 可空",
+        "对象类型"
+      ],
+      [
+        "entity_id",
+        "ID 可空",
+        "对象ID"
+      ],
+      [
+        "before_data",
+        "JSON 可空",
+        "操作前必要字段 敏感数据脱敏 不记录密码与密钥"
+      ],
+      [
+        "after_data",
+        "JSON 可空",
+        "操作后必要字段"
+      ],
+      [
+        "client_ip",
+        "TXT 可空",
+        "来源IP"
+      ],
+      [
+        "request_id",
+        "TXT 必填",
+        "请求追踪号"
+      ],
+      [
+        "result",
+        "ENUM 必填",
+        "SUCCESS DENIED FAILED"
+      ]
+    ],
+    "constraint": "业务用户不可删改；日志异步复制到独立仓库。数据库管理员仍有技术权限，外部副本和权限分离提供额外证据。"
+  },
+  {
+    "module": "M11",
+    "name": "accounting_period",
+    "title": "会计及管理期间",
+    "meaning": "期间锁定按主体执行，船舶报表在同一期间内过滤。",
+    "fields": [
+      [
+        "organization_id",
+        "ID 必填 FK",
+        "organization"
+      ],
+      [
+        "period_code",
+        "TXT 必填",
+        "例如2026-10 主体内唯一"
+      ],
+      [
+        "start_date",
+        "DATE 必填",
+        "开始日 含当日"
+      ],
+      [
+        "end_date",
+        "DATE 必填",
+        "结束日 含当日"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "OPEN CLOSING CLOSED"
+      ],
+      [
+        "closed_by",
+        "ID 可空 FK",
+        "关账app_user"
+      ],
+      [
+        "closed_at",
+        "TS 可空",
+        "关账时间"
+      ],
+      [
+        "snapshot_batch",
+        "TXT 可空",
+        "本次关账报表批次"
+      ],
+      [
+        "reopen_reason",
+        "TXT 可空",
+        "重开需审批及说明"
+      ]
+    ],
+    "constraint": "同主体期间不重叠；CLOSED期间禁止新增及修改已确认财务影响，后期更正或批准重开。"
+  },
+  {
+    "module": "M11",
+    "name": "journal_entry",
+    "title": "会计凭证头",
+    "meaning": "经会计政策确认后由业务生成草稿，审核再记账。",
+    "fields": [
+      [
+        "organization_id",
+        "ID 必填 FK",
+        "organization"
+      ],
+      [
+        "entry_no",
+        "TXT 必填",
+        "主体 期间内唯一凭证号"
+      ],
+      [
+        "period_id",
+        "ID 必填 FK",
+        "accounting_period"
+      ],
+      [
+        "posting_date",
+        "DATE 必填",
+        "凭证日期 必须在所属期间"
+      ],
+      [
+        "event_id",
+        "ID 可空 FK",
+        "business_event；期初及人工调整可空但须说明"
+      ],
+      [
+        "source_stage",
+        "TXT 必填",
+        "ACCRUAL INVOICE PAYMENT RECEIPT OPENING ADJUSTMENT等"
+      ],
+      [
+        "generation_key",
+        "TXT 必填 唯一",
+        "业务阶段及版本幂等键 防止同业务重复制证"
+      ],
+      [
+        "description",
+        "TXT 必填",
+        "凭证摘要"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "DRAFT REVIEWED POSTED REVERSED"
+      ],
+      [
+        "reviewed_by",
+        "ID 可空 FK",
+        "审核app_user"
+      ],
+      [
+        "posted_by",
+        "ID 可空 FK",
+        "记账app_user"
+      ],
+      [
+        "posted_at",
+        "TS 可空",
+        "记账时间"
+      ],
+      [
+        "reversal_of_id",
+        "ID 可空 FK",
+        "冲销journal_entry"
+      ]
+    ],
+    "constraint": "F20 借贷相等才可记账；历史兼容差额不得生成没有依据的调平凭证。"
+  },
+  {
+    "module": "M11",
+    "name": "journal_line",
+    "title": "会计凭证明细",
+    "meaning": "正式总账余额只由已记账凭证明细形成。",
+    "fields": [
+      [
+        "entry_id",
+        "ID 必填 FK",
+        "journal_entry"
+      ],
+      [
+        "line_no",
+        "INT 必填",
+        "凭证内唯一行号"
+      ],
+      [
+        "gl_account_id",
+        "ID 必填 FK",
+        "可记账gl_account"
+      ],
+      [
+        "vessel_id",
+        "ID 可空 FK",
+        "船舶辅助核算vessel；科目要求时必填"
+      ],
+      [
+        "party_id",
+        "ID 可空 FK",
+        "往来方party；往来科目要求时必填"
+      ],
+      [
+        "cost_center_id",
+        "ID 可空 FK",
+        "费用中心cost_center"
+      ],
+      [
+        "currency_code",
+        "C3 必填 FK",
+        "交易原币"
+      ],
+      [
+        "original_debit",
+        "DEC 必填",
+        "原币借方 非负"
+      ],
+      [
+        "original_credit",
+        "DEC 必填",
+        "原币贷方 非负"
+      ],
+      [
+        "fx_rate_id",
+        "ID 必填 FK",
+        "锁定汇率 同币种为1"
+      ],
+      [
+        "base_debit",
+        "DEC 必填",
+        "本位币借方 非负"
+      ],
+      [
+        "base_credit",
+        "DEC 必填",
+        "本位币贷方 非负"
+      ],
+      [
+        "description",
+        "TXT 必填",
+        "行摘要及业务依据"
+      ]
+    ],
+    "constraint": "每行借贷只允许一侧大于0；整凭证本位币借方合计等于贷方。期初也使用OPENING凭证，不另藏余额表。"
+  },
+  {
+    "module": "M11",
+    "name": "report_snapshot",
+    "title": "报表快照",
+    "meaning": "冻结指定范围和口径的输出，支持日后复现。",
+    "fields": [
+      [
+        "organization_id",
+        "ID 必填 FK",
+        "organization"
+      ],
+      [
+        "vessel_id",
+        "ID 可空 FK",
+        "vessel 空为主体汇总"
+      ],
+      [
+        "report_code",
+        "TXT 必填",
+        "FUNDS COST AP_AR LEGACY_SOFP GL等"
+      ],
+      [
+        "period_start",
+        "DATE 可空",
+        "期间型报表开始日"
+      ],
+      [
+        "as_of_date",
+        "DATE 必填",
+        "显式截止日 禁止以TODAY改动历史"
+      ],
+      [
+        "currency_code",
+        "C3 必填 FK",
+        "输出币种"
+      ],
+      [
+        "rule_version",
+        "TXT 必填",
+        "公式及业务规则版本"
+      ],
+      [
+        "data_cutoff_at",
+        "TS 必填",
+        "生成时纳入的交易提交边界"
+      ],
+      [
+        "snapshot_version",
+        "INT 必填",
+        "同范围报表修订版次"
+      ],
+      [
+        "generated_by",
+        "ID 必填 FK",
+        "app_user"
+      ],
+      [
+        "generated_at",
+        "TS 必填",
+        "生成时间"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "DRAFT APPROVED LOCKED SUPERSEDED"
+      ],
+      [
+        "content_sha256",
+        "TXT 必填",
+        "指标规范化内容哈希"
+      ]
+    ],
+    "constraint": "兼容快照和正式报表分report_code；旧版冻结，更正发布新版本。"
+  },
+  {
+    "module": "M11",
+    "name": "report_metric",
+    "title": "报表指标明细",
+    "meaning": "保存每张快照中的指标和可追溯计算输入。",
+    "fields": [
+      [
+        "snapshot_id",
+        "ID 必填 FK",
+        "report_snapshot"
+      ],
+      [
+        "metric_code",
+        "TXT 必填",
+        "FUNDING_TOTAL BANK_BALANCE等稳定指标码"
+      ],
+      [
+        "cost_center_id",
+        "ID 可空 FK",
+        "费用中心维度"
+      ],
+      [
+        "value",
+        "RAW 可空",
+        "原精度数值 正式报表按已批准舍入输出；未知为NULL"
+      ],
+      [
+        "unit",
+        "TXT 必填",
+        "USD CNY DAYS等"
+      ],
+      [
+        "formula_code",
+        "TXT 必填",
+        "对应本方案F编号或历史R编号"
+      ],
+      [
+        "inputs",
+        "JSON 必填",
+        "使用的聚合范围 原始来源ID或归档清单键"
+      ],
+      [
+        "quality_status",
+        "ENUM 必填",
+        "VERIFIED UNRECONCILED MISSING LEGACY"
+      ]
+    ],
+    "constraint": "汇总字段是可重建的快照，不作为可手工修改的实时账本。"
+  },
+  {
+    "module": "M13",
+    "name": "backup_run",
+    "title": "备份运行记录",
+    "meaning": "备份目录在独立仓库，数据库仅保存一份查询副本。",
+    "fields": [
+      [
+        "job_code",
+        "TXT 必填",
+        "任务名称 DB_FULL DB_DIFF FILES OFFSITE等"
+      ],
+      [
+        "repository_id",
+        "TXT 必填",
+        "目标仓库稳定标识 不能包含密码"
+      ],
+      [
+        "backup_type",
+        "ENUM 必填",
+        "FULL DIFFERENTIAL WAL FILES CONFIG OFFSITE"
+      ],
+      [
+        "started_at",
+        "TS 必填",
+        "开始时间"
+      ],
+      [
+        "completed_at",
+        "TS 可空",
+        "完成时间"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "RUNNING SUCCESS FAILED VERIFIED"
+      ],
+      [
+        "manifest_key",
+        "TXT 可空",
+        "独立仓库中的备份清单和工具原生日志"
+      ],
+      [
+        "recoverable_until",
+        "TS 可空",
+        "校验连续WAL及附件覆盖后的可恢复截止时间"
+      ],
+      [
+        "byte_count",
+        "BIGINT 可空",
+        "本次写入字节数"
+      ],
+      [
+        "checksum_status",
+        "ENUM 必填",
+        "PENDING PASS FAIL"
+      ],
+      [
+        "expires_at",
+        "TS 可空",
+        "按保留策略计算 不独立删除备份链"
+      ],
+      [
+        "error_summary",
+        "TXT 可空",
+        "失败原因和告警状态"
+      ]
+    ],
+    "constraint": "SUCCESS只表示任务执行完成，VERIFIED要求校验；能否恢复以restore_drill实测为准。"
+  },
+  {
+    "module": "M13",
+    "name": "restore_drill",
+    "title": "恢复演练和事故记录",
+    "meaning": "保存从备份恢复到可用业务的证据。",
+    "fields": [
+      [
+        "drill_no",
+        "TXT 必填",
+        "唯一演练编号"
+      ],
+      [
+        "scenario",
+        "ENUM 必填",
+        "HOST_LOSS PITR FILE_LOSS SITE_LOSS RANSOMWARE"
+      ],
+      [
+        "backup_manifest_key",
+        "TXT 必填",
+        "使用的独立备份清单"
+      ],
+      [
+        "target_recovery_at",
+        "TS 必填",
+        "选择恢复到的时间点"
+      ],
+      [
+        "incident_started_at",
+        "TS 必填",
+        "事故或演练开始时间"
+      ],
+      [
+        "service_ready_at",
+        "TS 可空",
+        "业务验证通过并恢复服务时间"
+      ],
+      [
+        "last_recovered_transaction_at",
+        "TS 可空",
+        "已恢复最后一笔确认业务时间"
+      ],
+      [
+        "rpo_seconds",
+        "INT 可空 计算",
+        "相对事故时刻的实际数据回退时长"
+      ],
+      [
+        "rto_seconds",
+        "INT 可空 计算",
+        "F25 服务可用时刻−事故开始时刻"
+      ],
+      [
+        "validation_result",
+        "JSON 必填",
+        "余额 核销 凭证 附件抽查 哈希 登录和权限验证"
+      ],
+      [
+        "executed_by",
+        "ID 必填 FK",
+        "运维app_user"
+      ],
+      [
+        "accepted_by",
+        "ID 可空 FK",
+        "业务或财务验收app_user"
+      ],
+      [
+        "status",
+        "ENUM 必填",
+        "PLANNED RUNNING PASSED FAILED"
+      ],
+      [
+        "lessons",
+        "TXT 可空",
+        "差距 修复动作与责任人"
+      ]
+    ],
+    "constraint": "目标RPO由独立监测的归档滞后和最后可恢复业务共同判断，不能以备份任务启动时间替代。"
+  }
+]

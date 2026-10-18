@@ -1,0 +1,99 @@
+﻿master_id,master_row,category_id,category_sheet,category_row,match_basis,master_description,category_description,master_amount,category_amount,amount_matches,master_status,category_status,status_matches,review
+05-003,3,07-003,Shipmanagement Cost,3,摘要相同,CTM 月度船上结余,CTM 月度船上结余,-29908,-29908,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-005,5,07-005,Shipmanagement Cost,5,摘要相同,9月份船员工资+其他费用,9月份船员工资+其他费用,77881.96,77881.96,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-006,6,07-006,Shipmanagement Cost,6,摘要相同,帮Libra-XS支付巴哈马年度国旗国检验,帮Libra-XS支付巴哈马年度国旗国检验,2600,2600,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-007,7,08-005,Owner Cost,5,摘要相同,9月份客餐费用支出,9月份客餐费用支出,249,249,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-008,8,07-007,Shipmanagement Cost,7,摘要相同,9月份全船伙食费支出,9月份全船伙食费支出,5592,5592,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-010,10,07-008,Shipmanagement Cost,8,摘要相同,借款给 MULAU SHIPMANAGEMENT (HK) LIMITED付款失败,借款给 MULAU SHIPMANAGEMENT (HK) LIMITED付款失败,-9500,-9500,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-011,11,07-009,Shipmanagement Cost,9,摘要相同,借款给 MULAU SHIPMANAGEMENT (HK) LIMITED,借款给 MULAU SHIPMANAGEMENT (HK) LIMITED,9500,9500,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-012,12,07-010,Shipmanagement Cost,10,摘要相同,PIONEER LADY_海卫通卫星通信服务费,PIONEER LADY_海卫通卫星通信服务费,1264.70902,1264.70902,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-013,13,07-011,Shipmanagement Cost,11,摘要相同,PIONEER LADY_办公租赁费+薪资,PIONEER LADY_办公租赁费+薪资,33938.4919983757,33938.4919983757,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-014,14,10-012,BMA Flag Change,12,摘要相同,Termination of FME,Termination of FME,300,300,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-015,15,10-013,BMA Flag Change,13,摘要相同,LISCR Annual Registration+Agent Fee,LISCR Annual Registration+Agent Fee,1050,1050,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-016,16,07-013,Shipmanagement Cost,13,摘要相同,柯凯敏青岛就医及路费支出,柯凯敏青岛就医及路费支出,149,149,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-018,18,08-007,Owner Cost,7,PO相同,青岛通用物料申请,青岛通用物料申请,4113.43,4113.43,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-020,20,07-014,Shipmanagement Cost,14,摘要相同,青岛代理收 SPRO费用300美元,青岛代理收 SPRO费用300美元,300,300,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-021,21,07-015,Shipmanagement Cost,15,摘要相同,青岛购买BondedStore香烟,青岛购买BondedStore香烟,1010,1010,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-022,22,07-016,Shipmanagement Cost,16,摘要相同,日照购买Bonded Store酒水等支出,日照购买Bonded Store酒水等支出,293,293,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-023,23,09-006,Take-Over Cost,6,摘要相同,青岛港冰机修理,青岛港冰机修理,4268.85,4268.85,True,Accrual,Accrual,True,候选关系，未作为已确认唯一交易ID
+05-024,24,09-007,Take-Over Cost,7,PO相同,冰种+码头管理费,冰种+码头管理费,560,560,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-025,25,07-017,Shipmanagement Cost,17,摘要相同,冲回原船管欠船员7月份伙食费支出,冲回原船管欠船员7月份伙食费支出,-1544,-1544,True,,,True,候选关系，未作为已确认唯一交易ID
+05-026,26,07-018,Shipmanagement Cost,18,摘要相同,办公室杂项费用,办公室杂项费用,298.31,298.31,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-027,27,07-019,Shipmanagement Cost,19,摘要相同,Pioneer Lady岚桥港值班及交通补贴-周琦RMB3541.02,Pioneer Lady岚桥港值班及交通补贴-周琦RMB3541.02,522.51,522.51,True,,Completed,False,候选关系，未作为已确认唯一交易ID
+05-028,28,08-008,Owner Cost,8,PO相同,青岛港采购油漆,青岛港采购油漆,12974.8,12974.8,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-029,29,08-009,Owner Cost,9,PO相同,岚桥港舱盖 UT 超声波检验费-Owner Paid,岚桥港舱盖 UT 超声波检验费-Owner Paid,1200,1200,True,,,True,候选关系，未作为已确认唯一交易ID
+05-030,30,10-014,BMA Flag Change,14,摘要相同,BMA 换旗相关证书费用,BMA 换旗相关证书费用,2565,2565,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-031,31,08-010,Owner Cost,10,摘要相同,8 月份船员海外换班费,8 月份船员海外换班费,12501.04,12501.04,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-033,33,07-023,Shipmanagement Cost,23,摘要相同,提现后的差额费用,提现后的差额费用,2301.47,2301.47,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-034,34,07-024,Shipmanagement Cost,24,摘要相同,办公室费用,办公室费用,10292.19,10292.19,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-035,35,07-021,Shipmanagement Cost,21,摘要相同,通信数据流量费,通信数据流量费,44.8,44.8,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-036,36,07-022,Shipmanagement Cost,22,摘要相同,Vizada 通信订阅费（8月）,Vizada 通信订阅费（8月）,150,150,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-037,37,07-025,Shipmanagement Cost,25,摘要相同,MSTS股份转移,MSTS股份转移,30622.61,30622.61,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-038,38,07-026,Shipmanagement Cost,26,摘要相同,周老轨岚桥防船代理费用,周老轨岚桥防船代理费用,120,120,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-039,39,08-011,Owner Cost,11,摘要相同,岚桥加淡水200吨,岚桥加淡水200吨,1400,1400,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-040,40,10-015,BMA Flag Change,15,摘要相同,海事海关系统更改费用,海事海关系统更改费用,375,375,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-041,41,07-054,Shipmanagement Cost,54,摘要相同,董事长基金-周总,董事长基金-周总,10000,10000,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-041,41,07-057,Shipmanagement Cost,57,摘要相同,董事长基金-周总,董事长基金-周总,10000,10000,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-042,42,08-012,Owner Cost,12,摘要相同,8月份客餐费用支出,8月份客餐费用支出,662,662,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-043,43,07-055,Shipmanagement Cost,55,摘要相同,8月份全船伙食费支出,8月份全船伙食费支出,5400,5400,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-044,44,07-028,Shipmanagement Cost,28,PO相同,化学品,化学品,2842.32,2842.32,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-045,45,07-030,Shipmanagement Cost,30,PO相同,岚桥采购油漆,岚桥采购油漆,4271.4,4271.4,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-046,46,07-033,Shipmanagement Cost,33,PO相同,文具物料,文具物料,923.53,923.53,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-047,47,07-034,Shipmanagement Cost,34,PO相同,甲板物料-2通用物料,甲板物料-2通用物料,3116.88,3116.88,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-048,48,07-035,Shipmanagement Cost,35,PO相同,甲板物料-1缆绳检测仪+耳机,甲板物料-1缆绳检测仪+耳机,4000,4000,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-049,49,07-036,Shipmanagement Cost,36,PO相同,救生和消防物料,救生和消防物料,1205.28,1205.28,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-050,50,07-037,Shipmanagement Cost,37,PO相同,生活物料,生活物料,1620.42,1620.42,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-051,51,07-038,Shipmanagement Cost,38,PO相同,药品及医疗器材,药品及医疗器材,365.27,365.27,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-052,52,07-039,Shipmanagement Cost,39,PO相同,主机缸盖,主机缸盖,300,300,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-053,53,07-052,Shipmanagement Cost,52,PO相同,主机缸套,主机缸套,16,16,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-054,54,07-051,Shipmanagement Cost,51,PO相同,主机燃油阀,主机燃油阀,821.22,821.22,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-055,55,07-050,Shipmanagement Cost,50,PO相同,主机填料涵,主机填料涵,31.56,31.56,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-056,56,07-040,Shipmanagement Cost,40,PO相同,主机震动缓冲器,主机震动缓冲器,35,35,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-057,57,07-047,Shipmanagement Cost,47,PO相同,主机排气阀,主机排气阀,194.68,194.68,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-058,58,07-046,Shipmanagement Cost,46,PO相同,主机供油单元,主机供油单元,2523,2523,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-059,59,07-045,Shipmanagement Cost,45,PO相同,滑油分油机,滑油分油机,332,332,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-060,60,07-027,Shipmanagement Cost,27,PO相同,发电机,发电机,2032.5,2032.5,True,Accrual,Accrual,True,候选关系，未作为已确认唯一交易ID
+05-061,61,07-044,Shipmanagement Cost,44,PO相同,发电机增压器,发电机增压器,996,996,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-062,62,07-032,Shipmanagement Cost,32,PO相同,主空压机,主空压机,136.36,136.36,True,Accrual,Accrual,True,候选关系，未作为已确认唯一交易ID
+05-063,63,07-029,Shipmanagement Cost,29,PO相同,燃油分油机,燃油分油机,937,937,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-064,64,07-031,Shipmanagement Cost,31,PO相同,造水机,造水机,904.33,904.33,True,Accrual,Accrual,True,候选关系，未作为已确认唯一交易ID
+05-065,65,09-009,Take-Over Cost,9,PO相同,汽笛+运费,汽笛+运费,1227.37,1227.37,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-066,66,09-011,Take-Over Cost,11,PO相同,压载水处理系统,压载水处理系统,1837.47,1837.47,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-067,67,09-008,Take-Over Cost,8,PO相同,甲板克令吊,甲板克令吊,1620.58,1620.58,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-068,68,07-041,Shipmanagement Cost,41,PO相同,生活污水处理装置,生活污水处理装置,700,700,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-069,69,07-042,Shipmanagement Cost,42,PO相同,压载泵,压载泵,155,155,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-070,70,07-043,Shipmanagement Cost,43,摘要相同,消防泵备件(Fire & G/S RVP160S SHINKO),消防泵备件(Fire & G/S RVP160S SHINKO),485,350,False,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-070,70,07-049,Shipmanagement Cost,49,PO相同,消防泵备件(Fire & G/S RVP160S SHINKO),消防泵备件(Fire & G/S RVP160S SHINKO),485,485,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-071,71,07-043,Shipmanagement Cost,43,PO相同,消防泵备件(Fire & G/S RVP160S SHINKO),消防泵备件(Fire & G/S RVP160S SHINKO),350,350,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-071,71,07-049,Shipmanagement Cost,49,摘要相同,消防泵备件(Fire & G/S RVP160S SHINKO),消防泵备件(Fire & G/S RVP160S SHINKO),350,485,False,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-072,72,09-012,Take-Over Cost,12,PO相同,液压块,液压块,653,653,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-073,73,09-013,Take-Over Cost,13,PO相同,2号滑油分油机马达,2号滑油分油机马达,285,285,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-074,74,07-048,Shipmanagement Cost,48,PO相同,机舱半年 通用物料申请单,机舱半年 通用物料申请单,7438.57,7438.57,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-075,75,07-053,Shipmanagement Cost,53,摘要相同,救生消防年检,救生消防年检,3794.85,3794.85,True,Accrual,Accrual,True,候选关系，未作为已确认唯一交易ID
+05-076,76,09-010,Take-Over Cost,10,摘要相同,通导设备修理,通导设备修理,3278,3278,True,Accrual,Accrual,True,候选关系，未作为已确认唯一交易ID
+05-077,77,09-014,Take-Over Cost,14,摘要相同,冰机压缩机一台—周总支付,冰机压缩机一台—周总支付,1851.85,1851.85,True,,,True,候选关系，未作为已确认唯一交易ID
+05-078,78,07-056,Shipmanagement Cost,56,摘要相同,付款没付成功，银行扣款手续费USD50,付款没付成功，银行扣款手续费USD50,,,True,Completed,,False,候选关系，未作为已确认唯一交易ID
+05-079,79,08-013,Owner Cost,13,摘要相同,HOMONHON水手张善钧购药支出,HOMONHON水手张善钧购药支出,733,733,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-080,80,09-015,Take-Over Cost,15,PO相同,气瓶押金,气瓶押金,8121.24,8121.24,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-081,81,08-014,Owner Cost,14,摘要相同,V2605扫洗舱劳务费,V2605扫洗舱劳务费,1125,1125,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-082,82,07-054,Shipmanagement Cost,54,摘要相同,董事长基金-周总,董事长基金-周总,10000,10000,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-082,82,07-057,Shipmanagement Cost,57,摘要相同,董事长基金-周总,董事长基金-周总,10000,10000,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-083,83,09-016,Take-Over Cost,16,PO相同,Water ingress detection 备件 - 潜水式压力变送器 LMK457,Water ingress detection 备件 - 潜水式压力变送器 LMK457,475,475,True,,,True,候选关系，未作为已确认唯一交易ID
+05-084,84,10-016,BMA Flag Change,16,摘要相同,BMA Flag Statutory Record Book,BMA Flag Statutory Record Book,185.76,185.76,True,Received,Received,True,候选关系，未作为已确认唯一交易ID
+05-085,85,10-017,BMA Flag Change,17,摘要相同,Flag Change Radio Survey Charge,Flag Change Radio Survey Charge,10225,10225,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-086,86,07-058,Shipmanagement Cost,58,摘要相同,菲律宾 CTM 代理代办服务费,菲律宾 CTM 代理代办服务费,2000,2000,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-087,87,07-060,Shipmanagement Cost,60,摘要相同,代理给船长5万备用金,代理给船长5万备用金,50000,50000,True,,,True,候选关系，未作为已确认唯一交易ID
+05-088,88,10-019,BMA Flag Change,19,摘要相同,BMA Flag register Fee-Owner Paid,BMA Flag register Fee-Owner Paid,10769.64,10769.64,True,,,True,候选关系，未作为已确认唯一交易ID
+05-089,89,09-017,Take-Over Cost,17,摘要相同,Vizada 通信订阅费（接船）,Vizada 通信订阅费（接船）,150,150,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-090,90,10-018,BMA Flag Change,18,摘要相同,改船籍港特殊劳务费200美元,改船籍港特殊劳务费200美元,200,200,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-091,91,07-059,Shipmanagement Cost,59,摘要相同,原船管欠船员7月份伙食费支出,原船管欠船员7月份伙食费支出,1544,1544,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-092,92,10-020,BMA Flag Change,20,摘要相同,LR船检两名外锚地登离船代理费用支出,LR船检两名外锚地登离船代理费用支出,9230,9230,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-093,93,10-022,BMA Flag Change,22,摘要相同,GMDSS年检共工程师登离船代理费用支出,GMDSS年检共工程师登离船代理费用支出,2150,2150,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-094,94,09-018,Take-Over Cost,18,摘要相同,AAIC 接船相关费用（年费+LOG+旗国激活+押金）,AAIC 接船相关费用（年费+LOG+旗国激活+押金）,2080,2080,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-095,95,10-021,BMA Flag Change,21,摘要相同,LISCR Deletion Overtime Cost-Owner Paid,LISCR Deletion Overtime Cost-Owner Paid,1435,1435,True,,,True,候选关系，未作为已确认唯一交易ID
+05-096,96,08-015,Owner Cost,15,摘要相同,GRESIK加淡水100吨,GRESIK加淡水100吨,1350,1350,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-097,97,09-019,Take-Over Cost,19,摘要相同,制作新船章两枚,制作新船章两枚,25,25,True,Completed,Completed,True,候选关系，未作为已确认唯一交易ID
+05-098,98,10-023,BMA Flag Change,23,摘要相同,BMA Pre-inspection Fee-Owner Paid,BMA Pre-inspection Fee-Owner Paid,6580,6580,True,,,True,候选关系，未作为已确认唯一交易ID
+05-099,99,10-024,BMA Flag Change,24,摘要相同,招待费—周琦支付,招待费—周琦支付,441.18,441.18,True,,,True,候选关系，未作为已确认唯一交易ID
+05-100,100,07-061,Shipmanagement Cost,61,摘要相同,"CTM RMB100,000 hand carried onboard when tookover vessel≈14815美元","CTM RMB100,000 hand carried onboard when tookover vessel≈14815美元",14815,14815,True,,,True,候选关系，未作为已确认唯一交易ID
+05-101,101,10-025,BMA Flag Change,25,摘要相同,LISCR Deletion Charge-Owner Paid,LISCR Deletion Charge-Owner Paid,6850,6850,True,,,True,候选关系，未作为已确认唯一交易ID

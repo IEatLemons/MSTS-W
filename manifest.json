@@ -1,0 +1,185 @@
+{
+  "source_sha256": "4b77e28208fa28fad5752fd532d421fe5151c992f7ee60c3c02d08d847facfdc",
+  "files": [
+    {
+      "path": "README.txt",
+      "bytes": 1923,
+      "sha256": "1a0cd2e5a81025cf07e3bd551ae815bcedf7c7d6a528d7871a53a599b3af5765"
+    },
+    {
+      "path": "analysis/data_verification.json",
+      "bytes": 1608,
+      "sha256": "eab81ce22909649e0f7bbcd011fd2883a4ea3b181d344ef02b5275fa3572f6e8"
+    },
+    {
+      "path": "analysis/offline_verification.json",
+      "bytes": 623,
+      "sha256": "e16de68ed5eca54a95e263e50f02965d0cef625fc7cb7730902f29e1bd77d53b"
+    },
+    {
+      "path": "analysis/rows.txt",
+      "bytes": 198687,
+      "sha256": "1b3b03b9cccea6f8381f4d82094bc9034fbf6fbb22bf326740f0e0b0a4751b9b"
+    },
+    {
+      "path": "analysis/system_specification.json",
+      "bytes": 24886,
+      "sha256": "0bbbb14fa3e7e0df8143d7f539e4bf3fb34f9ec72e0328ee56fe0d78eeb2ea6a"
+    },
+    {
+      "path": "data/account_codes.csv",
+      "bytes": 13445,
+      "sha256": "ff24fdd629143a1b74742088e7dad7b9def3f07e0917f808ac999c887cd7a9ed"
+    },
+    {
+      "path": "data/all_cells.csv",
+      "bytes": 1507747,
+      "sha256": "4fd7b8f66cc6a22a2ce8672512055c2234a906fb9a4a9689320908d7ea524696"
+    },
+    {
+      "path": "data/all_formulas.csv",
+      "bytes": 668455,
+      "sha256": "6ec9c0944296547af05da84840564f6cc5acccebd19c4cf3db22a9529f6f788c"
+    },
+    {
+      "path": "data/amount_differences.csv",
+      "bytes": 1902,
+      "sha256": "709d450a848ac9f8c4304d7227325a950033e3adba5c9266c713b82833022fad"
+    },
+    {
+      "path": "data/analysis_bundle.json",
+      "bytes": 5088269,
+      "sha256": "ad705a2504252e0f9b0118393dcb8f2f71c74934cea4afa2c6cb04d1e061bd61"
+    },
+    {
+      "path": "data/bank_match_candidates.csv",
+      "bytes": 5919,
+      "sha256": "b791efa67ecd43ba095c402728e5d6c71b8b6bd4deaedc2e745026efb9c7416b"
+    },
+    {
+      "path": "data/bank_transactions.csv",
+      "bytes": 2066,
+      "sha256": "f42a8b061243d7f29d36b8b4b692ce20dacedc8c08742eadeadaf2d47da313b3"
+    },
+    {
+      "path": "data/business_records.csv",
+      "bytes": 62545,
+      "sha256": "b3246428ee6f3b0cc7064de2d201f84902472e40282005422a72e60a85ed2a11"
+    },
+    {
+      "path": "data/cell_dependencies.csv",
+      "bytes": 867422,
+      "sha256": "be8a5b01c3b28a64a75ecedc6c2733ee984ca9d0c25f3c254d1516f23a1095e8"
+    },
+    {
+      "path": "data/dependency_model.json",
+      "bytes": 3950201,
+      "sha256": "f7edb58bc322ffb4ed3785e429d14f718545c3884ac1a48ff863ecb0c87f6a54"
+    },
+    {
+      "path": "data/duplicate_view_candidates.csv",
+      "bytes": 19307,
+      "sha256": "34c6280447acc62c48fe74f59a20a79a8b825be45719a6a9bac1e2ae28b90926"
+    },
+    {
+      "path": "data/expenses_missing_status.csv",
+      "bytes": 6635,
+      "sha256": "58234631b57ff433d605ab3c6a0432945cabcdd3cb836c6fb05d47bcecb8010b"
+    },
+    {
+      "path": "data/field_dictionary.csv",
+      "bytes": 40418,
+      "sha256": "0e92eac6cbecd5ac06a5eff4dd1d5e837bec0209faaf5a49cdf06f22e9a1da98"
+    },
+    {
+      "path": "data/findings.csv",
+      "bytes": 5488,
+      "sha256": "ad31939ceab1ca41ce386470e6d32f4c518b51eb9daf58967eacaf6022e574d9"
+    },
+    {
+      "path": "data/formula_groups.csv",
+      "bytes": 55654,
+      "sha256": "3eb6db22be74212a382d0e70287a5cd5b1dcb8145a316a0abeb17d8be6f78b1d"
+    },
+    {
+      "path": "data/formula_references.csv",
+      "bytes": 237520,
+      "sha256": "988378a165f8cf058adc07dd7f054d6f0ed626a87f38de9290928bd9b36ec111"
+    },
+    {
+      "path": "data/output_input_lineage.csv",
+      "bytes": 5597035,
+      "sha256": "dc4ae4ec20ca5a9f626d9ba64c82909099c9fd0c4588b05a7ceb628003800948"
+    },
+    {
+      "path": "data/recalculation_checks.csv",
+      "bytes": 95031,
+      "sha256": "1358dc794a92246dd5394db94494fa8cc174dd90441b000ffcce75b4b57ef08e"
+    },
+    {
+      "path": "data/relationship_evidence.csv",
+      "bytes": 2730,
+      "sha256": "6a21f14024241fd168767aa34100cc02a12d1ed8d9132f73fcfcff52444621bb"
+    },
+    {
+      "path": "data/report_output_mapping.csv",
+      "bytes": 63079,
+      "sha256": "39351f963d602cc38ffd5e2f5f6204e073a4cd48111dc037e2610c8ada6e7ca0"
+    },
+    {
+      "path": "data/sheet_dependencies.csv",
+      "bytes": 618,
+      "sha256": "20647f78c7a52f30d248f92a67e9d8ae205c5077d49de4514f4150f36754f634"
+    },
+    {
+      "path": "data/sheet_inventory.csv",
+      "bytes": 8043,
+      "sha256": "cd9bcb218132de8893f4630ed151f111a92dcd9a6391f124e6590df5908afa78"
+    },
+    {
+      "path": "data/workbook_raw.json",
+      "bytes": 3090742,
+      "sha256": "0d77ff4a729202a718cfae152ae0cb8d593966f1cdb34d8d8803581dacb63d8d"
+    },
+    {
+      "path": "index.html",
+      "bytes": 4812760,
+      "sha256": "c4cfb51e1c03b6a20c472e796b7c07c7341c79b4a59b0ac0234a97ba710ed85e"
+    },
+    {
+      "path": "source/MV PIONEER LAY 费用统计SOFP--20261014(1).xlsx",
+      "bytes": 198670,
+      "sha256": "4b77e28208fa28fad5752fd532d421fe5151c992f7ee60c3c02d08d847facfdc"
+    },
+    {
+      "path": "tools/analyze.py",
+      "bytes": 10245,
+      "sha256": "82a109a806fdba7c0417babaab509634454732761e0ae77e7d1129acde14677d"
+    },
+    {
+      "path": "tools/business.py",
+      "bytes": 33896,
+      "sha256": "b3fc7da6726f8d09b8d0ffb129a13212b6672a31534eaaf6893869d6adf49ed3"
+    },
+    {
+      "path": "tools/extract.py",
+      "bytes": 3254,
+      "sha256": "af656be0124ea1911c4823f578f338ae6e60c3c7140049d9444c3960527b1f22"
+    },
+    {
+      "path": "tools/report.py",
+      "bytes": 36947,
+      "sha256": "b48e610bf1cfcdbfd5d804652e4dddbcc66a54c7c0b995e776d5b34180c73438"
+    },
+    {
+      "path": "tools/verify_data.py",
+      "bytes": 5478,
+      "sha256": "56eac71c0ba9c9a3a8dd3d86eeb24fd6cf2d6ca7a0bf1fa3eb494c69908d2cb3"
+    },
+    {
+      "path": "tools/verify_offline.mjs",
+      "bytes": 2927,
+      "sha256": "d717da31bb7432bb2998343e884e08e0a5f6981271a973c47b6d0c7ada66c1c0"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+﻿sheet,row,description,from_field,to_field,from_value,to_value,difference
+Expenses Lists,44,化学品,goods_received_usd,invoice_usd,2260.32,2842.32,582.0
+Expenses Lists,45,岚桥采购油漆,goods_received_usd,invoice_usd,7015.75,4271.4,-2744.3500000000004
+Expenses Lists,47,甲板物料-2通用物料,goods_received_usd,invoice_usd,2832.54,3116.88,284.34000000000015
+Expenses Lists,48,甲板物料-1缆绳检测仪+耳机,goods_received_usd,invoice_usd,2745,4000,1255
+Expenses Lists,65,汽笛+运费,goods_received_usd,invoice_usd,1127.37,1227.37,100.0
+Expenses Lists,66,压载水处理系统,goods_received_usd,invoice_usd,1741.1,1837.47,96.37000000000012
+Expenses Lists,67,甲板克令吊,goods_received_usd,invoice_usd,3206.79,1620.58,-1586.21
+Expenses Lists,74,机舱半年 通用物料申请单,goods_received_usd,invoice_usd,6971.22,7438.57,467.34999999999945
+Expenses Lists,76,通导设备修理,goods_received_usd,invoice_usd,2667.1,3278,610.9000000000001
+Shipmanagement Cost,28,化学品,goods_received_usd,invoice_usd,2260.32,2842.32,582.0
+Shipmanagement Cost,30,岚桥采购油漆,goods_received_usd,invoice_usd,7015.75,4271.4,-2744.3500000000004
+Shipmanagement Cost,34,甲板物料-2通用物料,goods_received_usd,invoice_usd,2832.54,3116.88,284.34000000000015
+Shipmanagement Cost,35,甲板物料-1缆绳检测仪+耳机,goods_received_usd,invoice_usd,2745,4000,1255
+Shipmanagement Cost,48,机舱半年 通用物料申请单,goods_received_usd,invoice_usd,6971.22,7438.57,467.34999999999945
+Take-Over Cost,8,甲板克令吊,goods_received_usd,invoice_usd,3206.79,1620.58,-1586.21
+Take-Over Cost,9,汽笛+运费,goods_received_usd,invoice_usd,1127.37,1227.37,100.0
+Take-Over Cost,10,通导设备修理,goods_received_usd,invoice_usd,2667.1,3278,610.9000000000001
+Take-Over Cost,11,压载水处理系统,goods_received_usd,invoice_usd,1741.1,1837.47,96.37000000000012

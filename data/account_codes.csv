@@ -1,0 +1,193 @@
+﻿namespace,code,description,chinese_description,pic,source_cell
+ship_management,1000000,CREW   船员,,,C4
+crew_detail,10000001,Basic Wage,基本工资,,G4
+ship_management,1000001,Wages Pay Onboard,,Crewing,C5
+crew_detail,10000002,Leave Pay,休假工资,,G5
+ship_management,1000002,Victualling--Budget,,Crewing,C6
+crew_detail,10000003,Leave Pay P.Hols,法定公休假期工资（Public Holidays）,,G6
+ship_management,10000021,Victualling--Supplement Record,,,C7
+crew_detail,10000004,Fixed Overtime,固定加班费,,G7
+ship_management,10000022,Victualling--Inventory Record,,,C8
+crew_detail,10000005,Sub-ITF/IBF/CBA,ITF/IBF/ 集体协议补贴（ITF 国际运输工人联合会，CBA 集体谈判协议）,,G8
+ship_management,1000003,Joining/Repatriation,,Crewing,C9
+crew_detail,10000006,Sub-Owner,船东补贴,,G9
+ship_management,1000004,Crewing Manning Agent,,Crewing,C10
+crew_detail,10000007,Seniority/Rejoining Bonus,工龄 / 返船奖金,,G10
+ship_management,1000005,"Flag, Union Fees, ITF, CBA,SEPF,SSD etc",,Crewing,C11
+crew_detail,10000008,Overlap/Travelling Wages,交接重叠期 / 旅途工资,,G11
+ship_management,1000006,"Uniform, Working Gears,Medicine,Entertainment etc ",,Crewing,C12
+crew_detail,10000009,Others,其他费用,,G12
+ship_management,1000007,"Crew Welfare, Other Expenses",,Crewing,C13
+crew_detail,10000010,Victualling Fee,膳食伙食费（船舶伙食）,,G13
+ship_management,1000090,Crew--Change Oversea:(Owner Account),,Crewing,C14
+crew_detail,10000011,Overlap Victualling & Sundries,船员交接重叠期伙食及杂项费,,G14
+ship_management,1000091,Crew--Non Budget(Owner),,Crewing,C15
+crew_detail,10000012,Victualling Allowance,伙食津贴,,G15
+ship_management,1000092,Crew--Insurance Claim,,Crewing,C16
+crew_detail,10000013,Crew Changes Fee,船员换班费用,,G16
+ship_management,2000000,STORES & SUPPLIES  物料与供应品,,PIC,C17
+crew_detail,10000014,Crew Medical Examination Fee,船员体检费,,G17
+ship_management,2000001,Deck Stores-Medical,,Technical,C18
+crew_detail,10000015,Joinning Port Visa Fees etc.,上船港口签证费等,,G18
+ship_management,2000002,Deck Stores-Chart and public,,Technical,C19
+crew_detail,10000016,Manning Agent Fee,船员外派代理费（配员代理费）,,G19
+ship_management,2000003,Deck Stores-Ropes and Wires,,Technical,C20
+crew_detail,10000017,Flag State/Union/ITF,船旗国 / 工会 / 国际运输工人联合会相关费用,,G20
+ship_management,2000004,Deck Stores-Seastock Paints,,Technical,C21
+crew_detail,10000018,Officers Safety Reserve Funds/SEPF/SSD equivalent,船旗国 / 工会 / 国际运输工人联合会相关费用,,G21
+ship_management,2000005,Deck Stores-Chemicals,,Technical,C22
+crew_detail,10000019,Uniform Allowance for Officers/Working  Gear,高级船员制服津贴 / 工装费用,,G22
+ship_management,2000006,Deck Stores--FFE and LSA,,Technical,C23
+crew_detail,10000020,"Medicine/Chinese Package,MLC,Radio Medical,Non-Recoverable P&I",药品 / 中药包、海事劳工公约相关、远程医疗、不可追偿保赔险费用（P&I 保赔协会）,,G23
+ship_management,2000007,Deck stores – others,,Technical,C24
+crew_detail,10000021,Entertainment/Laundry Allowance/News Link - Electronic Newspaper O/B,文娱 / 洗衣津贴、新闻链接 —— 船上电子报刊（O/B=On Board 在船）,,G24
+ship_management,2000008,Engine Stores-Gases,,Technical,C25
+crew_detail,10000090,Crew Change Oversea:(Owner Account),海外船员换班（船东账户）,,G25
+ship_management,2000009,Engine Stores-Chemicals,,Technical,C26
+crew_detail,10000091,Crew--Take over/Hand Over,船员交接费,,G26
+ship_management,2000010,Engine Stores-BWTS,,Technical,C27
+crew_detail,10000092,Crew--Non Budget,船员类非预算费用,,G27
+ship_management,2000011,Engine stores – others,,Technical,C28
+ship_management,2000012,Steward Stores,,Technical,C29
+crew_detail,RQA No. rule,,,,G29
+ship_management,2000013,Stores-Other,,Technical,C30
+crew_detail,Deck,"SWYYMMDD+xx(even, onward)",,,G30
+ship_management,2000014,Store-Accruals,,Technical/Accounts,C31
+crew_detail,Engine ,"SWYYMMDD+xx(odd,onward)",,,G31
+ship_management,2000090,Store-03rd Part/Charterer Expenses,,Technical /03rd Party,C32
+crew_detail,wahsin Office,SWYYMMDD+xx(99 downward),,,G32
+ship_management,2000091,Store-Non Budget(Owner),,Technical /Owner,C33
+crew_detail,PO No. rule,,,,G33
+ship_management,2000092,Store-Insurance Claim,,Technical / Insurance,C34
+crew_detail,Deck,YYMMDD+xx(even),,,G34
+ship_management,3000000,SPARES  备件,,PIC,C35
+crew_detail,Engine ,YYMMDD+xx(odd),,,G35
+ship_management,3000001,SPARE DECK-HULL & TANKS,,Technical,C36
+ship_management,3000002,SPARE-RADIO & NAVIGATION EQUIPMENT,,Technical,C37
+ship_management,3000003,SPARE-FFE & LSA EQUIPMENT,,Technical,C38
+ship_management,3000004,SPARE-DECK MACHINERY,,Technical,C39
+ship_management,3000005,SPARE-CARGO RELATED EQUIPMENT,,Technical,C40
+ship_management,3000006,SPARE-DECK OTHERS,,Technical,C41
+ship_management,3000007,SPARE ENGINE-MAIN ENGINE,,Technical,C42
+ship_management,3000008,SPARE ENGINE-GEN ENGINE,,Technical,C43
+ship_management,3000009,SPARES-ENGINE-BOILERS,,Technical,C44
+ship_management,3000010,SPARES-ENGINE-BWTS,,Technical,C45
+ship_management,3000011,SPARES-ENGINE-Ele,,Technical,C46
+ship_management,3000012,SPARE ENGINE-OTHER,,Technical,C47
+ship_management,3000013,SPARES-TRANSPORT/DELIVERY,,Technical,C48
+ship_management,3000014,SPARE-ACCRUALS,,Technical/Accounts,C49
+ship_management,3000090,SPARE-03rd Part/Charterer Expenses,,Technical /03rd Party,C50
+ship_management,3000091,SPARE-Non Budget(Owner),,Technical /Owner,C51
+ship_management,3000092,SPARE-Insurance Claim,,Technical / Insurance,C52
+ship_management,4000000,REPAIR AND MAINTENANCE  修理与维护（R&M）,,PIC,C53
+ship_management,4000001,R&M DECK-HULL & TANKS,,Technical,C54
+ship_management,4000002,R&M-DECK MACHINERY,,Technical,C55
+ship_management,4000003,"R&M-DECK, CARGO RELATED EQUIPMENT",,Technical,C56
+ship_management,4000004,R&M DECK-DECK OTHERS,,Technical,C57
+ship_management,4000005,R&M ENGINE-MAIN ENGINE,,Technical,C58
+ship_management,4000006,R&M ENGINE-GEN ENGINE,,Technical,C59
+ship_management,4000007,R&M-ENGINE-BOILERS,,Technical,C60
+ship_management,4000008,R&M-ENGINE-Ele,,Technical,C61
+ship_management,4000009,R&M ENGINE-OTHER,,Technical,C62
+ship_management,4000010,R&M NAV-RADIO & NAVIGATION EQUIPMENT,,Technical,C63
+ship_management,4000011,R&M NAV-FFE & LSA EQUIPMENT,,Technical,C64
+ship_management,4000012,R&M ISM & ESG RELATED,,ISM,C65
+ship_management,4000013,R&M CONTRACT/SERVICE-MAINTENANCE CONTRACT/SERVICE,,Technical,C66
+ship_management,4000014,R&M CONTRACT-CLASS SURVEY,,Technical,C67
+ship_management,4000015,R&M RIGHTSHIP/COMMERECIAL INSPECTION,,Technical,C68
+ship_management,4000016,R&M-ACCRUALS,,Technical/Accounts,C69
+ship_management,4000090,R&M-03rd Part/Charterer Expenses,,Technical /03rd Party,C70
+ship_management,4000091,R&M-Non Budget(Owner),,Technical /Owner,C71
+ship_management,4000092,R&M-Insurance Claim,,Technical / Insurance,C72
+ship_management,5000000,LUBRICATING OIL  润滑油,,PIC,C73
+ship_management,5000001,Low TBN Cylinder Oil,,Technical,C74
+ship_management,5000002,High TBN Cylinder Oil,,Technical,C75
+ship_management,5000003,M/E Lubrication system Oil,,Technical,C76
+ship_management,5000004,Auxiliary Engine Lubricating System Oil,,Technical,C77
+ship_management,5000005,Hydraulic Oil,,Technical,C78
+ship_management,5000006,Lubrication Oil–Others,,Technical,C79
+ship_management,5000007,Grease--Others,,Technical,C80
+ship_management,5000008,Barging,,Technical,C81
+ship_management,5000009,Owners Adjustment,,Technical,C82
+ship_management,5000010,LO-Accruals,,Technical/Accounts,C83
+ship_management,5000090,R&M-03rd Part/Charterer Expenses,,Technical /03rd Party,C84
+ship_management,5000091,R&M-Non Budget(Owner),,Technical /Owner,C85
+ship_management,5000092,R&M-Insurance Claim,,Technical / Insurance,C86
+ship_management,6000000,GENERAL SERVICES  综合服务,,PIC,C87
+ship_management,6000001,Husbandry Expenses-Port Expenses,,Technical,C88
+ship_management,6000002,Master onboard Enterainment （C/V/E Cost),,Technical,C89
+ship_management,6000003,Port Locally Certificates,,Technical,C90
+ship_management,6000004,"Quality Control, Measurements, Tests (FO,LO,FW, Etc)",,Technical,C91
+ship_management,6000005,"Safety Audit, TRAINING",,Technical/ISM/Account,C92
+ship_management,6000006,Travel by Manager - owners’ supervisory travel expenses & IT Licences fee,,Technical,C93
+ship_management,6000007,CTM,,Technical/Account,C94
+ship_management,60000071,CTM Cost,,Master,C95
+ship_management,60000072,CTM ROB Report,,Master,C96
+ship_management,6000008,Bank Exchange Loss/Gain,,Technical/Account,C97
+ship_management,6000009,Bank Charges,,Technical/Account,C98
+ship_management,6000010,Tonnage dues,,Technical/ISM,C99
+ship_management,6000011,National Authority Fees,,Technical/ISM,C100
+ship_management,6000012,Oil Pollution Act of 1990 (OPA–90) Services /Fee,,Technical/ISM,C101
+ship_management,6000013,Printing/Stationery/Office Library,,Technical/Account,C102
+ship_management,6000014,Telax/Telephone/FAX,,Technical/Account,C103
+ship_management,6000015,DHL/Postage/Others,,Technical/Account,C104
+ship_management,6000016,Other Expenses,,Technical,C105
+ship_management,6000017,Communication Expenses,,Technical,C106
+ship_management,6000018,General Service-ACCRUALS,,All,C107
+ship_management,6000019,General Services--Non Budget,,Techncial / Insurance,C108
+ship_management,6000020,Bound Store Supplement ,,Master,C109
+crew_detail,非预算,,,,G109
+ship_management,60000201,Bound Store Inventory Record,,Master,C110
+ship_management,60000202,Bound Store Cost Record,,Master,C111
+ship_management,7000000,INSURANCE 保险,,PIC,C112
+ship_management,7000001,Hull & Machinery,,Insurance,C113
+ship_management,7000002,Hull Interest/Increased Value,,Insurance,C114
+ship_management,7000003,FDD,,Insurance,C115
+ship_management,7000004,Protection & Indemnity – P & I,,Insurance,C116
+ship_management,7000005,Freight Interest,,Insurance,C117
+ship_management,7000006,Delay,,Insurance,C118
+ship_management,7000007,Loss Of Hire,,Insurance,C119
+ship_management,7000008,War risk,,Insurance,C120
+ship_management,7000009,Crew medical cost,,Insurance,C121
+ship_management,7000010,INSURANCE-OTHER INSURANCE PREMIUM(Cash Onboard ETC),,Insurance,C122
+ship_management,7000011,INSURANCE-Innocent Owners Insurance / Additional Owners interest,,Insurance,C123
+ship_management,7000012,INSURANCE-MORTGAGES INTEREST,,Insurance,C124
+ship_management,7000013,INSURANCE-P&I CAPITAL DISTRIBUTION,,Insurance,C125
+ship_management,7000014,INSURANCE-ACCRUALS,,Insurance/Acount,C126
+ship_management,7000090,Premium-03rd Part/Charterer Expenses,,Technical /03rd Party,C127
+ship_management,7000091,Premium-Non Budget(Owner),,Technical /Owner,C128
+ship_management,7000092,Premium-Insurance Claim,,Technical / Insurance,C129
+ship_management,8000000,Management Fee 管理费,,PIC,C130
+ship_management,8000001,Technical Management Fee,,Technical /Account,C131
+ship_management,8000002,ISM Management Fee,,ISM/Account,C132
+ship_management,8000003,Operation Management Fee,,Operation /Account,C133
+ship_management,8000004,Crew Management Fee,,Technical /Account,C134
+ship_management,8000005,Commercial Management Fee,,Technical /Account,C135
+ship_management,9000000,"Non-Budget, Owner/Charterer Expenses 非预算・船东 / 租家费用",,PIC,C136
+ship_management,9000001,Hold cleaning bonus,,Technical / Owner,C137
+ship_management,9000002,C/V/E,,Technical / Owner,C138
+ship_management,9000003,FW Supplement,,Technical / Owner,C139
+ship_management,9000004,Cargo hold upgradation paint/Chemical/Stores/Cleaning Tools,,Technical / Owner,C140
+ship_management,9000005,Payment O.B.O Shipowner,,Technical / Owner,C141
+ship_management,9900000,DRYDOCK/SURVEYS 进坞 / 检验,,PIC,C142
+ship_management,9900001,Docking Expenses and Shipyard Final Bill,,Technical,C143
+ship_management,9900002,Docking Owner's Work,,Technical,C144
+ship_management,9900003,Docking Spares,,Technical,C145
+ship_management,9900004,Docking Stores,,Technical,C146
+ship_management,9900005,Docking Paint,,Technical,C147
+ship_management,9900006,Docking Slop Disposal,,Technical,C148
+ship_management,9900007,Docking Others,,Technical,C149
+ship_management,9900008,Docking Supt Cost,,Technical,C150
+ship_management,9900009,Docking Agency Disbursements,,Technical,C151
+ship_management,9900010,Docking Class/Survey Fee,,Technical,C152
+ship_management,9900011,"Docking-NON BUDGET(Incl. Deviation, FO, Offhire cost etc)",,Technical,C153
+ship_management,9900012,Docking-NON BUDGET(C/Hs Upgradation Paint),,Technical,C154
+ship_management,9900013,Docking-NON BUDGET(C/H Upgradation Yard Cost),,Technical,C155
+ship_management,9900014,Docking-NON BUDGET(New Rules Compliance),,Technical,C156
+ship_management,9900090,Docking-NON BUDGET(Others),,Technical / Owner,C157
+ship_management,9900091,Docking-CLAIM (OWNED VESSEL),,Technical / Insurance,C158
+ship_management,9900092,Docking-CLAIM (THIRD PARTY VESSEL),,Technical / Insurance,C159
+ship_management,9990000,PRE-DELIVERY EXPENSES 交船前费用,,PIC,C160
+ship_management,9990001,NON BGT-INITIAL TAKEOVER/PREDELIEVERY,,ALL,C161
+ship_management,9999000,H. REBATE / DISCOUNT 回扣 / 折扣,,PIC,C162
+ship_management,9999001,REBATE / DISCOUNT,,ALL,C163

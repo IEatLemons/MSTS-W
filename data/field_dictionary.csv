@@ -1,0 +1,268 @@
+﻿sheet,column,header_cell,source_header,field,label,type,entry,meaning
+Expenses Lists,A,A1,入账日期,posting_date,入账日期,date,员工录入,凭证所属期间；独立于发票、付款及银行价值日
+Expenses Lists,B,B1,类型,description,类型/摘要,text,员工录入,业务描述；原表类型列是自由摘要，不是可靠的费用归属分类
+Expenses Lists,C,C1,RQA,requisition_no,RQA,text,采购录入,请购/申请编号；不能单凭编号假定唯一业务
+Expenses Lists,D,D1,Supplier,supplier_id,Supplier,reference,员工选择,往来方主数据；同名大小写及空格差异需归并
+Expenses Lists,E,E1,PO Nos,purchase_order_no,PO Nos,text,采购录入,采购订单编号；与订单行、发票行、付款分摊关联
+Expenses Lists,F,F1,Pay. Approval,approval_attachment,Pay. Approval,attachment,审批上传,付款申请/订单批准材料，原表多为文件名
+Expenses Lists,G,G1,PO Current,original_amount,PO Current,decimal,员工录入,原币订单金额；原表未提供独立币种列，应新增 currency_code
+Expenses Lists,H,H1,Rating,usd_conversion_rate,Rating,decimal,员工录入/汇率表,费用表以原币金额乘汇率得到USD；分析页却使用除法，必须保留汇率方向
+Expenses Lists,I,I1,PO Amount (USD),purchase_order_usd,PO Amount (USD),decimal,计算或历史覆盖,原币金额×每单位原币折USD汇率；历史存在直接填写，不能强制抹平
+Expenses Lists,J,J1,Account Code,account_code,Account Code,reference,员工选择,费用科目；主表编码与船员细项编码分命名空间
+Expenses Lists,K,K1,GRN/Date,goods_received_date,GRN/Date,date,员工录入,收货/验收日期，部分是文本日期，迁移须清洗并保留原文
+Expenses Lists,L,L1,GRN Amount(USD),goods_received_usd,GRN Amount(USD),decimal,员工录入/计算,实际收货额，可不同于订单及发票金额
+Expenses Lists,M,M1,Invoice Amount(USD),invoice_usd,Invoice Amount(USD),decimal,员工录入/计算,发票金额；不是所有行都等于订单/收货额
+Expenses Lists,N,N1,"C/N,Accural",credit_note_accrual_usd,"C/N,Accural",decimal,员工录入,贷项/应计调整额；原表为零或空，未建立可靠抵扣规则，需确认方向
+Expenses Lists,O,O1,C/N Profit,credit_note_profit_usd,C/N Profit,decimal,员工录入,贷项利润字段；本期未使用，语义需确认
+Expenses Lists,P,P1,Profit,profit_usd,Profit,decimal,员工录入/待定,本期汇总零；不可据此定义整个系统利润计算规则
+Expenses Lists,Q,Q1,Invoice Date,invoice_date,Invoice Date,date,员工录入,发票日期
+Expenses Lists,R,R1,Due Date,due_date,Due Date,date,员工录入/账期计算,应付到期日；用于账龄，但原表没有按截止日过滤的账龄公式
+Expenses Lists,S,S1,Payment Status,payment_status,Payment Status,enum,流程驱动/历史导入,Accrual、Receiving、Received、Approved、Paying、Completed；缺失状态不得静默排除
+Expenses Lists,T,T1,Bank Charge,bank_fee_usd,Bank Charge,decimal,员工录入/银行匹配,费用端手续费；与银行费用核对，不能重复入账；退款可出现负数
+Expenses Lists,U,U1,Bank Slip,bank_slip,Bank Slip,attachment,付款上传,银行回单文件名/超链接；文件内容未随表提供
+Expenses Lists,V,V1,Attachement,invoice_attachment,Attachement/Invoices,attachment,员工上传,发票附件，可多份；原表只有文件名不等于附件已归档
+Expenses Lists,W,W1,Attachement,credit_note_attachment,Attachement/Credit Note,attachment,员工上传,贷项或补充附件，原表拼写及列位置不一致
+Expenses Lists,X,X1,Accrual,accrual_bucket,应计状态金额,decimal,状态计算,原表多数取发票金额；CTM Accrual取订单USD额
+Expenses Lists,Y,Y1,Receiving,receiving_bucket,待收货/处理中金额,decimal,状态计算,原表多数取发票金额；CTM Receiving取GRN金额；英文含义需财务确认
+Expenses Lists,Z,Z1,Received,received_bucket,Received状态金额,decimal,状态计算,按原表状态取发票额；Received不是银行已收款
+Expenses Lists,AA,AA1,Approved,approved_bucket,已批准金额,decimal,状态计算,状态为Approved取相应金额，否则空文本
+Expenses Lists,AB,AB1,Paying,paying_bucket,支付中金额,decimal,状态计算,状态为Paying取相应金额，否则空文本
+Expenses Lists,AC,AC1,Completed,completed_bucket,完成金额,decimal,状态计算,状态为Completed取发票额；不自动证明已经与银行核销
+Shipmanagement Cost,A,A1,入账日期,posting_date,入账日期,date,员工录入,凭证所属期间；独立于发票、付款及银行价值日
+Shipmanagement Cost,B,B1,类型,description,类型/摘要,text,员工录入,业务描述；原表类型列是自由摘要，不是可靠的费用归属分类
+Shipmanagement Cost,C,C1,RQA,requisition_no,RQA,text,采购录入,请购/申请编号；不能单凭编号假定唯一业务
+Shipmanagement Cost,D,D1,Supplier,supplier_id,Supplier,reference,员工选择,往来方主数据；同名大小写及空格差异需归并
+Shipmanagement Cost,E,E1,PO Nos,purchase_order_no,PO Nos,text,采购录入,采购订单编号；与订单行、发票行、付款分摊关联
+Shipmanagement Cost,F,F1,Pay. Approval,approval_attachment,Pay. Approval,attachment,审批上传,付款申请/订单批准材料，原表多为文件名
+Shipmanagement Cost,G,G1,PO Current,original_amount,PO Current,decimal,员工录入,原币订单金额；原表未提供独立币种列，应新增 currency_code
+Shipmanagement Cost,H,H1,Rating,usd_conversion_rate,Rating,decimal,员工录入/汇率表,费用表以原币金额乘汇率得到USD；分析页却使用除法，必须保留汇率方向
+Shipmanagement Cost,I,I1,PO Amount (USD),purchase_order_usd,PO Amount (USD),decimal,计算或历史覆盖,原币金额×每单位原币折USD汇率；历史存在直接填写，不能强制抹平
+Shipmanagement Cost,J,J1,Account Code,account_code,Account Code,reference,员工选择,费用科目；主表编码与船员细项编码分命名空间
+Shipmanagement Cost,K,K1,GRN/Date,goods_received_date,GRN/Date,date,员工录入,收货/验收日期，部分是文本日期，迁移须清洗并保留原文
+Shipmanagement Cost,L,L1,GRN Amount(USD),goods_received_usd,GRN Amount(USD),decimal,员工录入/计算,实际收货额，可不同于订单及发票金额
+Shipmanagement Cost,M,M1,Invoice Amount(USD),invoice_usd,Invoice Amount(USD),decimal,员工录入/计算,发票金额；不是所有行都等于订单/收货额
+Shipmanagement Cost,N,N1,"C/N,Accural",credit_note_accrual_usd,"C/N,Accural",decimal,员工录入,贷项/应计调整额；原表为零或空，未建立可靠抵扣规则，需确认方向
+Shipmanagement Cost,O,O1,C/N Profit,credit_note_profit_usd,C/N Profit,decimal,员工录入,贷项利润字段；本期未使用，语义需确认
+Shipmanagement Cost,P,P1,Profit,profit_usd,Profit,decimal,员工录入/待定,本期汇总零；不可据此定义整个系统利润计算规则
+Shipmanagement Cost,Q,Q1,Invoice Date,invoice_date,Invoice Date,date,员工录入,发票日期
+Shipmanagement Cost,R,R1,Due Date,due_date,Due Date,date,员工录入/账期计算,应付到期日；用于账龄，但原表没有按截止日过滤的账龄公式
+Shipmanagement Cost,S,S1,Payment Status,payment_status,Payment Status,enum,流程驱动/历史导入,Accrual、Receiving、Received、Approved、Paying、Completed；缺失状态不得静默排除
+Shipmanagement Cost,T,T1,Bank Charge,bank_fee_usd,Bank Charge,decimal,员工录入/银行匹配,费用端手续费；与银行费用核对，不能重复入账；退款可出现负数
+Shipmanagement Cost,U,U1,Bank Slip,bank_slip,Bank Slip,attachment,付款上传,银行回单文件名/超链接；文件内容未随表提供
+Shipmanagement Cost,V,V1,Attachement,invoice_attachment,Attachement/Invoices,attachment,员工上传,发票附件，可多份；原表只有文件名不等于附件已归档
+Shipmanagement Cost,W,W1,Accrual,accrual_bucket,应计状态金额,decimal,状态计算,原表多数取发票金额；CTM Accrual取订单USD额
+Shipmanagement Cost,X,X1,Receiving,receiving_bucket,待收货/处理中金额,decimal,状态计算,原表多数取发票金额；CTM Receiving取GRN金额；英文含义需财务确认
+Shipmanagement Cost,Y,Y1,Received,received_bucket,Received状态金额,decimal,状态计算,按原表状态取发票额；Received不是银行已收款
+Shipmanagement Cost,Z,Z1,Approved,approved_bucket,已批准金额,decimal,状态计算,状态为Approved取相应金额，否则空文本
+Shipmanagement Cost,AA,AA1,Paying,paying_bucket,支付中金额,decimal,状态计算,状态为Paying取相应金额，否则空文本
+Shipmanagement Cost,AB,AB1,Completed,completed_bucket,完成金额,decimal,状态计算,状态为Completed取发票额；不自动证明已经与银行核销
+Owner Cost,A,A1,入账日期,posting_date,入账日期,date,员工录入,凭证所属期间；独立于发票、付款及银行价值日
+Owner Cost,B,B1,类型,description,类型/摘要,text,员工录入,业务描述；原表类型列是自由摘要，不是可靠的费用归属分类
+Owner Cost,C,C1,RQA,requisition_no,RQA,text,采购录入,请购/申请编号；不能单凭编号假定唯一业务
+Owner Cost,D,D1,Supplier,supplier_id,Supplier,reference,员工选择,往来方主数据；同名大小写及空格差异需归并
+Owner Cost,E,E1,PO Nos,purchase_order_no,PO Nos,text,采购录入,采购订单编号；与订单行、发票行、付款分摊关联
+Owner Cost,F,F1,Pay. Approval,approval_attachment,Pay. Approval,attachment,审批上传,付款申请/订单批准材料，原表多为文件名
+Owner Cost,G,G1,PO Current,original_amount,PO Current,decimal,员工录入,原币订单金额；原表未提供独立币种列，应新增 currency_code
+Owner Cost,H,H1,Rating,usd_conversion_rate,Rating,decimal,员工录入/汇率表,费用表以原币金额乘汇率得到USD；分析页却使用除法，必须保留汇率方向
+Owner Cost,I,I1,PO Amount (USD),purchase_order_usd,PO Amount (USD),decimal,计算或历史覆盖,原币金额×每单位原币折USD汇率；历史存在直接填写，不能强制抹平
+Owner Cost,J,J1,Account Code,account_code,Account Code,reference,员工选择,费用科目；主表编码与船员细项编码分命名空间
+Owner Cost,K,K1,GRN/Date,goods_received_date,GRN/Date,date,员工录入,收货/验收日期，部分是文本日期，迁移须清洗并保留原文
+Owner Cost,L,L1,GRN Amount(USD),goods_received_usd,GRN Amount(USD),decimal,员工录入/计算,实际收货额，可不同于订单及发票金额
+Owner Cost,M,M1,Invoice Amount(USD),invoice_usd,Invoice Amount(USD),decimal,员工录入/计算,发票金额；不是所有行都等于订单/收货额
+Owner Cost,N,N1,"C/N,Accural",credit_note_accrual_usd,"C/N,Accural",decimal,员工录入,贷项/应计调整额；原表为零或空，未建立可靠抵扣规则，需确认方向
+Owner Cost,O,O1,C/N Profit,credit_note_profit_usd,C/N Profit,decimal,员工录入,贷项利润字段；本期未使用，语义需确认
+Owner Cost,P,P1,Profit,profit_usd,Profit,decimal,员工录入/待定,本期汇总零；不可据此定义整个系统利润计算规则
+Owner Cost,Q,Q1,Invoice Date,invoice_date,Invoice Date,date,员工录入,发票日期
+Owner Cost,R,R1,Due Date,due_date,Due Date,date,员工录入/账期计算,应付到期日；用于账龄，但原表没有按截止日过滤的账龄公式
+Owner Cost,S,S1,Payment Status,payment_status,Payment Status,enum,流程驱动/历史导入,Accrual、Receiving、Received、Approved、Paying、Completed；缺失状态不得静默排除
+Owner Cost,T,T1,Bank Charge,bank_fee_usd,Bank Charge,decimal,员工录入/银行匹配,费用端手续费；与银行费用核对，不能重复入账；退款可出现负数
+Owner Cost,U,U1,Bank Slip,bank_slip,Bank Slip,attachment,付款上传,银行回单文件名/超链接；文件内容未随表提供
+Owner Cost,V,V1,Attachement,invoice_attachment,Attachement/Invoices,attachment,员工上传,发票附件，可多份；原表只有文件名不等于附件已归档
+Owner Cost,W,W1,Accrual,accrual_bucket,应计状态金额,decimal,状态计算,原表多数取发票金额；CTM Accrual取订单USD额
+Owner Cost,X,X1,Receiving,receiving_bucket,待收货/处理中金额,decimal,状态计算,原表多数取发票金额；CTM Receiving取GRN金额；英文含义需财务确认
+Owner Cost,Y,Y1,Received,received_bucket,Received状态金额,decimal,状态计算,按原表状态取发票额；Received不是银行已收款
+Owner Cost,Z,Z1,Approved,approved_bucket,已批准金额,decimal,状态计算,状态为Approved取相应金额，否则空文本
+Owner Cost,AA,AA1,Paying,paying_bucket,支付中金额,decimal,状态计算,状态为Paying取相应金额，否则空文本
+Owner Cost,AB,AB1,Completed,completed_bucket,完成金额,decimal,状态计算,状态为Completed取发票额；不自动证明已经与银行核销
+Owner Cost,AC,AC1,已收,owner_settlement_amount,船东结算统计额,decimal,状态计算/历史保留,非船东付且非待收时取发票或GRN金额；空状态也会被计入，不能直接称实际收款
+Owner Cost,AD,AD1,已开票,owner_settlement_status,船东结算状态/备注,enum,员工录入/收款核销,已收、待收、船东付等；与供应商付款状态独立
+Owner Cost,AE,AE1,待收,owner_pending_placeholder,待收展示/辅助,decimal,历史原样,原表多数仅表头和手工合计，不能直接作客户应收明细
+Owner Cost,AF,AF1,船东付,owner_paid_placeholder,船东付展示/辅助,decimal,历史原样,通过结算状态记录实际支付主体；原表该列多数空
+Take-Over Cost,A,A1,入账日期,posting_date,入账日期,date,员工录入,凭证所属期间；独立于发票、付款及银行价值日
+Take-Over Cost,B,B1,类型,description,类型/摘要,text,员工录入,业务描述；原表类型列是自由摘要，不是可靠的费用归属分类
+Take-Over Cost,C,C1,RQA,requisition_no,RQA,text,采购录入,请购/申请编号；不能单凭编号假定唯一业务
+Take-Over Cost,D,D1,Supplier,supplier_id,Supplier,reference,员工选择,往来方主数据；同名大小写及空格差异需归并
+Take-Over Cost,E,E1,PO Nos,purchase_order_no,PO Nos,text,采购录入,采购订单编号；与订单行、发票行、付款分摊关联
+Take-Over Cost,F,F1,Pay. Approval,approval_attachment,Pay. Approval,attachment,审批上传,付款申请/订单批准材料，原表多为文件名
+Take-Over Cost,G,G1,PO Current,original_amount,PO Current,decimal,员工录入,原币订单金额；原表未提供独立币种列，应新增 currency_code
+Take-Over Cost,H,H1,Rating,usd_conversion_rate,Rating,decimal,员工录入/汇率表,费用表以原币金额乘汇率得到USD；分析页却使用除法，必须保留汇率方向
+Take-Over Cost,I,I1,PO Amount (USD),purchase_order_usd,PO Amount (USD),decimal,计算或历史覆盖,原币金额×每单位原币折USD汇率；历史存在直接填写，不能强制抹平
+Take-Over Cost,J,J1,Account Code,account_code,Account Code,reference,员工选择,费用科目；主表编码与船员细项编码分命名空间
+Take-Over Cost,K,K1,GRN/Date,goods_received_date,GRN/Date,date,员工录入,收货/验收日期，部分是文本日期，迁移须清洗并保留原文
+Take-Over Cost,L,L1,GRN Amount(USD),goods_received_usd,GRN Amount(USD),decimal,员工录入/计算,实际收货额，可不同于订单及发票金额
+Take-Over Cost,M,M1,Invoice Amount(USD),invoice_usd,Invoice Amount(USD),decimal,员工录入/计算,发票金额；不是所有行都等于订单/收货额
+Take-Over Cost,N,N1,"C/N,Accural",credit_note_accrual_usd,"C/N,Accural",decimal,员工录入,贷项/应计调整额；原表为零或空，未建立可靠抵扣规则，需确认方向
+Take-Over Cost,O,O1,C/N Profit,credit_note_profit_usd,C/N Profit,decimal,员工录入,贷项利润字段；本期未使用，语义需确认
+Take-Over Cost,P,P1,Profit,profit_usd,Profit,decimal,员工录入/待定,本期汇总零；不可据此定义整个系统利润计算规则
+Take-Over Cost,Q,Q1,Invoice Date,invoice_date,Invoice Date,date,员工录入,发票日期
+Take-Over Cost,R,R1,Due Date,due_date,Due Date,date,员工录入/账期计算,应付到期日；用于账龄，但原表没有按截止日过滤的账龄公式
+Take-Over Cost,S,S1,Payment Status,payment_status,Payment Status,enum,流程驱动/历史导入,Accrual、Receiving、Received、Approved、Paying、Completed；缺失状态不得静默排除
+Take-Over Cost,T,T1,Bank Charge,bank_fee_usd,Bank Charge,decimal,员工录入/银行匹配,费用端手续费；与银行费用核对，不能重复入账；退款可出现负数
+Take-Over Cost,U,U1,Bank Slip,bank_slip,Bank Slip,attachment,付款上传,银行回单文件名/超链接；文件内容未随表提供
+Take-Over Cost,V,V1,Attachement,invoice_attachment,Attachement/Invoices,attachment,员工上传,发票附件，可多份；原表只有文件名不等于附件已归档
+Take-Over Cost,W,W1,Accrual,accrual_bucket,应计状态金额,decimal,状态计算,原表多数取发票金额；CTM Accrual取订单USD额
+Take-Over Cost,X,X1,Receiving,receiving_bucket,待收货/处理中金额,decimal,状态计算,原表多数取发票金额；CTM Receiving取GRN金额；英文含义需财务确认
+Take-Over Cost,Y,Y1,Received,received_bucket,Received状态金额,decimal,状态计算,按原表状态取发票额；Received不是银行已收款
+Take-Over Cost,Z,Z1,Approved,approved_bucket,已批准金额,decimal,状态计算,状态为Approved取相应金额，否则空文本
+Take-Over Cost,AA,AA1,Paying,paying_bucket,支付中金额,decimal,状态计算,状态为Paying取相应金额，否则空文本
+Take-Over Cost,AB,AB1,Completed,completed_bucket,完成金额,decimal,状态计算,状态为Completed取发票额；不自动证明已经与银行核销
+Take-Over Cost,AC,AC1,已收,owner_settlement_amount,船东结算统计额,decimal,状态计算/历史保留,非船东付且非待收时取发票或GRN金额；空状态也会被计入，不能直接称实际收款
+Take-Over Cost,AD,AD1,已开票,owner_settlement_status,船东结算状态/备注,enum,员工录入/收款核销,已收、待收、船东付等；与供应商付款状态独立
+Take-Over Cost,AE,AE1,待收,owner_pending_placeholder,待收展示/辅助,decimal,历史原样,原表多数仅表头和手工合计，不能直接作客户应收明细
+Take-Over Cost,AF,AF1,船东付,owner_paid_placeholder,船东付展示/辅助,decimal,历史原样,通过结算状态记录实际支付主体；原表该列多数空
+BMA Flag Change,A,A1,入账日期,posting_date,入账日期,date,员工录入,凭证所属期间；独立于发票、付款及银行价值日
+BMA Flag Change,B,B1,类型,description,类型/摘要,text,员工录入,业务描述；原表类型列是自由摘要，不是可靠的费用归属分类
+BMA Flag Change,C,C1,RQA,requisition_no,RQA,text,采购录入,请购/申请编号；不能单凭编号假定唯一业务
+BMA Flag Change,D,D1,Supplier,supplier_id,Supplier,reference,员工选择,往来方主数据；同名大小写及空格差异需归并
+BMA Flag Change,E,E1,PO Nos,purchase_order_no,PO Nos,text,采购录入,采购订单编号；与订单行、发票行、付款分摊关联
+BMA Flag Change,F,F1,Pay. Approval,approval_attachment,Pay. Approval,attachment,审批上传,付款申请/订单批准材料，原表多为文件名
+BMA Flag Change,G,G1,PO Current,original_amount,PO Current,decimal,员工录入,原币订单金额；原表未提供独立币种列，应新增 currency_code
+BMA Flag Change,H,H1,Rating,usd_conversion_rate,Rating,decimal,员工录入/汇率表,费用表以原币金额乘汇率得到USD；分析页却使用除法，必须保留汇率方向
+BMA Flag Change,I,I1,PO Amount (USD),purchase_order_usd,PO Amount (USD),decimal,计算或历史覆盖,原币金额×每单位原币折USD汇率；历史存在直接填写，不能强制抹平
+BMA Flag Change,J,J1,Account Code,account_code,Account Code,reference,员工选择,费用科目；主表编码与船员细项编码分命名空间
+BMA Flag Change,K,K1,GRN/Date,goods_received_date,GRN/Date,date,员工录入,收货/验收日期，部分是文本日期，迁移须清洗并保留原文
+BMA Flag Change,L,L1,GRN Amount(USD),goods_received_usd,GRN Amount(USD),decimal,员工录入/计算,实际收货额，可不同于订单及发票金额
+BMA Flag Change,M,M1,Invoice Amount(USD),invoice_usd,Invoice Amount(USD),decimal,员工录入/计算,发票金额；不是所有行都等于订单/收货额
+BMA Flag Change,N,N1,"C/N,Accural",credit_note_accrual_usd,"C/N,Accural",decimal,员工录入,贷项/应计调整额；原表为零或空，未建立可靠抵扣规则，需确认方向
+BMA Flag Change,O,O1,C/N Profit,credit_note_profit_usd,C/N Profit,decimal,员工录入,贷项利润字段；本期未使用，语义需确认
+BMA Flag Change,P,P1,Profit,profit_usd,Profit,decimal,员工录入/待定,本期汇总零；不可据此定义整个系统利润计算规则
+BMA Flag Change,Q,Q1,Invoice Date,invoice_date,Invoice Date,date,员工录入,发票日期
+BMA Flag Change,R,R1,Due Date,due_date,Due Date,date,员工录入/账期计算,应付到期日；用于账龄，但原表没有按截止日过滤的账龄公式
+BMA Flag Change,S,S1,Payment Status,payment_status,Payment Status,enum,流程驱动/历史导入,Accrual、Receiving、Received、Approved、Paying、Completed；缺失状态不得静默排除
+BMA Flag Change,T,T1,Bank Charge,bank_fee_usd,Bank Charge,decimal,员工录入/银行匹配,费用端手续费；与银行费用核对，不能重复入账；退款可出现负数
+BMA Flag Change,U,U1,Attachement,supplemental_attachment,补充附件,attachment,员工上传,原表仅标注Attachement，未统一文件类型，应支持通用附件及分类
+BMA Flag Change,V,V1,Bank Slip,bank_slip,Bank Slip,attachment,付款上传,银行回单文件名/超链接；文件内容未随表提供
+BMA Flag Change,W,W1,Attachement,invoice_attachment,Attachement/Invoices,attachment,员工上传,发票附件，可多份；原表只有文件名不等于附件已归档
+BMA Flag Change,X,X1,Accrual,accrual_bucket,应计状态金额,decimal,状态计算,原表多数取发票金额；CTM Accrual取订单USD额
+BMA Flag Change,Y,Y1,Receiving,receiving_bucket,待收货/处理中金额,decimal,状态计算,原表多数取发票金额；CTM Receiving取GRN金额；英文含义需财务确认
+BMA Flag Change,Z,Z1,Received,received_bucket,Received状态金额,decimal,状态计算,按原表状态取发票额；Received不是银行已收款
+BMA Flag Change,AA,AA1,Approved,approved_bucket,已批准金额,decimal,状态计算,状态为Approved取相应金额，否则空文本
+BMA Flag Change,AB,AB1,Paying,paying_bucket,支付中金额,decimal,状态计算,状态为Paying取相应金额，否则空文本
+BMA Flag Change,AC,AC1,Completed,completed_bucket,完成金额,decimal,状态计算,状态为Completed取发票额；不自动证明已经与银行核销
+BMA Flag Change,AD,AD1,已收,owner_settlement_amount,船东结算统计额,decimal,状态计算/历史保留,非船东付且非待收时取发票或GRN金额；空状态也会被计入，不能直接称实际收款
+BMA Flag Change,AE,AE1,已开票,owner_settlement_status,船东结算状态/备注,enum,员工录入/收款核销,已收、待收、船东付等；与供应商付款状态独立
+BMA Flag Change,AF,AF1,待收,owner_pending_placeholder,待收展示/辅助,decimal,历史原样,原表多数仅表头和手工合计，不能直接作客户应收明细
+BMA Flag Change,AG,AG1,船东付,owner_paid_placeholder,船东付展示/辅助,decimal,历史原样,通过结算状态记录实际支付主体；原表该列多数空
+DD Cost,A,A1,入账日期,posting_date,入账日期,date,员工录入,凭证所属期间；独立于发票、付款及银行价值日
+DD Cost,B,B1,类型,description,类型/摘要,text,员工录入,业务描述；原表类型列是自由摘要，不是可靠的费用归属分类
+DD Cost,C,C1,RQA,requisition_no,RQA,text,采购录入,请购/申请编号；不能单凭编号假定唯一业务
+DD Cost,D,D1,Supplier,supplier_id,Supplier,reference,员工选择,往来方主数据；同名大小写及空格差异需归并
+DD Cost,E,E1,PO Nos,purchase_order_no,PO Nos,text,采购录入,采购订单编号；与订单行、发票行、付款分摊关联
+DD Cost,F,F1,PO Current,original_amount,PO Current,decimal,员工录入,原币订单金额；原表未提供独立币种列，应新增 currency_code
+DD Cost,G,G1,Rating,usd_conversion_rate,Rating,decimal,员工录入/汇率表,费用表以原币金额乘汇率得到USD；分析页却使用除法，必须保留汇率方向
+DD Cost,H,H1,PO Amount (USD),purchase_order_usd,PO Amount (USD),decimal,计算或历史覆盖,原币金额×每单位原币折USD汇率；历史存在直接填写，不能强制抹平
+DD Cost,I,I1,Account Code,account_code,Account Code,reference,员工选择,费用科目；主表编码与船员细项编码分命名空间
+DD Cost,J,J1,GRN/Date,goods_received_date,GRN/Date,date,员工录入,收货/验收日期，部分是文本日期，迁移须清洗并保留原文
+DD Cost,K,K1,GRN Amount(USD),goods_received_usd,GRN Amount(USD),decimal,员工录入/计算,实际收货额，可不同于订单及发票金额
+DD Cost,L,L1,Invoice Amount(USD),invoice_usd,Invoice Amount(USD),decimal,员工录入/计算,发票金额；不是所有行都等于订单/收货额
+DD Cost,M,M1,"C/N,Accural",credit_note_accrual_usd,"C/N,Accural",decimal,员工录入,贷项/应计调整额；原表为零或空，未建立可靠抵扣规则，需确认方向
+DD Cost,N,N1,C/N Profit,credit_note_profit_usd,C/N Profit,decimal,员工录入,贷项利润字段；本期未使用，语义需确认
+DD Cost,O,O1,Profit,profit_usd,Profit,decimal,员工录入/待定,本期汇总零；不可据此定义整个系统利润计算规则
+DD Cost,P,P1,Invoice Date,invoice_date,Invoice Date,date,员工录入,发票日期
+DD Cost,Q,Q1,Due Date,due_date,Due Date,date,员工录入/账期计算,应付到期日；用于账龄，但原表没有按截止日过滤的账龄公式
+DD Cost,R,R1,Payment Status,payment_status,Payment Status,enum,流程驱动/历史导入,Accrual、Receiving、Received、Approved、Paying、Completed；缺失状态不得静默排除
+DD Cost,S,S1,Bank Charge,bank_fee_usd,Bank Charge,decimal,员工录入/银行匹配,费用端手续费；与银行费用核对，不能重复入账；退款可出现负数
+DD Cost,T,T1,Attachement,invoice_attachment,Attachement/Invoices,attachment,员工上传,发票附件，可多份；原表只有文件名不等于附件已归档
+DD Cost,U,U1,Attachement,credit_note_attachment,Attachement/Credit Note,attachment,员工上传,贷项或补充附件，原表拼写及列位置不一致
+DD Cost,V,V1,Accrual,accrual_bucket,应计状态金额,decimal,状态计算,原表多数取发票金额；CTM Accrual取订单USD额
+DD Cost,W,W1,Receiving,receiving_bucket,待收货/处理中金额,decimal,状态计算,原表多数取发票金额；CTM Receiving取GRN金额；英文含义需财务确认
+DD Cost,X,X1,Received,received_bucket,Received状态金额,decimal,状态计算,按原表状态取发票额；Received不是银行已收款
+DD Cost,Y,Y1,Approved,approved_bucket,已批准金额,decimal,状态计算,状态为Approved取相应金额，否则空文本
+DD Cost,Z,Z1,Paying,paying_bucket,支付中金额,decimal,状态计算,状态为Paying取相应金额，否则空文本
+DD Cost,AA,AA1,Completed,completed_bucket,完成金额,decimal,状态计算,状态为Completed取发票额；不自动证明已经与银行核销
+DD Cost,AB,AB1,已收,owner_settlement_amount,船东结算统计额,decimal,状态计算/历史保留,非船东付且非待收时取发票或GRN金额；空状态也会被计入，不能直接称实际收款
+DD Cost,AC,AC1,已开票,owner_settlement_status,船东结算状态/备注,enum,员工录入/收款核销,已收、待收、船东付等；与供应商付款状态独立
+DD Cost,AD,AD1,待收,owner_pending_placeholder,待收展示/辅助,decimal,历史原样,原表多数仅表头和手工合计，不能直接作客户应收明细
+DD Cost,AE,AE1,船东付,owner_paid_placeholder,船东付展示/辅助,decimal,历史原样,通过结算状态记录实际支付主体；原表该列多数空
+CTM Expenses List,A,A1,入账日期,posting_date,入账日期,date,员工录入,凭证所属期间；独立于发票、付款及银行价值日
+CTM Expenses List,B,B1,类型,description,类型/摘要,text,员工录入,业务描述；原表类型列是自由摘要，不是可靠的费用归属分类
+CTM Expenses List,C,C1,Action,cash_direction,CTM现金方向,enum,员工录入,In/out；原表另以金额正负实现加减，必须同时校验
+CTM Expenses List,D,D1,Supplier,supplier_id,Supplier,reference,员工选择,往来方主数据；同名大小写及空格差异需归并
+CTM Expenses List,E,E1,PO Nos,purchase_order_no,PO Nos,text,采购录入,采购订单编号；与订单行、发票行、付款分摊关联
+CTM Expenses List,F,F1,PO Current,original_amount,PO Current,decimal,员工录入,原币订单金额；原表未提供独立币种列，应新增 currency_code
+CTM Expenses List,G,G1,Rating,usd_conversion_rate,Rating,decimal,员工录入/汇率表,费用表以原币金额乘汇率得到USD；分析页却使用除法，必须保留汇率方向
+CTM Expenses List,H,H1,PO Amount (USD),purchase_order_usd,PO Amount (USD),decimal,计算或历史覆盖,原币金额×每单位原币折USD汇率；历史存在直接填写，不能强制抹平
+CTM Expenses List,I,I1,Account Code,account_code,Account Code,reference,员工选择,费用科目；主表编码与船员细项编码分命名空间
+CTM Expenses List,J,J1,GRN/Date,goods_received_date,GRN/Date,date,员工录入,收货/验收日期，部分是文本日期，迁移须清洗并保留原文
+CTM Expenses List,K,K1,GRN Amount(USD),goods_received_usd,GRN Amount(USD),decimal,员工录入/计算,实际收货额，可不同于订单及发票金额
+CTM Expenses List,L,L1,Invoice Amount(USD),invoice_usd,Invoice Amount(USD),decimal,员工录入/计算,发票金额；不是所有行都等于订单/收货额
+CTM Expenses List,M,M1,Others,ctm_other,CTM Others,decimal,员工录入/待确认,原表全零汇总，需确认费用分组的业务定义
+CTM Expenses List,N,N1,Food,ctm_food,CTM Food,decimal,员工录入,伙食分组字段，原表全零
+CTM Expenses List,O,O1,Store,ctm_store,CTM Store,decimal,员工录入,库房/招待品分组字段，原表全零
+CTM Expenses List,P,P1,Invoice Date,invoice_date,Invoice Date,date,员工录入,发票日期
+CTM Expenses List,Q,Q1,Due Date,due_date,Due Date,date,员工录入/账期计算,应付到期日；用于账龄，但原表没有按截止日过滤的账龄公式
+CTM Expenses List,R,R1,Payment Status,payment_status,Payment Status,enum,流程驱动/历史导入,Accrual、Receiving、Received、Approved、Paying、Completed；缺失状态不得静默排除
+CTM Expenses List,S,S1,Bank Charge,bank_fee_usd,Bank Charge,decimal,员工录入/银行匹配,费用端手续费；与银行费用核对，不能重复入账；退款可出现负数
+CTM Expenses List,T,T1,Attachement,invoice_attachment,Attachement/Invoices,attachment,员工上传,发票附件，可多份；原表只有文件名不等于附件已归档
+CTM Expenses List,U,U1,Attachement,credit_note_attachment,Attachement/Credit Note,attachment,员工上传,贷项或补充附件，原表拼写及列位置不一致
+CTM Expenses List,V,V1,Accrual,accrual_bucket,应计状态金额,decimal,状态计算,原表多数取发票金额；CTM Accrual取订单USD额
+CTM Expenses List,W,W1,Receiving,receiving_bucket,待收货/处理中金额,decimal,状态计算,原表多数取发票金额；CTM Receiving取GRN金额；英文含义需财务确认
+CTM Expenses List,X,X1,Received,received_bucket,Received状态金额,decimal,状态计算,按原表状态取发票额；Received不是银行已收款
+CTM Expenses List,Y,Y1,Approved,approved_bucket,已批准金额,decimal,状态计算,状态为Approved取相应金额，否则空文本
+CTM Expenses List,Z,Z1,Paying,paying_bucket,支付中金额,decimal,状态计算,状态为Paying取相应金额，否则空文本
+CTM Expenses List,AA,AA1,Completed,completed_bucket,完成金额,decimal,状态计算,状态为Completed取发票额；不自动证明已经与银行核销
+Shipmanagement RCVD,B,B1,入账日期,posting_date,入账日期,date,员工录入,凭证所属期间；独立于发票、付款及银行价值日
+Shipmanagement RCVD,C,C1,类型,receipt_type,收款摘要/资金用途,text,员工录入,拨款、代付回款、顾问费等需要不同业务类型，不能全部视作营业收入
+Shipmanagement RCVD,D,D1,RQA,receipt_status,收款流程状态,enum,流程驱动,原表列名RQA实际填Completed等状态，与费用页RQA编号含义不同
+Shipmanagement RCVD,E,E1,Supplier,receipt_party,付款方/来源,reference,员工选择,原表名Supplier，收款场景应保存付款方
+Shipmanagement RCVD,F,F1,PO Nos,purchase_order_no,PO Nos,text,采购录入,采购订单编号；与订单行、发票行、付款分摊关联
+Shipmanagement RCVD,G,G1,PO Current,receipt_original_amount,收款原币/申请额,decimal,员工录入,包括实际收款、待申请负差额及计划155000，需按业务类型区分
+Shipmanagement RCVD,H,H1,Rating,usd_conversion_rate,Rating,decimal,员工录入/汇率表,费用表以原币金额乘汇率得到USD；分析页却使用除法，必须保留汇率方向
+Shipmanagement RCVD,I,I1,Shipmanagement Amount(USD),shipmanagement_receipt,船管资金分配额USD,decimal,收款分配,I列，仅该分配列参与船管收款合计
+Shipmanagement RCVD,J,J1,Take-Over Account,takeover_receipt,接船资金分配额USD,decimal,收款分配,J列
+Shipmanagement RCVD,K,K1,BMA Flag Change,bma_receipt,换旗资金分配额USD,decimal,收款分配,K列
+Shipmanagement RCVD,L,L1,Owner Cost,owner_receipt,船东费用资金分配额USD,decimal,收款分配,L列
+Shipmanagement RCVD,M,M1,DD Cost,dd_receipt,坞修资金分配额USD,decimal,收款分配,M列
+Shipmanagement RCVD,N,N1,Date,receipt_date,收款确认日期,date,员工录入/银行匹配,原表N列有时复制入账日期，有时手工日期
+Shipmanagement RCVD,O,O1,Bank Charge,receipt_fee,收款手续费USD,decimal,银行匹配,O列；部分分配金额已扣费，应避免重复扣除
+Shipmanagement RCVD,P,P1,Bank Charge,receipt_attachment,收款回单附件,attachment,员工上传,P列标题Bank Charge但实际是回单文件名
+Bank Verification,B12:B35,,银行流水序号,sequence,银行流水序号,integer,银行导入,稳定流水编号；不能用可变行号代替正式流水ID
+Bank Verification,C12:C35,,银行日期,bank_date,银行日期,date,银行导入,原表有未按日期排序的行，余额按行链计算
+Bank Verification,D12:D35,,币种,currency,币种,enum,银行导入,USD/HKD/EUR字典，实际明细目前USD
+Bank Verification,E12:E35,,账户号,account_no,账户号,text,银行导入,原表为数字，平台需保存为文本标识
+Bank Verification,F12:F35,,入账/出账/结息,bank_direction,入账/出账/结息,enum,银行导入,现有IF只识别入账，其他都作出账；结息分支缺失
+Bank Verification,G12:G35,,银行毛额,bank_gross,银行毛额,decimal,银行导入,主金额，手续费单列；G30为空但H30有50费用
+Bank Verification,H12:H35,,银行手续费,bank_fee,银行手续费,decimal,银行导入,正负及承担方须区分，退款方向例外见I15
+Bank Verification,I12:I35,,本笔余额变动额,bank_movement,本笔余额变动额,decimal,计算/历史覆盖,入账或出账对应净额；有三行手填，应保留历史
+Bank Verification,J12:J35,,银行滚动余额,bank_balance,银行滚动余额,decimal,计算,与下一行倒序衔接，当前首页取J14
+Bank Verification,K12:K35,,银行备注,bank_memo,银行备注,text,员工录入,含其他船及失败退款，不是正式业务外键
+分析,A4:A66,,船名,estimate_vessel,船名,reference,员工选择,目前业务金额未填的估算模板
+分析,B4:B66,,类型,estimate_description,类型,text,员工录入,具体事项或费用说明
+分析,C4:C66,,RQA,estimate_requisition,RQA,text,员工录入,申请号，字段含义须与各页场景区分
+分析,D4:D66,,供应商,estimate_supplier,供应商,reference,员工选择,往来方
+分析,E4:E66,,PO Nos,estimate_po,PO Nos,text,员工录入,订单编号
+分析,F4:F66,,原币金额,estimate_original_amount,原币金额,decimal,员工录入,当前空，不能视为已确认0
+分析,G4:G66,,汇率除数,estimate_rate,汇率除数,decimal,员工录入,当前均1，本页USD=F/G
+分析,H4:H66,,估算USD,estimate_usd,估算USD,decimal,计算,原币额÷汇率除数
+分析,I4:I66,,变化事项分类,estimate_catalogue,变化事项分类,enum,员工选择,Shipowner/Flag/DOC等预设
+分析,J4:J66,,协议归属,estimate_agreement,协议归属,enum,员工选择,Take-over/OPEX预设
+分析,K4:K66,,地区因子,estimate_place,地区因子,decimal,员工录入,当前0，未接入完整金额计算链，含义待确认
+分析,L4:L66,,加班因素,estimate_overtime,加班因素,decimal,员工录入,当前0，未接入完整金额计算链
+分析,M4:M66,,低值估算,estimate_low,低值估算,decimal,计算/覆盖,有H、H*0、0、空多种策略，原公式全量保留
+分析,N4:N66,,合理值估算,estimate_mid,合理值估算,decimal,员工录入/待定义,当前多数为空，无统一中值算法
+分析,O4:O66,,高值估算,estimate_high,高值估算,decimal,计算,多数取H
+分析,P3:P33,,辅助选项字典,estimate_options,辅助选项字典,text,配置,独立列表；不自动与同一行金额关联
+分析,R2:T20,,辅助结算及材料提示,aux_settlement,辅助结算及材料提示,mixed,员工录入/计算,WAHSIN与SCORPIO WQ自由辅助区，原单元格完整留存
+Account Code-2版,C4:C165,,船管科目编码,ship_account_code,船管科目编码,text,配置,160条有效编码，非连续行
+Account Code-2版,D4:D165,,船管科目名称,ship_account_description,船管科目名称,text,配置,含章节及明细
+Account Code-2版,E4:E165,,PIC责任部门,responsible_department,PIC责任部门,text,配置,Crew/Technical等，部分空或章节标签
+Account Code-2版,G4:G35,,船员细项编码,crew_account_code,船员细项编码,text,配置,32条，独立命名空间
+Account Code-2版,H4:I35,,船员细项中英文名称,crew_account_description,船员细项中英文名称,text,配置,逐码保留
+伙食海关库房管理,I14 I30,,月份,inventory_month,月份,date,员工选择,8月与7月两个独立模板，O/U日期由公式复制
+伙食海关库房管理,C16:C27 C32:C40,,现金摘要,cash_description,现金摘要,text,员工录入,期初、过程及月底结账
+伙食海关库房管理,D16:D28 D32:D41,,现金变动及结余,cash_change,现金变动及结余,decimal,录入/计算,正负金额，期初结转、期末求和
+伙食海关库房管理,E16:E28 E32:E41,,招待品库存变动/余额,bonded_stock_change,招待品库存变动/余额,decimal,录入/计算,现金外独立资产类型
+伙食海关库房管理,F16:F28 F32:F41,,伙食库存变动/余额,food_stock_change,伙食库存变动/余额,decimal,录入/计算,现金外独立资产类型
+伙食海关库房管理,G16:H28 G32:H41,,混合余额与余额变动,mixed_balance_change,混合余额与余额变动,decimal,计算/录入,含现金与库存汇总；部分过程行无公式
+伙食海关库房管理,M16:O28 M32:O41,,伙食收支、采购、期初期末库存,food_monthly_line,伙食收支、采购、期初期末库存,mixed,员工录入/计算,M项目、N人民币、O美元；来源未配置完整转换汇率
+伙食海关库房管理,S16:U28 S32:U41,,招待品收支与盘存,bonded_monthly_line,招待品收支与盘存,mixed,员工录入/计算,S项目、T人民币、U美元；期末库存符号需确认

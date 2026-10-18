@@ -1,0 +1,17 @@
+{
+  "mode": "offline JavaScript execution with minimal DOM stubs; no server, no network, no browser rendering",
+  "checks": [
+    "all-cell count 6926",
+    "formula count 2722",
+    "coordinate and sheet filtering",
+    "error and formula-dependency detail",
+    "business field and original value",
+    "array INDEX formula detail",
+    "output formula mapping filter",
+    "pagination",
+    "empty search boundary",
+    "all formulas have recomputation entries"
+  ],
+  "passed": true,
+  "limitation": "Actual browser rendering unavailable in this environment; local HTTP preview rejected by automatic approval review."
+}
