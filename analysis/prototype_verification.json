@@ -1,0 +1,47 @@
+{
+  "validation_date": "2026-10-19",
+  "unit_and_integration": {
+    "command": "npm --prefix prototype test",
+    "tests": 33,
+    "passed": 33,
+    "failed": 0
+  },
+  "build": {
+    "command": "npm --prefix prototype run build",
+    "passed": true,
+    "root_offline_entry": "index.html",
+    "external_js_css_requests": 0
+  },
+  "browser": {
+    "surface": "Codex in-app browser over localhost",
+    "pages_checked": 36,
+    "console_errors_or_warnings": 0,
+    "verified": [
+      "五步主线：1000原票、400/600付款、20手续费、1020账单、400回款、620待收",
+      "表单新建88.50发票→提交→审核→付款申请→审批→实际执行→核销",
+      "刷新后恢复同浏览器数据",
+      "资产卡片本月折旧100及关联凭证",
+      "窄屏643px页面无横向整页溢出",
+      "最终示例凭证过账后资产负债表平衡",
+      "银行模拟对账单导入4条、88.50流水匹配后未匹配额归零",
+      "管理员不能导入银行流水；制单人员只可见MSTS及SHIP-A"
+    ],
+    "limitations": [
+      "浏览器安全策略仅允许HTTP/HTTPS，file://直接打开测试被拒绝；未绕过限制。离线产物完成静态一致性与无外部资源检查。",
+      "内置浏览器文件选择器驱动返回backend node不存在，附件上传控件未完成浏览器自动化；附件读写及重置的会话回退测试通过。"
+    ]
+  },
+  "historical_data": {
+    "snapshot_date": "2026-10-14",
+    "bank": 92779.85,
+    "cash": 29908,
+    "gap": -2790.58199837597,
+    "source_and_data_unchanged": true
+  },
+  "production_integrations": {
+    "database_server": false,
+    "bank_payment": false,
+    "tax_filing": false,
+    "server_auth": false
+  }
+}

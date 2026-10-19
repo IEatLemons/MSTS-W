@@ -1,3 +1,20 @@
+MSTS 船舶管理财务系统 · 八模块联动产品原型
+
+入口：index.html（浏览器直接打开，无需网络）。
+评审操作说明：deliverables/原型操作说明.txt
+老板八项要求覆盖：deliverables/老板需求覆盖清单.txt
+主线：工作台五步演示 → 分次付款 → 船东账单 → 回款 → 总账审核过账。
+示例账套：MSTS / BLUE HORIZON / NORTH STAR。角色、船舶、期间均可切换。
+演示单据和附件仅保存在当前浏览器；一键重置不影响原始历史。
+
+源码：prototype/src/finance 为统一业务服务、主数据、金额计算及本地保存；页面在prototype/src/views。
+开发：npm --prefix prototype run dev
+验证：npm --prefix prototype test
+打包：npm --prefix prototype run build（同步dist及根目录离线入口）。
+此原型未接入生产数据库、银行支付、税务申报或服务端权限。
+
+以下为原历史数据说明，原始来源和精度保持不变：
+
 Vessel Management Finance System / 船舶管理财务系统
 
 入口：index.html（可点击产品原型，浏览器直接打开）
