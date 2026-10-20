@@ -1,0 +1,14 @@
+{
+  "version": "八模块财务原型封存版",
+  "tag": "archive/full-finance-20261020",
+  "date": "2026-10-20",
+  "previous_commit": "ad69a9a1dc0c2c3b5bda750afc0ef255ace65486",
+  "tests": {
+    "passed": 33,
+    "build": "passed",
+    "offline": "passed"
+  },
+  "entry_sha256": "27bf626ce562ab939e55e3d3f6f03c259087c800606b66e6207cd9c9af7a3f2b",
+  "source_zip_sha256": "1cd905fddbdd549eb01eca959ab49097c7a045296552f439f91e7fa48fd67864",
+  "excel_sha256": "4b77e28208fa28fad5752fd532d421fe5151c992f7ee60c3c02d08d847facfdc"
+}
