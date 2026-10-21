@@ -1,0 +1,540 @@
+{
+  "source_sha256": "4b77e28208fa28fad5752fd532d421fe5151c992f7ee60c3c02d08d847facfdc",
+  "files": [
+    {
+      "path": "README.txt",
+      "bytes": 2974,
+      "sha256": "dee81015ec02cbea9afd3f3bb2e434223c271d2c3276fcc99193d46f2e6d8e8d"
+    },
+    {
+      "path": "analysis-report.html",
+      "bytes": 4812959,
+      "sha256": "4c76d600a72380c96628815fd935df7c4d059e3c5d30747ded7679e0f6635157"
+    },
+    {
+      "path": "analysis/data_verification.json",
+      "bytes": 1608,
+      "sha256": "eab81ce22909649e0f7bbcd011fd2883a4ea3b181d344ef02b5275fa3572f6e8"
+    },
+    {
+      "path": "analysis/offline_verification.json",
+      "bytes": 623,
+      "sha256": "e16de68ed5eca54a95e263e50f02965d0cef625fc7cb7730902f29e1bd77d53b"
+    },
+    {
+      "path": "analysis/prototype_verification.json",
+      "bytes": 1739,
+      "sha256": "8cc48005792094e0d99239f3d3a94b6fe3ec437bb1e05093380111be5578a5a4"
+    },
+    {
+      "path": "analysis/rows.txt",
+      "bytes": 198687,
+      "sha256": "1b3b03b9cccea6f8381f4d82094bc9034fbf6fbb22bf326740f0e0b0a4751b9b"
+    },
+    {
+      "path": "analysis/system_specification.json",
+      "bytes": 24886,
+      "sha256": "0bbbb14fa3e7e0df8143d7f539e4bf3fb34f9ec72e0328ee56fe0d78eeb2ea6a"
+    },
+    {
+      "path": "data/account_codes.csv",
+      "bytes": 13445,
+      "sha256": "ff24fdd629143a1b74742088e7dad7b9def3f07e0917f808ac999c887cd7a9ed"
+    },
+    {
+      "path": "data/all_cells.csv",
+      "bytes": 1507747,
+      "sha256": "4fd7b8f66cc6a22a2ce8672512055c2234a906fb9a4a9689320908d7ea524696"
+    },
+    {
+      "path": "data/all_formulas.csv",
+      "bytes": 668455,
+      "sha256": "6ec9c0944296547af05da84840564f6cc5acccebd19c4cf3db22a9529f6f788c"
+    },
+    {
+      "path": "data/amount_differences.csv",
+      "bytes": 1902,
+      "sha256": "709d450a848ac9f8c4304d7227325a950033e3adba5c9266c713b82833022fad"
+    },
+    {
+      "path": "data/analysis_bundle.json",
+      "bytes": 5088269,
+      "sha256": "ad705a2504252e0f9b0118393dcb8f2f71c74934cea4afa2c6cb04d1e061bd61"
+    },
+    {
+      "path": "data/bank_match_candidates.csv",
+      "bytes": 5919,
+      "sha256": "b791efa67ecd43ba095c402728e5d6c71b8b6bd4deaedc2e745026efb9c7416b"
+    },
+    {
+      "path": "data/bank_transactions.csv",
+      "bytes": 2066,
+      "sha256": "f42a8b061243d7f29d36b8b4b692ce20dacedc8c08742eadeadaf2d47da313b3"
+    },
+    {
+      "path": "data/business_records.csv",
+      "bytes": 62545,
+      "sha256": "b3246428ee6f3b0cc7064de2d201f84902472e40282005422a72e60a85ed2a11"
+    },
+    {
+      "path": "data/cell_dependencies.csv",
+      "bytes": 867422,
+      "sha256": "be8a5b01c3b28a64a75ecedc6c2733ee984ca9d0c25f3c254d1516f23a1095e8"
+    },
+    {
+      "path": "data/dependency_model.json",
+      "bytes": 3950201,
+      "sha256": "f7edb58bc322ffb4ed3785e429d14f718545c3884ac1a48ff863ecb0c87f6a54"
+    },
+    {
+      "path": "data/duplicate_view_candidates.csv",
+      "bytes": 19307,
+      "sha256": "34c6280447acc62c48fe74f59a20a79a8b825be45719a6a9bac1e2ae28b90926"
+    },
+    {
+      "path": "data/expenses_missing_status.csv",
+      "bytes": 6635,
+      "sha256": "58234631b57ff433d605ab3c6a0432945cabcdd3cb836c6fb05d47bcecb8010b"
+    },
+    {
+      "path": "data/field_dictionary.csv",
+      "bytes": 40418,
+      "sha256": "0e92eac6cbecd5ac06a5eff4dd1d5e837bec0209faaf5a49cdf06f22e9a1da98"
+    },
+    {
+      "path": "data/findings.csv",
+      "bytes": 5488,
+      "sha256": "ad31939ceab1ca41ce386470e6d32f4c518b51eb9daf58967eacaf6022e574d9"
+    },
+    {
+      "path": "data/formula_groups.csv",
+      "bytes": 55654,
+      "sha256": "3eb6db22be74212a382d0e70287a5cd5b1dcb8145a316a0abeb17d8be6f78b1d"
+    },
+    {
+      "path": "data/formula_references.csv",
+      "bytes": 237520,
+      "sha256": "988378a165f8cf058adc07dd7f054d6f0ed626a87f38de9290928bd9b36ec111"
+    },
+    {
+      "path": "data/output_input_lineage.csv",
+      "bytes": 5597035,
+      "sha256": "dc4ae4ec20ca5a9f626d9ba64c82909099c9fd0c4588b05a7ceb628003800948"
+    },
+    {
+      "path": "data/recalculation_checks.csv",
+      "bytes": 95031,
+      "sha256": "1358dc794a92246dd5394db94494fa8cc174dd90441b000ffcce75b4b57ef08e"
+    },
+    {
+      "path": "data/relationship_evidence.csv",
+      "bytes": 2730,
+      "sha256": "6a21f14024241fd168767aa34100cc02a12d1ed8d9132f73fcfcff52444621bb"
+    },
+    {
+      "path": "data/report_output_mapping.csv",
+      "bytes": 63079,
+      "sha256": "39351f963d602cc38ffd5e2f5f6204e073a4cd48111dc037e2610c8ada6e7ca0"
+    },
+    {
+      "path": "data/sheet_dependencies.csv",
+      "bytes": 618,
+      "sha256": "20647f78c7a52f30d248f92a67e9d8ae205c5077d49de4514f4150f36754f634"
+    },
+    {
+      "path": "data/sheet_inventory.csv",
+      "bytes": 8043,
+      "sha256": "cd9bcb218132de8893f4630ed151f111a92dcd9a6391f124e6590df5908afa78"
+    },
+    {
+      "path": "data/workbook_raw.json",
+      "bytes": 3090742,
+      "sha256": "0d77ff4a729202a718cfae152ae0cb8d593966f1cdb34d8d8803581dacb63d8d"
+    },
+    {
+      "path": "deliverables/MSTS财务系统项目费用与工期预算.docx",
+      "bytes": 39261,
+      "sha256": "f3d61677f9438c2b9475ccb9f7d51e98b84aff78f44ea73806031d773d8da8d1"
+    },
+    {
+      "path": "deliverables/业务联动验收.png",
+      "bytes": 32691,
+      "sha256": "dfadec2144f79c7e0f17809add6562219fc0649220ddb9841ac7ac755e2b213f"
+    },
+    {
+      "path": "deliverables/原型工作台.png",
+      "bytes": 36989,
+      "sha256": "cd5473bdf03ea939719f03ef49ddcb0926839a7a6c7a8f7bfd043cae5886a594"
+    },
+    {
+      "path": "deliverables/原型操作说明.txt",
+      "bytes": 6824,
+      "sha256": "de5ceb52ee2d44a7b7abeb821a26047017b94b6509734aaf0419daf7f8a60107"
+    },
+    {
+      "path": "deliverables/老板需求覆盖清单.txt",
+      "bytes": 3625,
+      "sha256": "e1945d0394aec442e7a28feee68431e9fe4880554b7d0ad13b7cd8070fadd925"
+    },
+    {
+      "path": "deliverables/船舶管理财务系统建设方案与数据字典.docx",
+      "bytes": 122619,
+      "sha256": "cd37b4df0fcd7d19a1c7631d8f3a0ad07a7b52ae05edd75b35eaa0d45b599f90"
+    },
+    {
+      "path": "index.html",
+      "bytes": 416909,
+      "sha256": "27bf626ce562ab939e55e3d3f6f03c259087c800606b66e6207cd9c9af7a3f2b"
+    },
+    {
+      "path": "prototype/dist/assets/app.js",
+      "bytes": 395345,
+      "sha256": "e4d530be0ffe56f1373ff71b1f5026cfeb1ac1a767306315f8bff6db5d659e60"
+    },
+    {
+      "path": "prototype/dist/assets/style.css",
+      "bytes": 21187,
+      "sha256": "cbb1b1cb318d135bc1a219fd7a4c079b3c150f908f8e9ece154346a1636d2fcf"
+    },
+    {
+      "path": "prototype/dist/index.html",
+      "bytes": 355,
+      "sha256": "0f4b78917fa7d8c42b36ae2db5d75abb6b9bb5e2d246917f56fd710d526b92b6"
+    },
+    {
+      "path": "prototype/package.json",
+      "bytes": 460,
+      "sha256": "a3475344292c5cf27017296a1e513c916b6e80d49d683ff5675d19e7efe9986f"
+    },
+    {
+      "path": "prototype/scripts/check-offline.mjs",
+      "bytes": 1369,
+      "sha256": "55aa290a112c92c3528bd57d81c9021ab4d7f34159330b039fed4ab3f8feb684"
+    },
+    {
+      "path": "prototype/scripts/package-offline.mjs",
+      "bytes": 2363,
+      "sha256": "6ffe30f00ee1d2e70dbf52ae671951858b5c838f11f2af739704a400c6719ec1"
+    },
+    {
+      "path": "prototype/src/App.vue",
+      "bytes": 41,
+      "sha256": "656e64166110b11cc4da47778d5605a4a495f10d30335172102f105d4b8b33a2"
+    },
+    {
+      "path": "prototype/src/components/FinanceDialog.vue",
+      "bytes": 1452,
+      "sha256": "95654b3dd1f0cfc179308bb7a2253a83349913d1be856e91575ede209399730e"
+    },
+    {
+      "path": "prototype/src/components/FinanceTable.vue",
+      "bytes": 3511,
+      "sha256": "0b2309ed1a20a340341f083e5ff1c5bb51b8036bd9b2b805ce64e44e7c2167b8"
+    },
+    {
+      "path": "prototype/src/data/seed.json",
+      "bytes": 186230,
+      "sha256": "ac4dcd9585fd706ca425cb2250cc498a4d56871212532dc5b32c329d473e002a"
+    },
+    {
+      "path": "prototype/src/finance/csv.js",
+      "bytes": 1380,
+      "sha256": "5e0f2a81570d09d9ed34f34367c9dfd6389285816a57eea65fc25f4f5b35b30a"
+    },
+    {
+      "path": "prototype/src/finance/demo.js",
+      "bytes": 1673,
+      "sha256": "b55044d1e3358c61ddbe34304d442f0c7039e214bbe0fd8df272130e61c0019e"
+    },
+    {
+      "path": "prototype/src/finance/engine.js",
+      "bytes": 54473,
+      "sha256": "2ec265153be6e4e47dc96ab7333aa3122d1de39363f84f037032632046253e69"
+    },
+    {
+      "path": "prototype/src/finance/money.js",
+      "bytes": 2069,
+      "sha256": "1c1f74c427ec7d1a0c77409552fc4a27e3113a3254430c811330af2d0cb0a1cd"
+    },
+    {
+      "path": "prototype/src/finance/seed.js",
+      "bytes": 9151,
+      "sha256": "088acf45f60bbdd09c05de7edf9237dc3d155efa53f4b3506c75c0da3015d234"
+    },
+    {
+      "path": "prototype/src/finance/store.js",
+      "bytes": 4769,
+      "sha256": "0f502ebdfdc55a6a6d6f475eb0a20e28e7e259fd7e80c29a46f3cffb088d6d23"
+    },
+    {
+      "path": "prototype/src/finance/styles.css",
+      "bytes": 21246,
+      "sha256": "39a62f1ccd6955610e748a984011f694914d892af14fd19c4d6a77ef513b2570"
+    },
+    {
+      "path": "prototype/src/lib/company.js",
+      "bytes": 1148,
+      "sha256": "4cd2d60ed06a3f94a5fdd5e39a7b8b2ef64b569a9609f508e908040c7e0b18bf"
+    },
+    {
+      "path": "prototype/src/lib/format.js",
+      "bytes": 1201,
+      "sha256": "488d509f8bbf5b4d3350d6ce5c127d4b8917b261f3c2ed0c89d80d5b941924b1"
+    },
+    {
+      "path": "prototype/src/lib/model.js",
+      "bytes": 7382,
+      "sha256": "82a39b76eb95b36e826d8d54ee3a0b2e285167c5d8394206a7187af3559e5954"
+    },
+    {
+      "path": "prototype/src/lib/overview.js",
+      "bytes": 1231,
+      "sha256": "f8e64f496630dc4528c097feef600dad053a8d9c9ddf869d3efc1fe0bd49d6df"
+    },
+    {
+      "path": "prototype/src/lib/periods.js",
+      "bytes": 2215,
+      "sha256": "08443d4c9dc2b65ec14da85392875569ddce09edddd3cee76cab3a77bfae3655"
+    },
+    {
+      "path": "prototype/src/lib/relations.js",
+      "bytes": 3353,
+      "sha256": "222fca35432a455f07b1d645c11ea86435f8732a6087a8c5e8cb04c456cd2703"
+    },
+    {
+      "path": "prototype/src/lib/store.js",
+      "bytes": 2342,
+      "sha256": "0b85cad6e53cf3904704333323bccb0f7a9749917ee607e844dad652f7d5b982"
+    },
+    {
+      "path": "prototype/src/main.js",
+      "bytes": 231,
+      "sha256": "4e30b07fa1e04249b12e30dea6d6b1260eefc7f5a0236c65cfe0474a6a095956"
+    },
+    {
+      "path": "prototype/src/router.js",
+      "bytes": 1291,
+      "sha256": "e7e95b4bb5187f8ba52eb65570f3c6156f96440aa1bc56d9eaf859c91453ebe4"
+    },
+    {
+      "path": "prototype/src/styles.css",
+      "bytes": 9127,
+      "sha256": "b4157b94d3907ccec8dc5ddd53163457d0f19eb4f4ac5414aca0443261dd40fd"
+    },
+    {
+      "path": "prototype/src/views/Audit.vue",
+      "bytes": 2423,
+      "sha256": "13faa359948c9e8e8a37ff9745105df423a5533703f7673958bf6c0e16054b83"
+    },
+    {
+      "path": "prototype/src/views/Bank.vue",
+      "bytes": 2274,
+      "sha256": "ae4d311d11a2b9fbf1baa34b8f3f19568c668082b49d7391af1109cdbf181509"
+    },
+    {
+      "path": "prototype/src/views/BankDetail.vue",
+      "bytes": 1866,
+      "sha256": "e08f7faf71e7d6aa794fec018c2d7ff2c93dcce44c7d5e080b9e1bea22b282ee"
+    },
+    {
+      "path": "prototype/src/views/BankNew.vue",
+      "bytes": 1852,
+      "sha256": "ceb0b154a142dff073fff89a5d46ee6cce22f6d02c7a83df3dc8fb78405f9013"
+    },
+    {
+      "path": "prototype/src/views/Cash.vue",
+      "bytes": 1952,
+      "sha256": "a6daf23e07addfe6b1a23ca721a63927df1acc79fc03511667e662449fdbae7c"
+    },
+    {
+      "path": "prototype/src/views/CashNew.vue",
+      "bytes": 3171,
+      "sha256": "5d845fb8ce0372af913c6560335e6fc9f0d5aac8949f7e5b175e271ca48251eb"
+    },
+    {
+      "path": "prototype/src/views/ExpenseDetail.vue",
+      "bytes": 6421,
+      "sha256": "90a032dfb1f2aaf4bcf233c40ba3af1f7519ecb67dc8ffd4aae47e091a44a455"
+    },
+    {
+      "path": "prototype/src/views/ExpenseNew.vue",
+      "bytes": 2394,
+      "sha256": "1ff9acce6c538435f51348c1e6aaa2d8c8dec219ee16a15a20a624bd07691bb9"
+    },
+    {
+      "path": "prototype/src/views/Expenses.vue",
+      "bytes": 4278,
+      "sha256": "2025179905b5b5d0b08ab82e8bb9ce0f9c04ba7f328a9f46572481d4c29e3310"
+    },
+    {
+      "path": "prototype/src/views/FinanceShell.vue",
+      "bytes": 4679,
+      "sha256": "07f82fa1ee97194536f5e8564eda2af32d62212d567ee975ccbf4e833bf87896"
+    },
+    {
+      "path": "prototype/src/views/FinanceWorkspace.vue",
+      "bytes": 88301,
+      "sha256": "f5579d119bc2f313a93fda08844ba638021d1bf29483512a88e911458b4740aa"
+    },
+    {
+      "path": "prototype/src/views/Funding.vue",
+      "bytes": 1869,
+      "sha256": "db2f88564c0343bec317e0d91ff6984cbb41d452c5ab1c06a203e0b19a68996a"
+    },
+    {
+      "path": "prototype/src/views/FundingNew.vue",
+      "bytes": 2309,
+      "sha256": "f4612823ad0172855ad95ed2b4559f2b2db80559165e5418671a00e0a6483bcb"
+    },
+    {
+      "path": "prototype/src/views/Gate.vue",
+      "bytes": 1259,
+      "sha256": "466989a5f99a54834cb39f3ec7a256b18c9e249983f3755aae07ec79659eda78"
+    },
+    {
+      "path": "prototype/src/views/Home.vue",
+      "bytes": 5242,
+      "sha256": "2b6dc4b33fb50f108a9fc5d70981f781fe7336df3786df1613bc88a80ee8e83a"
+    },
+    {
+      "path": "prototype/src/views/Inventory.vue",
+      "bytes": 1931,
+      "sha256": "7d30240636d8c0b37e696ddaea40a5cdd34a3902c9b9648b2aaf347eb22843c7"
+    },
+    {
+      "path": "prototype/src/views/InventoryNew.vue",
+      "bytes": 1826,
+      "sha256": "6a67747f211f31940453f2c44e05779eb549a3d70148b6a37d4b2bc634492dca"
+    },
+    {
+      "path": "prototype/src/views/InvoiceDetail.vue",
+      "bytes": 3193,
+      "sha256": "c22a93b67d91b30b7e7f8dda50b4b999d2d8bf376d69fb4ec041fc7bc994da96"
+    },
+    {
+      "path": "prototype/src/views/InvoiceNew.vue",
+      "bytes": 1857,
+      "sha256": "d80362bc7a671103c20de86dd9b9902cf0cdcba6be8cebff4322e6eb308dcf1c"
+    },
+    {
+      "path": "prototype/src/views/Invoices.vue",
+      "bytes": 2864,
+      "sha256": "bd03a90aca71dc003fccb570bddd69eb67b7ae5cfdcd79cd4fdacfc8f950c8e3"
+    },
+    {
+      "path": "prototype/src/views/Master.vue",
+      "bytes": 7329,
+      "sha256": "9bbde07975ead1f4c31ab459089c4ca1d46771ac721c5107b4b050b59543c2f8"
+    },
+    {
+      "path": "prototype/src/views/Ops.vue",
+      "bytes": 874,
+      "sha256": "a921d072d570fdaf797809e45d42396b4cd1e03e73a42e961cb3f773f13ae487"
+    },
+    {
+      "path": "prototype/src/views/PaymentExample.vue",
+      "bytes": 3232,
+      "sha256": "bf9c846dddf007dbedf42efd277a98a01e9df73637984bf421645e238dd79d07"
+    },
+    {
+      "path": "prototype/src/views/PaymentNew.vue",
+      "bytes": 2046,
+      "sha256": "3ccdc978d30268a2edc3d574dfe73ba07bfa6772d75fd62812ea6506e0705b22"
+    },
+    {
+      "path": "prototype/src/views/Payments.vue",
+      "bytes": 3819,
+      "sha256": "22dbfffceb8e7a0752713ed16d1ae0bac47608b07be1dc9ce9c98d7cd66416a7"
+    },
+    {
+      "path": "prototype/src/views/Periods.vue",
+      "bytes": 2254,
+      "sha256": "ea9917d107ab29b4cfdfa6613a272aa89ef4de4c4394deaae565ee96e9ffd9aa"
+    },
+    {
+      "path": "prototype/src/views/ReceiptNew.vue",
+      "bytes": 1997,
+      "sha256": "98c54eea4a6ba52e43e2a5475746d7fff15b0e593e812690576a0644861e0535"
+    },
+    {
+      "path": "prototype/src/views/Receipts.vue",
+      "bytes": 3534,
+      "sha256": "3cd85d748211889ec7a38e0513d32e51430d233a2d0b56a6ee74f58ccd0f23cd"
+    },
+    {
+      "path": "prototype/src/views/Reports.vue",
+      "bytes": 11877,
+      "sha256": "737376aa6fa99ba9d96c02b3bb06ee0592574776b4c1a6b0011faae4bc2ddc28"
+    },
+    {
+      "path": "prototype/src/views/SettlementNew.vue",
+      "bytes": 1982,
+      "sha256": "bce798a79bde9872d5bdc45d9ffd6b96eba5f95ed607f6c74b5a88d90a29561e"
+    },
+    {
+      "path": "prototype/src/views/Settlements.vue",
+      "bytes": 2365,
+      "sha256": "d86db41881e6c664f602b6dd66830b34af332e9969ad9182981e798c582d858c"
+    },
+    {
+      "path": "prototype/src/views/Shell.vue",
+      "bytes": 1976,
+      "sha256": "4b2b91ef4aaca7dc16b674c80979b560b3490ec96f25924accba176e76e650c0"
+    },
+    {
+      "path": "prototype/src/views/Sofp.vue",
+      "bytes": 1891,
+      "sha256": "dfd6e01adc444d545e93437e7bd80be094b70598264a859225c1623afca6c731"
+    },
+    {
+      "path": "prototype/tests/finance.test.mjs",
+      "bytes": 17675,
+      "sha256": "f2a693c446f446e1acf0cefa92f8b1ee0b32028fea21451dae6c6078d7d701ee"
+    },
+    {
+      "path": "prototype/tests/persistence.test.mjs",
+      "bytes": 1013,
+      "sha256": "e382cf987c527f009ac36248ec174995dd1e30641f1c3314c5a217a650cd0134"
+    },
+    {
+      "path": "prototype/vite.config.js",
+      "bytes": 1223,
+      "sha256": "655a9ad5fece49c0a6f15088a4fd6068283a1ce77025cc980bdd7a5589b2ad5d"
+    },
+    {
+      "path": "source/MV PIONEER LAY 费用统计SOFP--20261014(1).xlsx",
+      "bytes": 198670,
+      "sha256": "4b77e28208fa28fad5752fd532d421fe5151c992f7ee60c3c02d08d847facfdc"
+    },
+    {
+      "path": "tools/analyze.py",
+      "bytes": 10245,
+      "sha256": "82a109a806fdba7c0417babaab509634454732761e0ae77e7d1129acde14677d"
+    },
+    {
+      "path": "tools/business.py",
+      "bytes": 33896,
+      "sha256": "b3fc7da6726f8d09b8d0ffb129a13212b6672a31534eaaf6893869d6adf49ed3"
+    },
+    {
+      "path": "tools/extract.py",
+      "bytes": 3254,
+      "sha256": "af656be0124ea1911c4823f578f338ae6e60c3c7140049d9444c3960527b1f22"
+    },
+    {
+      "path": "tools/report.py",
+      "bytes": 37254,
+      "sha256": "bab1fee171db1a48ed9df70baf2d2732c0a6f41125a4aaf4d24f686bda137eb1"
+    },
+    {
+      "path": "tools/verify_data.py",
+      "bytes": 5478,
+      "sha256": "56eac71c0ba9c9a3a8dd3d86eeb24fd6cf2d6ca7a0bf1fa3eb494c69908d2cb3"
+    },
+    {
+      "path": "tools/verify_offline.mjs",
+      "bytes": 2927,
+      "sha256": "d717da31bb7432bb2998343e884e08e0a5f6981271a973c47b6d0c7ada66c1c0"
+    }
+  ]
+}

@@ -1,10 +1,12 @@
 {
+  "version": "excel-ledger-v1",
+  "archiveTag": "archive/full-finance-20261020",
   "source_sha256": "4b77e28208fa28fad5752fd532d421fe5151c992f7ee60c3c02d08d847facfdc",
   "files": [
     {
       "path": "README.txt",
-      "bytes": 2974,
-      "sha256": "dee81015ec02cbea9afd3f3bb2e434223c271d2c3276fcc99193d46f2e6d8e8d"
+      "bytes": 3428,
+      "sha256": "608f3d6467be9b49feafb6342e03003b19588afcff611fe8f56b68fd39f8081d"
     },
     {
       "path": "analysis-report.html",
@@ -172,6 +174,26 @@
       "sha256": "de5ceb52ee2d44a7b7abeb821a26047017b94b6509734aaf0419daf7f8a60107"
     },
     {
+      "path": "deliverables/新版原型操作说明.txt",
+      "bytes": 5377,
+      "sha256": "b427105da00a6da58a43ff1562d6f2a21b0e8f9a48dccc08a3081054507a9d36"
+    },
+    {
+      "path": "deliverables/新版原型预览.png",
+      "bytes": 67103,
+      "sha256": "a5b573628131153f36b6554126b3c819c2c589c1885dd5eca5df2e7fbfb3bfba"
+    },
+    {
+      "path": "deliverables/新版原型验收清单.txt",
+      "bytes": 2228,
+      "sha256": "c1ef09c3689c2d3353de9702ab819f123845714b11502225fca5429276cab5db"
+    },
+    {
+      "path": "deliverables/新版原型验证记录.json",
+      "bytes": 1204,
+      "sha256": "c09075370326ddba84f22bc92e5d30b4feac4df25714f9ecb0599947bac3c85e"
+    },
+    {
       "path": "deliverables/老板需求覆盖清单.txt",
       "bytes": 3625,
       "sha256": "e1945d0394aec442e7a28feee68431e9fe4880554b7d0ad13b7cd8070fadd925"
@@ -183,38 +205,63 @@
     },
     {
       "path": "index.html",
-      "bytes": 416909,
-      "sha256": "27bf626ce562ab939e55e3d3f6f03c259087c800606b66e6207cd9c9af7a3f2b"
+      "bytes": 1194470,
+      "sha256": "e208db14a6cd90e146b9adc92edce0ada0eab4add4832c82ed7a3006f61d5213"
+    },
+    {
+      "path": "package.json",
+      "bytes": 305,
+      "sha256": "0146add2a36e5e41ff594a5b4687bfebb8555c82c0e1b5b5c2401e801abec4b1"
     },
     {
       "path": "prototype/dist/assets/app.js",
-      "bytes": 395345,
-      "sha256": "e4d530be0ffe56f1373ff71b1f5026cfeb1ac1a767306315f8bff6db5d659e60"
+      "bytes": 1170076,
+      "sha256": "bac8a0d96b5a4aaaaa413277ece00a2744084be80fe91a2351fd39b8cffad161"
     },
     {
       "path": "prototype/dist/assets/style.css",
-      "bytes": 21187,
-      "sha256": "cbb1b1cb318d135bc1a219fd7a4c079b3c150f908f8e9ece154346a1636d2fcf"
+      "bytes": 24035,
+      "sha256": "85de5f5d02429ee4b6c2e513eb6f5f6700e81a6e83ac0c32410bdadaf58bdfb4"
     },
     {
       "path": "prototype/dist/index.html",
-      "bytes": 355,
-      "sha256": "0f4b78917fa7d8c42b36ae2db5d75abb6b9bb5e2d246917f56fd710d526b92b6"
+      "bytes": 1194470,
+      "sha256": "e208db14a6cd90e146b9adc92edce0ada0eab4add4832c82ed7a3006f61d5213"
+    },
+    {
+      "path": "prototype/package-lock.json",
+      "bytes": 44836,
+      "sha256": "ca39168309a7ac9d7fbd6b33bf7e1ac80e89735991b50b3b2ff53d3939c82168"
     },
     {
       "path": "prototype/package.json",
-      "bytes": 460,
-      "sha256": "a3475344292c5cf27017296a1e513c916b6e80d49d683ff5675d19e7efe9986f"
+      "bytes": 560,
+      "sha256": "59ce93eb464144387e277ba51ffbdc08381c43f0a4586d292f1bdf584a79694e"
+    },
+    {
+      "path": "prototype/pnpm-lock.yaml",
+      "bytes": 27027,
+      "sha256": "7b2c74c85f7cea20f059ef1d2e233d0c5a7b75fa3a346db6538bdf0f933a3fb7"
+    },
+    {
+      "path": "prototype/pnpm-workspace.yaml",
+      "bytes": 50,
+      "sha256": "d6d0c24446d91ef762d37c6ba801bb516e65d7055aa9f8027fcd457409a97ce1"
     },
     {
       "path": "prototype/scripts/check-offline.mjs",
-      "bytes": 1369,
-      "sha256": "55aa290a112c92c3528bd57d81c9021ab4d7f34159330b039fed4ab3f8feb684"
+      "bytes": 1792,
+      "sha256": "6922a7e3d95e4c3d8c1b2135872eb647e6831dc275861df17f5da9660dd90450"
     },
     {
       "path": "prototype/scripts/package-offline.mjs",
-      "bytes": 2363,
-      "sha256": "6ffe30f00ee1d2e70dbf52ae671951858b5c838f11f2af739704a400c6719ec1"
+      "bytes": 2667,
+      "sha256": "9de7d20d57a552bfe8e604a9aaf62e1969ac94dcd68a200473bbce26841ceefb"
+    },
+    {
+      "path": "prototype/scripts/prepare-ledger.mjs",
+      "bytes": 2250,
+      "sha256": "eaa06882ca415ad40ada83ed7fe5536bff89fb66d326ff5c174311a7be172a90"
     },
     {
       "path": "prototype/src/App.vue",
@@ -272,6 +319,71 @@
       "sha256": "39a62f1ccd6955610e748a984011f694914d892af14fd19c4d6a77ef513b2570"
     },
     {
+      "path": "prototype/src/ledger/LedgerPage.vue",
+      "bytes": 22971,
+      "sha256": "3a446f2ede30a06a5d5f0b158d797a7eb412c8bf570b540e09293cf6319c4d56"
+    },
+    {
+      "path": "prototype/src/ledger/LedgerShell.vue",
+      "bytes": 2164,
+      "sha256": "5da32b7b266acec8d78d896679bbaad39a9ff9a3775b776972dd83e89aefef1b"
+    },
+    {
+      "path": "prototype/src/ledger/components/AuxDialog.vue",
+      "bytes": 7445,
+      "sha256": "290cfaf040dfcd46d8522a2c5eee4fc7a41850aee98f803c20bdf39dbb5a5986"
+    },
+    {
+      "path": "prototype/src/ledger/components/DetailDialog.vue",
+      "bytes": 5139,
+      "sha256": "8772f281d6e886909ce3ed367db3c532677aa7b3fe298c28d7f1fbc7fe344f32"
+    },
+    {
+      "path": "prototype/src/ledger/components/EntryDialog.vue",
+      "bytes": 19940,
+      "sha256": "4aab774c34227fc6d5745f5817b50b574ac04c5d18a0793d7300e736a4a9b339"
+    },
+    {
+      "path": "prototype/src/ledger/components/LedgerTable.vue",
+      "bytes": 2100,
+      "sha256": "781b0d9f6977bfa05fabc18967e0f0914e38272f0456005fffcd0086ce65acdf"
+    },
+    {
+      "path": "prototype/src/ledger/decimal.js",
+      "bytes": 2293,
+      "sha256": "04e8332a3eb0d353389f4decdbd6fb73e88f9f4c0eb5b18b3bb01c83b5fc82e8"
+    },
+    {
+      "path": "prototype/src/ledger/engine.js",
+      "bytes": 16716,
+      "sha256": "082c41458ebf6f33b848cdcb6332c866c4ae93846c7c59c00f3604e1361cd43c"
+    },
+    {
+      "path": "prototype/src/ledger/schema.js",
+      "bytes": 3697,
+      "sha256": "9da644c72beebd0acd4d969d7ad143db69a6c2473c76852ce09ab49045ff8848"
+    },
+    {
+      "path": "prototype/src/ledger/source.json",
+      "bytes": 973547,
+      "sha256": "857ef4052f7089d12b207c94d46a7b0966e1b7027f47e4385a78c7a5c0569df8"
+    },
+    {
+      "path": "prototype/src/ledger/store.js",
+      "bytes": 4158,
+      "sha256": "a63808ddf14754a2ea34b10bdca7ad625aacd746c345d3c540cfff998451e230"
+    },
+    {
+      "path": "prototype/src/ledger/styles.css",
+      "bytes": 23996,
+      "sha256": "284acf9d8e8a01ba8bc2dcd1c05ee3e4328a18996a745a794deb5b883b584f15"
+    },
+    {
+      "path": "prototype/src/ledger/views.js",
+      "bytes": 12147,
+      "sha256": "a182a3c70788531d4001639298f9a544eafb63dfd167d4eefebaab92676eb194"
+    },
+    {
       "path": "prototype/src/lib/company.js",
       "bytes": 1148,
       "sha256": "4cd2d60ed06a3f94a5fdd5e39a7b8b2ef64b569a9609f508e908040c7e0b18bf"
@@ -308,13 +420,13 @@
     },
     {
       "path": "prototype/src/main.js",
-      "bytes": 231,
-      "sha256": "4e30b07fa1e04249b12e30dea6d6b1260eefc7f5a0236c65cfe0474a6a095956"
+      "bytes": 229,
+      "sha256": "c30e405c887276ae0b241ccd6f08d9d886fcf9587ed453ae497e2e3fbc69acf8"
     },
     {
       "path": "prototype/src/router.js",
-      "bytes": 1291,
-      "sha256": "e7e95b4bb5187f8ba52eb65570f3c6156f96440aa1bc56d9eaf859c91453ebe4"
+      "bytes": 587,
+      "sha256": "a837adc43f02d6ec3e0ce0b662fa24c13eb1d94236d49203500cb89b0d0695be"
     },
     {
       "path": "prototype/src/styles.css",
@@ -492,14 +604,84 @@
       "sha256": "f2a693c446f446e1acf0cefa92f8b1ee0b32028fea21451dae6c6078d7d701ee"
     },
     {
+      "path": "prototype/tests/ledger/ledger.test.mjs",
+      "bytes": 12715,
+      "sha256": "ce8c3a33b077e7c253af5c367cda7d8b06545e73c52b77b55e423596d2ab339a"
+    },
+    {
+      "path": "prototype/tests/ledger/storage.test.mjs",
+      "bytes": 1085,
+      "sha256": "ef88686b840c2aa0c413ff9bc86a4ae3210793d72d8511473e342cb17fce7180"
+    },
+    {
       "path": "prototype/tests/persistence.test.mjs",
       "bytes": 1013,
       "sha256": "e382cf987c527f009ac36248ec174995dd1e30641f1c3314c5a217a650cd0134"
     },
     {
       "path": "prototype/vite.config.js",
-      "bytes": 1223,
-      "sha256": "655a9ad5fece49c0a6f15088a4fd6068283a1ce77025cc980bdd7a5589b2ad5d"
+      "bytes": 2168,
+      "sha256": "9c734d07794f8e15a4dfd22d2df70d26088bf25744e10a17671eb095a9171f74"
+    },
+    {
+      "path": "releases/full-finance-20261020/README.txt",
+      "bytes": 606,
+      "sha256": "2f18e5d815dafe5771b830029662e1750e2715705e15456f71fe44bdd685e242"
+    },
+    {
+      "path": "releases/full-finance-20261020/analysis-report.html",
+      "bytes": 4812959,
+      "sha256": "4c76d600a72380c96628815fd935df7c4d059e3c5d30747ded7679e0f6635157"
+    },
+    {
+      "path": "releases/full-finance-20261020/documents/MSTS财务系统项目费用与工期预算.docx",
+      "bytes": 39261,
+      "sha256": "f3d61677f9438c2b9475ccb9f7d51e98b84aff78f44ea73806031d773d8da8d1"
+    },
+    {
+      "path": "releases/full-finance-20261020/documents/业务联动验收.png",
+      "bytes": 32691,
+      "sha256": "dfadec2144f79c7e0f17809add6562219fc0649220ddb9841ac7ac755e2b213f"
+    },
+    {
+      "path": "releases/full-finance-20261020/documents/原型工作台.png",
+      "bytes": 36989,
+      "sha256": "cd5473bdf03ea939719f03ef49ddcb0926839a7a6c7a8f7bfd043cae5886a594"
+    },
+    {
+      "path": "releases/full-finance-20261020/documents/原型操作说明.txt",
+      "bytes": 6824,
+      "sha256": "de5ceb52ee2d44a7b7abeb821a26047017b94b6509734aaf0419daf7f8a60107"
+    },
+    {
+      "path": "releases/full-finance-20261020/documents/老板需求覆盖清单.txt",
+      "bytes": 3625,
+      "sha256": "e1945d0394aec442e7a28feee68431e9fe4880554b7d0ad13b7cd8070fadd925"
+    },
+    {
+      "path": "releases/full-finance-20261020/documents/船舶管理财务系统建设方案与数据字典.docx",
+      "bytes": 122619,
+      "sha256": "cd37b4df0fcd7d19a1c7631d8f3a0ad07a7b52ae05edd75b35eaa0d45b599f90"
+    },
+    {
+      "path": "releases/full-finance-20261020/index.html",
+      "bytes": 416909,
+      "sha256": "27bf626ce562ab939e55e3d3f6f03c259087c800606b66e6207cd9c9af7a3f2b"
+    },
+    {
+      "path": "releases/full-finance-20261020/manifest.json",
+      "bytes": 17768,
+      "sha256": "cb8c5772b3bd03419d3675d8615042622af422f6a6fc0a45811d5f0985fa2470"
+    },
+    {
+      "path": "releases/full-finance-20261020/release.json",
+      "bytes": 527,
+      "sha256": "d01ef5ddb05a211c74a58ee20c0fe370429aff52bcbe2609553183c462130cbe"
+    },
+    {
+      "path": "releases/full-finance-20261020/source.zip",
+      "bytes": 2639559,
+      "sha256": "1cd905fddbdd549eb01eca959ab49097c7a045296552f439f91e7fa48fd67864"
     },
     {
       "path": "source/MV PIONEER LAY 费用统计SOFP--20261014(1).xlsx",

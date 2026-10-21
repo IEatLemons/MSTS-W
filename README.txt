@@ -1,17 +1,31 @@
-MSTS 船舶管理财务系统 · 八模块联动产品原型
+MSTS · Excel 分表记账原型（新版）
 
-入口：index.html（浏览器直接打开，无需网络）。
-评审操作说明：deliverables/原型操作说明.txt
-老板八项要求覆盖：deliverables/老板需求覆盖清单.txt
-主线：工作台五步演示 → 分次付款 → 船东账单 → 回款 → 总账审核过账。
-示例账套：MSTS / BLUE HORIZON / NORTH STAR。角色、船舶、期间均可切换。
-演示单据和附件仅保存在当前浏览器；一键重置不影响原始历史。
+新版按照原 Excel 的 14 个分表组织，主线是“录入一笔账，按分类展示”。
+默认入口：根目录 index.html（离线直接打开），或启动开发服务。
 
-源码：prototype/src/finance 为统一业务服务、主数据、金额计算及本地保存；页面在prototype/src/views。
-开发：npm --prefix prototype run dev
-验证：npm --prefix prototype test
-打包：npm --prefix prototype run build（同步dist及根目录离线入口）。
-此原型未接入生产数据库、银行支付、税务申报或服务端权限。
+启动（在项目根目录执行）：
+  首次安装：npm --prefix prototype ci
+  启动项目：npm run dev
+  浏览器打开：http://127.0.0.1:5173
+  停止服务：Ctrl+C
+  构建离线包：npm run build
+  运行测试：npm test
+  检查离线包：npm run check:offline
+
+新版操作说明：deliverables/新版原型操作说明.txt
+新版验收清单：deliverables/新版原型验收清单.txt
+新版代码：prototype/src/ledger；统一业务操作：engine.js；本地保存：store.js。
+
+旧版封存：
+  Git 标签：archive/full-finance-20261020
+  离线入口：releases/full-finance-20261020/index.html
+  源码压缩包：releases/full-finance-20261020/source.zip
+  预算等原交付文档：releases/full-finance-20261020/documents
+  旧版与新版的浏览器数据库完全独立。
+
+新版仅为浏览器端 Demo，身份用于权限演练；不连接实际银行或服务器。
+原始 Excel 样例保持只读，新增账目与附件保存在当前浏览器。
+浏览器提示“仅当前会话有效”时，刷新可能丢失本次录入，请改用支持本地存储的浏览器或开发服务。
 
 以下为原历史数据说明，原始来源和精度保持不变：
 

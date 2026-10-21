@@ -1,0 +1,32 @@
+{
+  "version": "excel-ledger-v1",
+  "date": "2026-10-21",
+  "branch": "codex/excel-ledger-v1",
+  "archive_tag": "archive/full-finance-20261020",
+  "tests": {
+    "passed": 24,
+    "command": "npm test"
+  },
+  "build": "passed",
+  "offline_static": "passed",
+  "browser": {
+    "environment": "127.0.0.1:5173",
+    "passed": [
+      "14个分表导航与标题",
+      "入出账选择及完整预览",
+      "首次确认不写入、二次确认保存",
+      "1000费用分付400/600、手续费20",
+      "3000费用拆分及修改作废",
+      "财务/只读限制及预览后角色切换",
+      "刷新恢复",
+      "备用金补给1000及消费100",
+      "估算除法、编码、月度资料维护",
+      "重置后银行92779.85、备用金29908、差额-2790.58",
+      "无控制台错误与警告"
+    ],
+    "offline_file_protocol": "not_tested_browser_policy_blocks_file_url",
+    "attachment": "UI选择及预览已验证；会话模式附件读取与重置有自动测试；未完成浏览器内附件刷新读取专项验证",
+    "screenshot": "deliverables/新版原型预览.png"
+  },
+  "original_excel_sha256": "4b77e28208fa28fad5752fd532d421fe5151c992f7ee60c3c02d08d847facfdc"
+}

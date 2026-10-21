@@ -1,0 +1,10 @@
+{
+  "name": "msts-excel-ledger",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix prototype run dev -- --host 127.0.0.1",
+    "build": "npm --prefix prototype run build",
+    "test": "npm --prefix prototype run test:ledger",
+    "check:offline": "npm --prefix prototype run check:offline"
+  }
+}
