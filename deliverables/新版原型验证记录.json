@@ -1,10 +1,10 @@
 {
   "version": "excel-ledger-v1",
-  "date": "2026-10-21",
+  "date": "2026-10-22",
   "branch": "codex/excel-ledger-v1",
   "archive_tag": "archive/full-finance-20261020",
   "tests": {
-    "passed": 24,
+    "passed": 31,
     "command": "npm test"
   },
   "build": "passed",
@@ -25,8 +25,24 @@
       "无控制台错误与警告"
     ],
     "offline_file_protocol": "not_tested_browser_policy_blocks_file_url",
-    "attachment": "UI选择及预览已验证；会话模式附件读取与重置有自动测试；未完成浏览器内附件刷新读取专项验证",
-    "screenshot": "deliverables/新版原型预览.png"
+    "attachment": "已在浏览器验证：同类附件一次选择两份、单独移除后追加、预览与二次确认、刷新后分别下载；下载内容与各自原文件一致。测试账目已作废。",
+    "screenshot": "deliverables/新版原型预览.png",
+    "attachment_screenshot": "deliverables/多附件录入预览.png",
+    "vessel_scope": {
+      "environment": "127.0.0.1:5186 (独立测试账本)",
+      "passed": [
+        "全部/单船/多船与搜索、禁止空选",
+        "单船录入自动带入、多船汇总3000",
+        "A船400付款及20手续费不影响B船",
+        "同月A船修改150、B船保留200",
+        "只读可筛选且不能维护船舶或记账",
+        "刷新保留B船选择",
+        "14个分表标题和切换正常，无控制台异常",
+        "SOFP CSV仅包含所选两船：费用3000、待付2600",
+        "原船单独查看保留92779.85、29908和-2790.58"
+      ],
+      "screenshot": "deliverables/多船筛选与汇总预览.png"
+    }
   },
   "original_excel_sha256": "4b77e28208fa28fad5752fd532d421fe5151c992f7ee60c3c02d08d847facfdc"
 }

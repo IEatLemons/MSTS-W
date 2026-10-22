@@ -3,11 +3,12 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import { createData,createLedger,totals,movements } from '../../src/ledger/engine.js'
 import { add,mul,div,compare,round } from '../../src/ledger/decimal.js'
+import { ORIGINAL_VESSEL_ID } from '../../src/ledger/vessels.js'
 import { SHEETS,DATABASE_NAME } from '../../src/ledger/schema.js'
 import { expenseRows,bankRows,receiptRows,cashRows,csv,inventoryValues } from '../../src/ledger/views.js'
 const seed=JSON.parse(fs.readFileSync(new URL('../../src/ledger/source.json',import.meta.url),'utf8'))
 function setup(){const data=createData(seed),context={role:'finance'},engine=createLedger(data,context,seed);return {data,context,engine}}
-function draft(overrides={}){return {direction:'out',kind:'expense',currency:'USD',fields:{posting_date:'2026-10-20',description:'示例备件',supplier_id:'示例供应商',original_amount:'1000',usd_conversion_rate:'1',invoice_usd:'',payment_status:'Received'},allocations:[{category:'shipmanagement',amount:'1000'}],attachments:[],...overrides}}
+function draft(overrides={}){return {vesselId:ORIGINAL_VESSEL_ID,direction:'out',kind:'expense',currency:'USD',fields:{posting_date:'2026-10-20',description:'示例备件',supplier_id:'示例供应商',original_amount:'1000',usd_conversion_rate:'1',invoice_usd:'',payment_status:'Received'},allocations:[{category:'shipmanagement',amount:'1000'}],attachments:[],...overrides}}
 function save(s,d=draft()){return s.engine.confirm(s.engine.prepare('entry',d).token)}
 function pay(s,id,amount,fee='0',wallet='bank'){return s.engine.confirm(s.engine.prepare('payment',{entryId:id,amount,fee,wallet,date:'2026-10-20'}).token)}
 const equal=(a,b)=>assert.equal(compare(a,b),0,`${a} != ${b}`)
@@ -121,8 +122,8 @@ test('已付金额限制修改下限；修改不能反转历史收付款方向',
 })
 test('十进制精度、费用乘法及分析除法沿用原表；零汇率阻止保存',()=>{
  equal(add('0.1','0.2'),'0.3');equal(mul('1000','0.128'),'128');equal(div('730','7.3'),'100');equal(round('-1.005'),'-1.01')
- const s=setup(),p=s.engine.prepare('estimate',{description:'估算',originalAmount:'730',rating:'7.3'});equal(p.payload.usd,'100');s.engine.confirm(p.token)
- assert.throws(()=>s.engine.prepare('estimate',{description:'估算',originalAmount:'730',rating:'0'}),/大于零/)
+ const s=setup(),p=s.engine.prepare('estimate',{vesselId:ORIGINAL_VESSEL_ID,description:'估算',originalAmount:'730',rating:'7.3'});equal(p.payload.usd,'100');s.engine.confirm(p.token)
+ assert.throws(()=>s.engine.prepare('estimate',{vesselId:ORIGINAL_VESSEL_ID,description:'估算',originalAmount:'730',rating:'0'}),/大于零/)
  assert.throws(()=>s.engine.prepare('entry',draft({fields:{...draft().fields,usd_conversion_rate:'0'}})),/大于零/)
 })
 test('编码分组独立、同组唯一，字典和估算不产生资金',()=>{
@@ -133,13 +134,13 @@ test('编码分组独立、同组唯一，字典和估算不产生资金',()=>{
  equal(totals(seed,s.data).bank,before)
 })
 test('月度盘点维护复用两次确认且不创建收付款',()=>{
- const s=setup(),raw={month:'2026-10',openingCash:'29908',openingFood:'100',openingStore:'20',foodIncome:'300',foodPurchases:'100',foodClosing:'50',storeIncome:'0',storePurchases:'0',storeClosing:'10',rmbRate:'7.3'}
+ const s=setup(),raw={vesselId:ORIGINAL_VESSEL_ID,month:'2026-10',openingCash:'29908',openingFood:'100',openingStore:'20',foodIncome:'300',foodPurchases:'100',foodClosing:'50',storeIncome:'0',storePurchases:'0',storeClosing:'10',rmbRate:'7.3'}
  const p=s.engine.prepare('inventory',raw);assert.equal(s.data.inventory.length,0);s.engine.confirm(p.token)
  equal(inventoryValues(s.data,'2026-10').cashClosing,'29908');equal(inventoryValues(s.data,'2026-10').foodBalance,'150');assert.equal(movements(s.data).length,0)
 })
 test('Bound Store按原表SUM规则保留库存符号，修改预览不复用旧计算结果',()=>{
  const s=setup()
- s.engine.confirm(s.engine.prepare('inventory',{month:'2026-10',storeIncome:'100',openingStore:'20',storeClosing:'-10',rmbRate:'7.3'}).token)
+ s.engine.confirm(s.engine.prepare('inventory',{vesselId:ORIGINAL_VESSEL_ID,month:'2026-10',storeIncome:'100',openingStore:'20',storeClosing:'-10',rmbRate:'7.3'}).token)
  equal(inventoryValues(s.data,'2026-10').storeExpense,'10')
  const old=inventoryValues(s.data,'2026-10'),preview=s.engine.prepare('inventory',{...old,storeClosing:'-15'})
  equal(inventoryValues(s.data,'2026-10').storeExpense,'10');s.engine.confirm(preview.token)

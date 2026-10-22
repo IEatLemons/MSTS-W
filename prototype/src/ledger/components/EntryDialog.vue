@@ -1,15 +1,21 @@
 <script setup>
 import { computed,reactive,ref,watch } from 'vue'
-import { ATTACHMENTS,CATEGORIES,FIELD_GROUPS,FIELD_LABELS,CALCULATED,PURPOSES,STATUSES,WALLETS } from '../schema.js'
+import { ATTACHMENTS,CATEGORIES,FIELD_GROUPS,FIELD_LABELS,CALCULATED,PURPOSES,STATUSES } from '../schema.js'
 import { decimal,mul,sub,sum,money,compare,div } from '../decimal.js'
 import { blankDraft,entryToDraft,sourceToDraft,entryFields } from '../views.js'
-import { context,data,ledger,seed,storage,confirmPreview } from '../store.js'
+import { context,data,ledger,seed,storage,confirmPreview,singleVesselId } from '../store.js'
 import { totals } from '../engine.js'
+import VesselField from './VesselField.vue'
+import {vesselById,walletsFor} from '../vessels.js'
+import AttachmentPicker from './AttachmentPicker.vue'
 
 const props=defineProps({sheet:Object,entry:Object,sourceRow:Object,paymentEntry:Object})
 const emit=defineEmits(['close','saved'])
 const paymentMode=!!props.paymentEntry
 const draft=reactive(props.entry?entryToDraft(props.entry):props.sourceRow?sourceToDraft(props.sourceRow,props.sheet):blankDraft(props.sheet))
+if(!props.entry&&!props.sourceRow)draft.vesselId=singleVesselId.value
+const walletOptions=computed(()=>walletsFor(data,props.paymentEntry?.vesselId||draft.vesselId))
+const vesselName=computed(()=>vesselById(data,props.paymentEntry?.vesselId||draft.vesselId)?.name||'未选择船舶')
 const phase=ref(paymentMode?2:props.entry?2:1),error=ref(''),preview=ref(null),selectedFiles=ref([])
 const paymentManual=ref(false)
 const payment=reactive({entryId:props.paymentEntry?.id,amount:props.paymentEntry?ledger.pending(props.paymentEntry):'',fee:'0',wallet:props.sheet?.kind==='cash'?'cash':'bank',date:blankDraft(props.sheet).fields.posting_date,reference:'',attachments:[]})
@@ -49,9 +55,9 @@ const previewEntry=computed(()=>{
 })
 const previewEffects=computed(()=>{
   if(!preview.value)return null
-  const before=totals(seed,data),e=previewEntry.value
+  const before=totals(seed,data,context.vesselScope),e=previewEntry.value
   const entries=preview.value.action==='entry'?[...data.entries,e]:data.entries.map(x=>x.id===e.id?e:x)
-  const after=totals(seed,{...data,entries})
+  const after=totals(seed,{...data,entries},context.vesselScope)
   return {bank:after.bank,cash:after.cash,bankChange:sub(after.bank,before.bank),cashChange:sub(after.cash,before.cash)}
 })
 const fullPreviewFields=computed(()=>{
@@ -113,18 +119,18 @@ const format=(value,type)=>value===null||value===undefined||value===''?'未填�
         </div>
         <template v-else-if="phase===2">
           <template v-if="paymentMode">
-            <div class="entry-context"><span>{{props.paymentEntry.id}}</span><h3>{{props.paymentEntry.fields.description}}</h3><p>记账金额 {{money(props.paymentEntry.amount)}} USD · 已收付 {{money(ledger.paid(props.paymentEntry))}} · 剩余 {{money(ledger.pending(props.paymentEntry))}}</p></div>
+            <div class="entry-context"><span>{{vesselName}} · {{props.paymentEntry.id}}</span><h3>{{props.paymentEntry.fields.description}}</h3><p>记账金额 {{money(props.paymentEntry.amount)}} USD · 已收付 {{money(ledger.paid(props.paymentEntry))}} · 剩余 {{money(ledger.pending(props.paymentEntry))}}</p></div>
             <div class="form-grid">
               <label>实际收付款金额 USD<input aria-label="实际收付款金额 USD" type="number" step="any" v-model="payment.amount" data-testid="payment-amount"></label>
               <label>实际收付款日期<input aria-label="实际收付款日期" type="date" v-model="payment.date"></label>
-              <label>账户<select aria-label="账户" v-model="payment.wallet"><option v-for="w in WALLETS" :value="w.id">{{w.name}}</option></select></label>
+              <label>账户<select aria-label="账户" v-model="payment.wallet"><option v-for="w in walletOptions" :value="w.id">{{w.name}}</option></select></label>
               <label>Bank Charge USD<input aria-label="Bank Charge USD" type="number" step="any" v-model="payment.fee" data-testid="payment-fee"></label>
               <label class="span-two">付款参考号 / 备注<input v-model="payment.reference"></label>
             </div>
-            <label class="file-picker">BankSlip / 实际收付款回单<input type="file" multiple @change="fileChanged($event,'bank_slip')"></label>
-            <div class="file-list"><span v-for="f in payment.attachments" :key="f.id">{{f.name}}<button aria-label="移除附件" @click="removeFile(f.id)">×</button></span></div>
+            <AttachmentPicker kind="bank_slip" label="BankSlip / 实际收付款回单" :files="payment.attachments" :disabled="context.role!=='finance'" @add="fileChanged" @remove="removeFile"/>
           </template>
           <template v-else>
+            <VesselField v-model="draft.vesselId" :disabled="!!entry"/>
             <div class="entry-purpose"><span class="direction-pill" :class="draft.direction">{{draft.direction==='in'?'入账':'出账'}}</span><label>记账用途<select aria-label="记账用途" v-model="draft.kind" :disabled="!!entry"><option v-for="kind in options" :value="kind">{{PURPOSES[kind]}}</option></select></label><label>原币<select aria-label="原币" v-model="draft.currency"><option>USD</option><option>HKD</option><option>EUR</option><option>CNY</option></select></label><button v-if="!entry" class="text-button" @click="phase=1">重新选择方向</button></div>
             <section v-for="group in fieldGroups" :key="group.name" class="form-section">
               <h3>{{group.name}}</h3>
@@ -152,24 +158,24 @@ const format=(value,type)=>value===null||value===undefined||value===''?'未填�
                 <div v-if="draft.actual" class="form-grid payment-fields">
                   <label>实际金额 USD<input aria-label="实际金额 USD" type="number" step="any" v-model="draft.payment.amount" @input="paymentManual=true"></label>
                   <label>实际日期<input aria-label="实际日期" type="date" v-model="draft.payment.date"></label>
-                  <label>支付 / 收款账户<select aria-label="支付 / 收款账户" v-model="draft.payment.wallet" :disabled="draft.kind==='transfer'"><option v-for="w in WALLETS" :value="w.id">{{w.name}}</option></select></label>
+                  <label>支付 / 收款账户<select aria-label="支付 / 收款账户" v-model="draft.payment.wallet" :disabled="draft.kind==='transfer'"><option v-for="w in walletOptions" :value="w.id">{{w.name}}</option></select></label>
                   <label>Bank Charge USD<input aria-label="Bank Charge USD" type="number" step="any" v-model="draft.payment.fee"></label>
                   <label class="span-two">参考号 / 备注<input v-model="draft.payment.reference"></label>
                 </div>
               </template>
             </section>
-            <section class="form-section"><h3>附件</h3><div class="attachment-grid"><label class="file-picker" v-for="kind in attachmentKinds" :key="kind">{{ATTACHMENTS[kind]}}<input type="file" multiple @change="fileChanged($event,kind)"></label></div><p class="form-help">单个文件最多 10 MB。附件在第二次确认时与账目一起保存。</p><div class="file-list"><span v-for="f in draft.attachments" :key="f.id">{{ATTACHMENTS[f.kind]}} · {{f.name}}<button aria-label="移除附件" @click="removeFile(f.id)">×</button></span></div></section>
+            <section class="form-section"><h3>附件</h3><div class="attachment-grid"><AttachmentPicker v-for="kind in attachmentKinds" :key="kind" :kind="kind" :files="draft.attachments.filter(f=>f.kind===kind)" :disabled="context.role!=='finance'" @add="fileChanged" @remove="removeFile"/></div><p class="form-help">每类附件可选择多个文件，也可继续追加或单独移除。单个文件最多 10 MB，第二次确认时一起保存。</p></section>
           </template>
         </template>
         <template v-else-if="phase===3&&preview">
           <div class="preview-heading"><span class="status-tag">尚未录入</span><h3>请核对这份完整信息</h3><p>再次点击“{{paymentMode?'确认保存收付款':entry?'确认保存修改':'确认录入'}}”后，才会改变账本。</p></div>
-          <div class="preview-summary"><div><small>摘要 / 类型</small><strong>{{previewEntry.fields.description}}</strong><span>{{previewEntry.fields.posting_date}} · {{previewEntry.fields.supplier_id}}</span></div><div class="preview-amount"><small>{{PURPOSES[previewEntry.kind]}} · {{previewEntry.direction==='in'?'入账':'出账'}}</small><strong>{{money(previewEntry.amount)}} <em>USD</em></strong></div></div>
-          <div v-if="paymentMode" class="payment-preview"><strong>本次{{previewEntry.direction==='in'?'收款':'付款'}} {{money(preview.payload.payment.amount)}} USD</strong><p>{{preview.payload.payment.date}} · {{WALLETS.find(w=>w.id===preview.payload.payment.wallet)?.name}} · 手续费 {{money(preview.payload.payment.fee)}} USD</p></div>
+          <div class="preview-vessel">所属船舶：<strong>{{vesselName}}</strong></div><div class="preview-summary"><div><small>摘要 / 类型</small><strong>{{previewEntry.fields.description}}</strong><span>{{previewEntry.fields.posting_date}} · {{previewEntry.fields.supplier_id}}</span></div><div class="preview-amount"><small>{{PURPOSES[previewEntry.kind]}} · {{previewEntry.direction==='in'?'入账':'出账'}}</small><strong>{{money(previewEntry.amount)}} <em>USD</em></strong></div></div>
+          <div v-if="paymentMode" class="payment-preview"><strong>本次{{previewEntry.direction==='in'?'收款':'付款'}} {{money(preview.payload.payment.amount)}} USD</strong><p>{{preview.payload.payment.date}} · {{walletOptions.find(w=>w.id===preview.payload.payment.wallet)?.name}} · 手续费 {{money(preview.payload.payment.fee)}} USD</p></div>
           <div class="preview-destinations"><span>保存后同步展示</span><strong v-for="s in preview.sheets" :key="s">{{s}}</strong></div>
           <div v-if="previewEffects" class="payment-preview"><strong>保存后银行 {{money(previewEffects.bank)}} USD · 本次变化 {{money(previewEffects.bankChange)}}</strong><p>保存后备用金 {{money(previewEffects.cash)}} USD · 本次变化 {{money(previewEffects.cashChange)}}</p><p>此笔已收付 {{money(ledger.paid(previewEntry))}} USD · 剩余 {{money(ledger.pending(previewEntry))}} USD</p></div>
           <div class="preview-fields"><div v-for="(f,i) in fullPreviewFields" :key="i"><span>{{f.label}}</span><strong>{{format(f.value,f.type)}}</strong></div></div>
           <h4>分类与金额</h4><div class="preview-fields"><div v-for="a in previewEntry.allocations" :key="a.category"><span>{{CATEGORIES.find(c=>c.id===a.category)?.name}}</span><strong>{{money(a.amount)}} USD</strong></div><div v-if="!previewEntry.allocations.length"><span>用途</span><strong>{{PURPOSES[previewEntry.kind]}}</strong></div></div>
-          <h4>实际收付款</h4><p v-if="!paymentMode&&!previewEntry.settlements.length" class="muted">尚无实际收付款，本次不会改变银行及现金余额。</p><div v-for="s in previewEntry.settlements" class="payment-preview"><strong>{{money(s.amount)}} USD · {{WALLETS.find(w=>w.id===s.wallet)?.name}}</strong><p>{{s.date}} · 手续费 {{money(s.fee)}} USD · {{s.reference||'未填写参考号'}}</p></div>
+          <h4>实际收付款</h4><p v-if="!paymentMode&&!previewEntry.settlements.length" class="muted">尚无实际收付款，本次不会改变银行及现金余额。</p><div v-for="s in previewEntry.settlements" class="payment-preview"><strong>{{money(s.amount)}} USD · {{walletOptions.find(w=>w.id===s.wallet)?.name}}</strong><p>{{s.date}} · 手续费 {{money(s.fee)}} USD · {{s.reference||'未填写参考号'}}</p></div>
           <h4>附件清单</h4><div class="file-list"><span v-for="f in [...(previewEntry.attachments||[]),...(paymentMode?preview.payload.payment.attachments:[])]" :key="f.id">{{ATTACHMENTS[f.kind]}} · {{f.name}}</span><small v-if="!previewEntry.attachments?.length&&!preview.payload.payment?.attachments?.length">未添加附件</small></div>
         </template>
       </div>

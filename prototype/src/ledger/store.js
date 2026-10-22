@@ -1,12 +1,20 @@
-import { reactive, toRaw } from 'vue'
+import { computed, reactive, toRaw } from 'vue'
 import source from './source.json' with { type: 'json' }
 import { DATABASE_NAME, VERSION } from './schema.js'
 import { createData, createLedger } from './engine.js'
+import { migrateData,normalizeScope,selectedVessels as selectVessels,scopeLabel } from './vessels.js'
 
 export const seed=source
-export const context=reactive({role:'finance'})
+export const context=reactive({role:'finance',vesselScope:'all'})
 export const data=reactive(createData(seed))
 export const ledger=createLedger(data,context,seed)
+export const selectedVessels=computed(()=>selectVessels(data,context.vesselScope))
+export const vesselScopeLabel=computed(()=>scopeLabel(data,context.vesselScope))
+export const singleVesselId=computed(()=>context.vesselScope!=='all'&&selectedVessels.value.length===1?selectedVessels.value[0].id:'')
+export function applyVesselScope(scope){
+ if(scope!=='all'&&(!Array.isArray(scope)||!scope.length||scope.some(id=>!data.vessels.some(v=>v.id===id))))throw Error('请至少选择一条船舶，或选择全部船舶')
+ context.vesselScope=normalizeScope(data,scope);return persistContext()
+}
 export const storage=reactive({ready:false,message:'正在载入本地账本',notice:'',error:'',busy:false})
 let database=null,queue=Promise.resolve()
 const memoryFiles=new Map()
@@ -26,16 +34,18 @@ export async function initialize(){
       const req=database.transaction('state').objectStore('state').get('snapshot')
       req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)
     })
-    if(saved?.data?.version===VERSION&&saved.data.sourceSha256===seed.sourceSha256){
-      Object.assign(data,saved.data)
+    if(saved?.data&&saved.data.sourceSha256===seed.sourceSha256){
+      Object.assign(data,migrateData(saved.data,seed))
+      context.vesselScope=normalizeScope(data,saved.vesselScope??'all')
       if(['finance','reader'].includes(saved.role))context.role=saved.role
+      if(saved.data.version!==VERSION)await writeSnapshot()
     }
-    storage.message='已保存到此浏览器'
-  }catch{database=null;storage.message='仅当前会话有效 · 本地存储不可用'}
+    if(database)storage.message='已保存到此浏览器'
+  }catch{database?.close();database=null;storage.message='仅当前会话有效 · 本地存储不可用'}
   storage.ready=true
 }
 async function writeSnapshot(attachments=[]){
-  const snapshot={data:JSON.parse(JSON.stringify(toRaw(data))),role:context.role}
+  const snapshot={data:JSON.parse(JSON.stringify(toRaw(data))),role:context.role,vesselScope:JSON.parse(JSON.stringify(context.vesselScope))}
   for(const f of attachments)memoryFiles.set(f.id,f.file)
   if(!database)return
   try{

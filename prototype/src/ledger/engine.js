@@ -1,5 +1,6 @@
 import { add, sub, mul, div, sum, compare, decimal, negate } from './decimal.js'
 import { CATEGORIES, PURPOSES, STATUSES, VERSION, ATTACHMENTS } from './schema.js'
+import { originalVessel, vesselById, scopeData, aggregateBaseline, selectedVessels, historyFor } from './vessels.js'
 
 const copy=value=>JSON.parse(JSON.stringify(value))
 const zero=value=>value===null||value===undefined||value===''?'0':decimal(value)
@@ -22,10 +23,11 @@ function files(list=[]){
     return {id:String(f.id),name:String(f.name),kind:f.kind,size:f.size??0}
   })
 }
-export function createData(seed){return {version:VERSION,sourceSha256:seed.sourceSha256,revision:0,serial:0,entries:[],codes:copy(seed.codes),estimates:[],inventory:[],audit:[]}}
+export function createData(seed){return {version:VERSION,sourceSha256:seed.sourceSha256,revision:0,serial:0,vessels:[originalVessel(seed)],histories:{},entries:[],codes:copy(seed.codes),estimates:[],inventory:[],audit:[]}}
 export function createLedger(data,context,seed){
   const previews=new Map(); let sequence=0
   const finance=()=>{if(context.role!=='finance')throw Error('仅财务身份可以录入或修改资料')}
+  const vessel=id=>{const v=vesselById(data,id);if(!v)throw Error('请选择有效的所属船舶');return v}
   const find=id=>{const e=data.entries.find(e=>e.id===id);if(!e||e.voided)throw Error('账目不存在或已作废');return e}
   const paid=e=>sum(e.settlements.map(s=>s.amount))
   const pending=e=>sub(e.amount,paid(e))
@@ -37,10 +39,12 @@ export function createLedger(data,context,seed){
     const fee=positive(p.fee??'0','手续费',true)
     if(p.wallet==='cash'&&compare(fee,'0')!==0)throw Error('现金收支不填写银行手续费')
     if(entry.direction==='in'&&compare(fee,amount)>0)throw Error('手续费不能大于收款金额')
-    return {amount,fee,wallet:p.wallet,date:date(p.date,'实际收付款日期'),reference:p.reference??'',attachments:files(p.attachments)}
+    return {amount,fee,wallet:p.wallet,vesselId:entry.vesselId,account:p.wallet==='bank'?vessel(entry.vesselId).bankAccount||'':'',date:date(p.date,'实际收付款日期'),reference:p.reference??'',attachments:files(p.attachments)}
   }
   function normalizeEntry(raw,existing){
     const e=copy(raw)
+    vessel(e.vesselId)
+    if(existing&&e.vesselId!==existing.vesselId)throw Error('修改时不能变更船舶，请作废后重新录入')
     if(!['in','out'].includes(e.direction))throw Error('请先选择入账或出账')
     if(!PURPOSES[e.kind])throw Error('请选择记账用途')
     if((e.kind==='expense'||e.kind==='transfer')&&e.direction!=='out')throw Error('费用和备用金补给请选择出账')
@@ -100,7 +104,7 @@ export function createLedger(data,context,seed){
       if(action==='edit')before=copy(find(raw.id))
       payload=normalizeEntry(raw,before);sheets=destinations(payload)
     }else if(action==='payment'){
-      before=copy(find(raw.entryId));payload={entryId:before.id,payment:normalizePayment(raw,before)}
+      before=copy(find(raw.entryId));if(raw.vesselId&&raw.vesselId!==before.vesselId)throw Error('收付款必须属于原账目的船舶');payload={entryId:before.id,payment:normalizePayment(raw,before)}
       const e=copy(before);e.settlements.push(payload.payment);sheets=destinations(e)
     }else if(action==='void'){
       before=copy(find(raw.id));payload={id:before.id,reason:required(raw.reason,'作废原因')};sheets=destinations(before)
@@ -114,21 +118,34 @@ export function createLedger(data,context,seed){
       if(before&&before.namespace!==payload.namespace)throw Error('已有编码的分组保持不变')
       if(before&&before.code!==payload.code)throw Error('已有编码编号保持不变，可修改名称与责任部门')
       sheets=['Account Code-2版']
+    }else if(action==='vessel'){
+      before=raw.id?vessel(raw.id):null
+      payload={...(before||{}),name:required(raw.name,'船名'),imo:String(raw.imo||'').trim(),company:String(raw.company||'').trim(),bankAccount:before?.bankAccount||'',needsReview:false}
+      if(payload.imo&&!/^\d{7}$/.test(payload.imo))throw Error('IMO 需填写7位数字，或留空')
+      if(data.vessels.some(v=>v.id!==before?.id&&(v.name.toLocaleLowerCase()===payload.name.toLocaleLowerCase()||(payload.imo&&v.imo===payload.imo))))throw Error('船名或 IMO 已存在')
+      sheets=['船舶档案']
     }else if(action==='estimate'){
+      vessel(raw.vesselId)
+      const existing=data.estimates.find(e=>e.id===raw.id)
+      if(existing&&existing.vesselId!==raw.vesselId)throw Error('已有估算不能直接改属其他船舶')
       payload={...copy(raw),description:required(raw.description,'估算项目'),originalAmount:positive(raw.originalAmount,'原币金额',true),rating:positive(raw.rating,'汇率除数')}
       payload.usd=div(payload.originalAmount,payload.rating)
       payload.low=payload.usd;payload.high=payload.usd
       payload.reasonable=raw.reasonable===''||raw.reasonable===null||raw.reasonable===undefined?'':positive(raw.reasonable,'合理值',true)
+      payload.vessel=vessel(raw.vesselId).name
       payload.isSource=false
       payload.place=decimal(raw.place||'0');payload.overtime=decimal(raw.overtime||'0')
       before=data.estimates.find(e=>e.id===raw.id)||null;sheets=['分析']
     }else if(action==='inventory'){
       if(!/^\d{4}-(0[1-9]|1[0-2])$/.test(raw.month))throw Error('请选择有效月份')
-      payload={month:raw.month,note:raw.note??''}
-      if(raw.id)payload.id=raw.id
+      vessel(raw.vesselId)
+      const existing=data.inventory.find(e=>e.month===raw.month&&e.vesselId===raw.vesselId)
+      if(raw.id&&raw.id!==existing?.id)throw Error('月度资料编号与船舶、月份不一致')
+      payload={vesselId:raw.vesselId,month:raw.month,note:raw.note??''}
+      if(existing)payload.id=existing.id
       for(const key of ['openingCash','openingFood','openingStore','foodIncome','foodGuestMealIncome','foodHospitalityIncome','foodCrewIncome','foodPurchases','foodClosing','storeIncome','storeCrewIncome','storeCrewSpend','storeGuestSpend','storeSalesSpend','storePurchases','storeClosing'])payload[key]=decimal(raw[key]||'0')
       payload.rmbRate=positive(raw.rmbRate??'7.3','RMB换算除数')
-      before=data.inventory.find(e=>e.month===payload.month)||null
+      before=data.inventory.find(e=>e.month===payload.month&&e.vesselId===payload.vesselId)||null
       sheets=['伙食海关库房管理']
     }else throw Error('不支持的操作')
     const token=`PREVIEW-${Date.now()}-${++sequence}`
@@ -155,6 +172,9 @@ export function createLedger(data,context,seed){
         e.settlements.push(s);e.updatedAt=at;e.fields.payment_status=compare(pending(e),'0')===0?'Completed':'Paying';result=e
       }else if(p.action==='void'){
         const e=find(p.payload.id);e.voided=true;e.voidReason=p.payload.reason;e.updatedAt=at;result=e
+      }else if(p.action==='vessel'){
+        const v={...copy(p.payload),id:p.payload.id||id('SHIP'),updatedAt:at};const i=data.vessels.findIndex(x=>x.id===v.id)
+        if(i<0)data.vessels.push(v);else data.vessels.splice(i,1,v);result=v
       }else if(p.action==='code'){
         const code=copy(p.payload);delete code.originalKey
         const i=data.codes.findIndex(c=>`${c.namespace}:${c.code}`===p.payload.originalKey)
@@ -164,16 +184,16 @@ export function createLedger(data,context,seed){
         const e={...copy(p.payload),id:p.payload.id||id('EST'),updatedAt:at};const i=data.estimates.findIndex(x=>x.id===e.id)
         if(i<0)data.estimates.push(e);else data.estimates.splice(i,1,e);result=e
       }else if(p.action==='inventory'){
-        const e={...copy(p.payload),id:p.payload.id||id('INV'),updatedAt:at};const i=data.inventory.findIndex(x=>x.month===e.month)
+        const e={...copy(p.payload),id:p.payload.id||id('INV'),updatedAt:at};const i=data.inventory.findIndex(x=>x.month===e.month&&x.vesselId===e.vesselId)
         if(i<0)data.inventory.push(e);else data.inventory.splice(i,1,e);result=e
       }
       data.revision++
-      data.audit.unshift({id:id('LOG'),action:p.action,entityId:result.id||result.code,at,role:'finance',before:p.before,after:copy(result),sheets:p.sheets})
+      data.audit.unshift({id:id('LOG'),action:p.action,entityId:result.id||result.code,at,role:'finance',vesselId:p.action==='vessel'?result.id:result.vesselId||p.before?.vesselId||null,before:p.before,after:copy(result),sheets:p.sheets})
       p.used=true
       return copy(result)
     }catch(error){Object.assign(data,saved);throw error}
   }
-  function reset(){finance();Object.assign(data,createData(seed));previews.clear()}
+  function reset(){finance();Object.assign(data,createData(seed));context.vesselScope='all';previews.clear()}
   return {prepare,confirm,reset,find,paid,pending,destinations,finance}
 }
 
@@ -182,15 +202,19 @@ export function movements(data){
   for(const entry of data.entries.filter(e=>!e.voided))for(const s of entry.settlements){
     const sign=entry.direction==='in'?1:-1
     const amount=sign===1?sub(s.amount,s.fee):negate(add(s.amount,s.fee))
-    result.push({...copy(s),entryId:entry.id,description:entry.fields.description,party:entry.fields.supplier_id,direction:entry.direction,kind:entry.kind,change:amount,wallet:s.wallet,currency:'USD',allocations:entry.allocations})
-    if(entry.kind==='transfer')result.push({...copy(s),id:s.id+'-CTM',entryId:entry.id,description:entry.fields.description,party:entry.fields.supplier_id,direction:'in',kind:'transfer',change:s.amount,fee:'0',wallet:'cash',currency:'USD',allocations:[]})
+    result.push({...copy(s),entryId:entry.id,vesselId:entry.vesselId,description:entry.fields.description,party:entry.fields.supplier_id,direction:entry.direction,kind:entry.kind,change:amount,wallet:s.wallet,currency:'USD',allocations:entry.allocations})
+    if(entry.kind==='transfer')result.push({...copy(s),id:s.id+'-CTM',entryId:entry.id,vesselId:entry.vesselId,description:entry.fields.description,party:entry.fields.supplier_id,direction:'in',kind:'transfer',change:s.amount,fee:'0',wallet:'cash',currency:'USD',allocations:[]})
   }
   return result.sort((a,b)=>(a.createdAt||'').localeCompare(b.createdAt||'')||a.id.localeCompare(b.id,undefined,{numeric:true}))
 }
 
-export function totals(seed,data){
+export function totals(seed,data,scope='all'){
+  const baseline=aggregateBaseline(seed,data,scope)
+  const vessels=selectedVessels(data,scope)
+  const hasUnimported=vessels.some(v=>!historyFor(seed,data,v.id))
+  data=scopeData(data,scope)
   const move=movements(data)
-  const categories=Object.fromEntries(CATEGORIES.map(c=>[c.id,{...copy(seed.baseline.categories[c.id]),amount:zero(seed.baseline.categories[c.id].amount),completed:zero(seed.baseline.categories[c.id].completed),fee:zero(seed.baseline.categories[c.id].fee),receipt:zero(seed.baseline.categories[c.id].receipt),buckets:seed.baseline.categories[c.id].buckets.map(zero)}]))
+  const categories=Object.fromEntries(CATEGORIES.map(c=>[c.id,{...copy(baseline.categories[c.id]),amount:zero(baseline.categories[c.id].amount),completed:zero(baseline.categories[c.id].completed),fee:zero(baseline.categories[c.id].fee),receipt:zero(baseline.categories[c.id].receipt),buckets:baseline.categories[c.id].buckets.map(zero)}]))
   let fee='0',otherBank='0',cashExpenses='0'
   for(const e of data.entries.filter(e=>!e.voided)){
     const settled=sum(e.settlements.map(s=>s.amount)),fees=sum(e.settlements.map(s=>s.fee))
@@ -222,9 +246,9 @@ export function totals(seed,data){
   const bankChange=sum(move.filter(m=>m.wallet==='bank').map(m=>m.change)),cashChange=sum(move.filter(m=>m.wallet==='cash').map(m=>m.change))
   const funds=sum(Object.values(categories).map(c=>c.receipt))
   const completed=sum(Object.values(categories).map(c=>add(c.completed,c.fee)))
-  const baseCompleted=sum(Object.values(seed.baseline.categories).map(c=>add(c.completed??0,c.fee??0)))
-  const fundsDelta=sub(funds,seed.baseline.funds)
+  const baseCompleted=sum(Object.values(baseline.categories).map(c=>add(c.completed??0,c.fee??0)))
+  const fundsDelta=sub(funds,baseline.funds)
   // Keep the original unreconciled difference; only the new movement/expense deltas alter it.
-  const difference=add(seed.baseline.difference,sub(sub(sub(fundsDelta,bankChange),cashChange),sub(completed,baseCompleted)))
-  return {categories,bank:add(seed.baseline.bank,bankChange),cash:add(seed.baseline.cash,cashChange),bankChange,cashChange,funds,completed,difference,fee,otherBank,cashExpenses,pending:sum(data.entries.filter(e=>!e.voided&&e.kind==='expense').map(e=>sub(e.amount,sum(e.settlements.map(s=>s.amount))))),movements:move}
+  const difference=add(baseline.difference,sub(sub(sub(fundsDelta,bankChange),cashChange),sub(completed,baseCompleted)))
+  return {categories,baseline,vessels,hasUnimported,bank:add(baseline.bank,bankChange),cash:add(baseline.cash,cashChange),bankChange,cashChange,funds,completed,difference,fee,otherBank,cashExpenses,pending:sum(data.entries.filter(e=>!e.voided&&e.kind==='expense').map(e=>sub(e.amount,sum(e.settlements.map(s=>s.amount))))),movements:move}
 }
