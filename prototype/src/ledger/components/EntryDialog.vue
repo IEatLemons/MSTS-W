@@ -16,6 +16,7 @@ const draft=reactive(props.entry?entryToDraft(props.entry):props.sourceRow?sourc
 if(!props.entry&&!props.sourceRow)draft.vesselId=singleVesselId.value
 const walletOptions=computed(()=>walletsFor(data,props.paymentEntry?.vesselId||draft.vesselId))
 const vesselName=computed(()=>vesselById(data,props.paymentEntry?.vesselId||draft.vesselId)?.name||'未选择船舶')
+const entryDirection=computed(()=>props.paymentEntry?.direction||draft.direction)
 const phase=ref(paymentMode?2:props.entry?2:1),error=ref(''),preview=ref(null),selectedFiles=ref([])
 const errorAlert=ref(null)
 const vesselInvalid=computed(()=>error.value==='请选择有效的所属船舶'&&!paymentMode)
@@ -119,6 +120,17 @@ const format=(value,type)=>value===null||value===undefined||value===''?'未填�
     <section class="dialog entry-dialog" role="dialog" aria-modal="true" :aria-label="title">
       <header class="dialog-header"><div><span class="eyebrow">NEW LEDGER ENTRY</span><h2>{{title}}</h2></div><button class="icon-button" aria-label="关闭" :disabled="storage.busy" @click="emit('close')">×</button></header>
       <div class="dialog-steps"><span :class="{active:phase===1}">01 选择入出账</span><span :class="{active:phase===2}">02 填写完整资料</span><span :class="{active:phase===3}">03 核对并录入</span></div>
+      <div v-if="phase>1" class="entry-identity-bar">
+        <div class="entry-identity">
+          <VesselField v-if="phase===2&&!paymentMode" v-model="draft.vesselId" :disabled="!!entry" :invalid="vesselInvalid"/>
+          <div v-else class="identity-vessel"><span class="identity-label">所属船舶</span><strong>{{vesselName}}</strong></div>
+          <div class="entry-direction">
+            <span class="identity-label">记账方向</span>
+            <span class="direction-pill" :class="entryDirection"><span aria-hidden="true">{{entryDirection==='in'?'↙':'↗'}}</span>{{entryDirection==='in'?'入账':'出账'}}</span>
+            <button v-if="phase===2&&!paymentMode&&!entry" class="text-button" @click="phase=1;error=''">重新选择方向</button>
+          </div>
+        </div>
+      </div>
       <div class="dialog-body">
         <div v-if="error" ref="errorAlert" class="error-message" role="alert" aria-atomic="true" tabindex="-1"><strong class="error-title">未能继续，请检查填写内容</strong><span>{{error}}</span></div>
         <div v-if="context.role!=='finance'" class="error-message" role="alert">当前是只读身份，不能确认录入。</div>
@@ -128,7 +140,6 @@ const format=(value,type)=>value===null||value===undefined||value===''?'未填�
         </div>
         <template v-else-if="phase===2">
           <template v-if="paymentMode">
-            <div class="entry-identity"><div class="identity-vessel"><span class="identity-label">所属船舶</span><strong>{{vesselName}}</strong></div><div class="entry-direction"><span class="identity-label">记账方向</span><span class="direction-pill" :class="props.paymentEntry.direction"><span aria-hidden="true">{{props.paymentEntry.direction==='in'?'↙':'↗'}}</span>{{props.paymentEntry.direction==='in'?'入账':'出账'}}</span></div></div>
             <div class="entry-context"><span>{{props.paymentEntry.id}}</span><h3>{{props.paymentEntry.fields.description}}</h3><p>记账金额 {{money(props.paymentEntry.amount)}} USD · 已收付 {{money(ledger.paid(props.paymentEntry))}} · 剩余 {{money(ledger.pending(props.paymentEntry))}}</p></div>
             <div class="form-grid">
               <label>实际收付款金额 USD<input aria-label="实际收付款金额 USD" type="number" step="any" v-model="payment.amount" data-testid="payment-amount"></label>
@@ -140,10 +151,6 @@ const format=(value,type)=>value===null||value===undefined||value===''?'未填�
             <AttachmentPicker kind="bank_slip" label="BankSlip / 实际收付款回单" :files="payment.attachments" :disabled="context.role!=='finance'" @add="fileChanged" @remove="removeFile"/>
           </template>
           <template v-else>
-            <div class="entry-identity">
-              <VesselField v-model="draft.vesselId" :disabled="!!entry" :invalid="vesselInvalid"/>
-              <div class="entry-direction"><span class="identity-label">记账方向</span><span class="direction-pill" :class="draft.direction"><span aria-hidden="true">{{draft.direction==='in'?'↙':'↗'}}</span>{{draft.direction==='in'?'入账':'出账'}}</span><button v-if="!entry" class="text-button" @click="phase=1;error=''">重新选择方向</button></div>
-            </div>
             <div class="entry-purpose"><label>记账用途<select aria-label="记账用途" v-model="draft.kind" :disabled="!!entry"><option v-for="kind in options" :value="kind">{{PURPOSES[kind]}}</option></select></label><label>原币<select aria-label="原币" v-model="draft.currency"><option>USD</option><option>HKD</option><option>EUR</option><option>CNY</option></select></label></div>
             <section v-for="group in fieldGroups" :key="group.name" class="form-section">
               <h3>{{group.name}}</h3>
@@ -182,7 +189,7 @@ const format=(value,type)=>value===null||value===undefined||value===''?'未填�
         </template>
         <template v-else-if="phase===3&&preview">
           <div class="preview-heading"><span class="status-tag">尚未录入</span><h3>请核对这份完整信息</h3><p>再次点击“{{paymentMode?'确认保存收付款':entry?'确认保存修改':'确认录入'}}”后，才会改变账本。</p></div>
-          <div class="entry-identity"><div class="identity-vessel"><span class="identity-label">所属船舶</span><strong>{{vesselName}}</strong></div><div class="entry-direction"><span class="identity-label">记账方向</span><span class="direction-pill" :class="previewEntry.direction"><span aria-hidden="true">{{previewEntry.direction==='in'?'↙':'↗'}}</span>{{previewEntry.direction==='in'?'入账':'出账'}}</span></div></div><div class="preview-summary"><div><small>摘要 / 类型</small><strong>{{previewEntry.fields.description}}</strong><span>{{previewEntry.fields.posting_date}} · {{previewEntry.fields.supplier_id}}</span></div><div class="preview-amount"><small>{{PURPOSES[previewEntry.kind]}} · {{previewEntry.direction==='in'?'入账':'出账'}}</small><strong>{{money(previewEntry.amount)}} <em>USD</em></strong></div></div>
+          <div class="preview-summary"><div><small>摘要 / 类型</small><strong>{{previewEntry.fields.description}}</strong><span>{{previewEntry.fields.posting_date}} · {{previewEntry.fields.supplier_id}}</span></div><div class="preview-amount"><small>{{PURPOSES[previewEntry.kind]}} · {{previewEntry.direction==='in'?'入账':'出账'}}</small><strong>{{money(previewEntry.amount)}} <em>USD</em></strong></div></div>
           <div v-if="paymentMode" class="payment-preview"><strong>本次{{previewEntry.direction==='in'?'收款':'付款'}} {{money(preview.payload.payment.amount)}} USD</strong><p>{{preview.payload.payment.date}} · {{walletOptions.find(w=>w.id===preview.payload.payment.wallet)?.name}} · 手续费 {{money(preview.payload.payment.fee)}} USD</p></div>
           <div class="preview-destinations"><span>保存后同步展示</span><strong v-for="s in preview.sheets" :key="s">{{s}}</strong></div>
           <div v-if="previewEffects" class="payment-preview"><strong>保存后银行 {{money(previewEffects.bank)}} USD · 本次变化 {{money(previewEffects.bankChange)}}</strong><p>保存后备用金 {{money(previewEffects.cash)}} USD · 本次变化 {{money(previewEffects.cashChange)}}</p><p>此笔已收付 {{money(ledger.paid(previewEntry))}} USD · 剩余 {{money(ledger.pending(previewEntry))}} USD</p></div>

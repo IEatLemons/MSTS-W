@@ -3,6 +3,7 @@ import source from './source.json' with { type: 'json' }
 import { DATABASE_NAME, VERSION } from './schema.js'
 import { createData, createLedger } from './engine.js'
 import { migrateData,normalizeScope,selectedVessels as selectVessels,scopeLabel } from './vessels.js'
+import { DIRECTORY_TYPES } from './directory.js'
 
 export const seed=source
 export const context=reactive({role:'finance',vesselScope:'all'})
@@ -65,7 +66,7 @@ export async function confirmPreview(preview,attachments=[]){
   try{
     const result=ledger.confirm(preview.token)
     queue=queue.catch(()=>{}).then(()=>writeSnapshot(attachments));await queue
-    storage.notice=preview.action==='void'?'账目已作废，相关金额已更新':'已确认保存，相关分表已更新'
+    storage.notice=DIRECTORY_TYPES[preview.action]?`${DIRECTORY_TYPES[preview.action].noun}已保存`:preview.action==='void'?'账目已作废，相关金额已更新':'已确认保存，相关分表已更新'
     return result
   }catch(error){storage.error=error.message;throw error}
   finally{storage.busy=false}

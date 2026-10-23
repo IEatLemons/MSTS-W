@@ -1,0 +1,66 @@
+/* CSS viewport pixels: standard desktops and mobile retain their existing sizes. */
+@media screen and (min-width:1920px){
+ :root{--ledger-text-scale:1.2;--ledger-ui-scale:1.15}
+ .ledger-sidebar{width:calc(264px * var(--ledger-ui-scale))}
+ .ledger-main{margin-left:calc(264px * var(--ledger-ui-scale))}
+ .brand{padding:calc(30px * var(--ledger-ui-scale)) calc(25px * var(--ledger-ui-scale))}
+ .brand-mark{width:calc(44px * var(--ledger-ui-scale));height:calc(44px * var(--ledger-ui-scale));flex:none}
+ .ledger-sidebar nav>a{min-height:calc(53px * var(--ledger-ui-scale));padding:calc(10px * var(--ledger-ui-scale)) calc(12px * var(--ledger-ui-scale));gap:calc(12px * var(--ledger-ui-scale))}
+ .nav-index{width:calc(17px * var(--ledger-ui-scale));flex:none}
+ .ledger-sidebar nav>a.has-sheet-color::after{left:calc(41px * var(--ledger-ui-scale));width:calc(40px * var(--ledger-ui-scale))}
+ .sidebar-label,.sidebar-footer{padding-left:calc(24px * var(--ledger-ui-scale));padding-right:calc(24px * var(--ledger-ui-scale))}
+ .app-topbar{height:auto;min-height:calc(87px * var(--ledger-ui-scale));padding:calc(17px * var(--ledger-ui-scale)) calc(44px * var(--ledger-ui-scale))}
+ .worksheet-page{padding:calc(32px * var(--ledger-ui-scale)) calc(44px * var(--ledger-ui-scale)) 24px}
+ .vessel-scope{max-width:calc(420px * var(--ledger-ui-scale))}
+ .vessel-scope-trigger{padding:calc(9px * var(--ledger-ui-scale)) 38px calc(9px * var(--ledger-ui-scale)) 16px}
+ .vessel-scope-trigger b{top:50%;transform:translateY(-50%)}
+ .vessel-popover{width:min(calc(440px * var(--ledger-ui-scale)),calc(100vw - 32px))}
+ .vessel-option{padding:calc(13px * var(--ledger-ui-scale)) 0}
+ .primary,.secondary,.danger-button{min-height:calc(38px * var(--ledger-ui-scale));padding:calc(9px * var(--ledger-ui-scale)) calc(15px * var(--ledger-ui-scale))}
+ .metrics-strip>a,.metrics-strip>div{padding:calc(22px * var(--ledger-ui-scale)) calc(24px * var(--ledger-ui-scale));gap:calc(10px * var(--ledger-ui-scale))}
+ .metrics-strip span,.metrics-strip>*>small{color:#5e7c8f}
+ .panel-heading{padding:calc(22px * var(--ledger-ui-scale)) calc(22px * var(--ledger-ui-scale)) calc(17px * var(--ledger-ui-scale))}
+ .panel-note,.worksheet-meta,.panel-heading p,.panel-heading>span,.worksheet-end{color:#637f91}
+ .table-toolbar{gap:calc(10px * var(--ledger-ui-scale))}
+ .table-toolbar select,.table-toolbar input,.inventory-toolbar select,.inventory-toolbar input,.bank-link-panel select,.role-switch select{height:calc(38px * var(--ledger-ui-scale));padding:calc(8px * var(--ledger-ui-scale)) calc(12px * var(--ledger-ui-scale))}
+ .search-input{max-width:calc(430px * var(--ledger-ui-scale))}
+ .date-filter input{max-width:calc(155px * var(--ledger-ui-scale))}
+ .ledger-table{line-height:1.65}
+ .ledger-table th{padding:calc(14px * var(--ledger-ui-scale)) calc(16px * var(--ledger-ui-scale));color:#3f657c}
+ .ledger-table td{padding:calc(15px * var(--ledger-ui-scale)) calc(16px * var(--ledger-ui-scale));color:#365c72}
+ .ledger-table .source-ref,.ledger-table th>small,.row-action small{color:#668397}
+ .monthly-table th,.monthly-table td{padding:calc(13px * var(--ledger-ui-scale)) calc(16px * var(--ledger-ui-scale))}
+ .dialog{width:min(calc(1010px * var(--ledger-ui-scale)),94vw)}
+ .dialog-header,.dialog-body{padding:calc(24px * var(--ledger-ui-scale)) calc(28px * var(--ledger-ui-scale))}
+ .dialog-footer{padding:calc(17px * var(--ledger-ui-scale)) calc(28px * var(--ledger-ui-scale))}
+ .dialog-steps{padding:calc(14px * var(--ledger-ui-scale)) calc(28px * var(--ledger-ui-scale));gap:calc(30px * var(--ledger-ui-scale))}
+ .form-grid{gap:calc(18px * var(--ledger-ui-scale)) calc(24px * var(--ledger-ui-scale))}
+ .form-grid>label,.wide-label,.entry-purpose>label{color:#55778b}
+ .form-grid input,.form-grid select,.calculated-field{height:calc(40px * var(--ledger-ui-scale))}
+ .form-grid textarea,.wide-label textarea{height:calc(75px * var(--ledger-ui-scale))}
+ .entry-identity{grid-template-columns:minmax(0,1fr) calc(200px * var(--ledger-ui-scale))}
+ .entry-identity-bar{padding:calc(14px * var(--ledger-ui-scale)) calc(28px * var(--ledger-ui-scale))}
+ .entry-identity-bar .entry-identity{padding:calc(14px * var(--ledger-ui-scale)) calc(18px * var(--ledger-ui-scale))}
+ .vessel-field>select{min-height:calc(48px * var(--ledger-ui-scale))}
+ .direction-picker>button{padding:calc(34px * var(--ledger-ui-scale))}
+ .preview-fields{gap:calc(12px * var(--ledger-ui-scale))}
+ .toast{top:calc(100px * var(--ledger-ui-scale))}
+ .directory-header{padding:calc(22px * var(--ledger-ui-scale)) calc(28px * var(--ledger-ui-scale))}
+ .directory-layout{grid-template-columns:calc(176px * var(--ledger-ui-scale)) minmax(0,1fr)}
+ .directory-main{padding:calc(28px * var(--ledger-ui-scale))}
+ .directory-nav nav a{padding:calc(13px * var(--ledger-ui-scale)) calc(10px * var(--ledger-ui-scale))}
+ .directory-brand{width:calc(43px * var(--ledger-ui-scale));height:calc(43px * var(--ledger-ui-scale))}
+ .directory-stats>div{padding:calc(18px * var(--ledger-ui-scale)) calc(22px * var(--ledger-ui-scale))}
+ .directory-search,.directory-toolbar select{height:calc(42px * var(--ledger-ui-scale))}
+ .directory-toolbar select{max-width:calc(300px * var(--ledger-ui-scale))}
+ .directory-card,.directory-detail-header,.directory-detail-body{padding:calc(23px * var(--ledger-ui-scale))}
+ .directory-table th,.directory-table td{padding:calc(18px * var(--ledger-ui-scale)) calc(15px * var(--ledger-ui-scale))}
+ .dialog.directory-editor{width:min(calc(880px * var(--ledger-ui-scale)),94vw)}
+ .directory-form-grid input,.directory-form-grid select,.directory-form-grid textarea{min-height:calc(43px * var(--ledger-ui-scale));padding:calc(10px * var(--ledger-ui-scale)) calc(12px * var(--ledger-ui-scale))}
+}
+@media screen and (min-width:2560px){
+ :root{--ledger-text-scale:1.45;--ledger-ui-scale:1.3}
+}
+@media screen and (min-width:3200px){
+ :root{--ledger-text-scale:1.7;--ledger-ui-scale:1.5}
+}

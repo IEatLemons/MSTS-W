@@ -1,6 +1,6 @@
 <script setup>
 import {computed,ref,watch} from 'vue'
-import {useRoute,useRouter} from 'vue-router'
+import {useRouter} from 'vue-router'
 import {SHEETS,CATEGORIES,STATUSES,BUCKETS,sheetById} from './schema.js'
 import {seed,data,context,ledger,downloadFile,resetDemo,selectedVessels,vesselScopeLabel,singleVesselId,applyVesselScope} from './store.js'
 import {money,sub,sum,mul} from './decimal.js'
@@ -11,8 +11,9 @@ import LedgerTable from './components/LedgerTable.vue'
 import EntryDialog from './components/EntryDialog.vue'
 import AuxDialog from './components/AuxDialog.vue'
 import DetailDialog from './components/DetailDialog.vue'
-const route=useRoute(),router=useRouter()
-const sheet=computed(()=>sheetById(route.meta.sheetId))
+const props=defineProps({sheetId:{type:String,required:true}})
+const router=useRouter()
+const sheet=computed(()=>sheetById(props.sheetId))
 const metrics=computed(()=>totals(seed,data,context.vesselScope))
 const summaries=computed(()=>summaryRows(seed,data,context.vesselScope))
 const query=ref(''),start=ref(''),end=ref(''),status=ref(''),scope=ref('all'),codeGroup=ref('ship_management')
@@ -30,7 +31,7 @@ const inventory=computed(()=>{
  for(const key of ['openingCash','cashClosing','foodIncome','foodGuestMealIncome','foodHospitalityIncome','foodCrewIncome','foodPurchases','foodSpend','openingFood','foodClosing','foodIncomeTotal','foodExpense','foodBalance','storeIncome','storeCrewIncome','storeCrewSpend','storeGuestSpend','storeSalesSpend','storePurchases','storeSpend','openingStore','storeClosing','storeIncomeTotal','storeExpense','storeBalance'])result[key]=sum(rows.map(r=>r[key]))
  return result
 })
-const scopedAudit=computed(()=>data.audit.filter(a=>!a.vesselId||selectedVessels.value.some(v=>v.id===a.vesselId)))
+const scopedAudit=computed(()=>data.audit.filter(a=>!['owner','ownership','crew','crewAssignment'].includes(a.action)&&(!a.vesselId||selectedVessels.value.some(v=>v.id===a.vesselId))))
 const vesselColumns=[{key:'vesselName',label:'船名',type:'text',width:'180px'},{key:'imo',label:'IMO',type:'text',width:'95px'}]
 const months=computed(()=>[...new Set([seed.asOf.slice(0,7),month.value,...inventoryMonths(seed,data,context.vesselScope)])].sort().reverse())
 const financial=computed(()=>['expenses','category','bank','receipts','cash'].includes(sheet.value.kind))

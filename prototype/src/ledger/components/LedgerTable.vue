@@ -1,7 +1,21 @@
 <script setup>
 import { money } from '../decimal.js'
+import {onMounted,onBeforeUnmount,ref} from 'vue'
 defineProps({columns:Array,rows:Array,empty:{type:String,default:'没有符合条件的记录'},actions:{type:Boolean,default:true},compact:{type:Boolean,default:false},actionLabel:{type:String,default:'详情'}})
 defineEmits(['detail'])
+const table=ref(null),firstColumnWidth=ref('160px')
+let columnObserver
+onMounted(()=>{
+ const first=table.value?.querySelector('th')
+ if(!first)return
+ columnObserver=new ResizeObserver(()=>{const width=first.getBoundingClientRect().width;if(width)firstColumnWidth.value=width+'px'})
+ columnObserver.observe(first)
+})
+onBeforeUnmount(()=>columnObserver?.disconnect())
+function columnWidth(col,i,compact){
+ const width=col.width||(compact?'180px':i===0?'160px':i===1?'280px':'160px')
+ return width.endsWith('px')?`calc(${width} * var(--ledger-ui-scale, 1))`:width
+}
 function display(row,col){
   const value=row[col.key]
   if(value===null||value===undefined||value==='')return '—'
@@ -14,8 +28,8 @@ function display(row,col){
 </script>
 <template>
   <div class="table-scroll" :class="{'table-scroll--compact':compact}">
-    <table class="ledger-table" :class="{'ledger-table--plain':compact}">
-      <colgroup><col v-for="(col,i) in columns" :key="col.key" :style="{width:col.width||(compact?'180px':i===0?'160px':i===1?'280px':'160px')}"><col v-if="actions" style="width:94px"></colgroup>
+    <table ref="table" class="ledger-table" :class="{'ledger-table--plain':compact}" :style="{'--ledger-first-column-width':firstColumnWidth}">
+      <colgroup><col v-for="(col,i) in columns" :key="col.key" :style="{width:columnWidth(col,i,compact)}"><col v-if="actions" style="width:calc(94px * var(--ledger-ui-scale, 1))"></colgroup>
       <thead><tr><th v-for="col in columns" :key="col.key" :class="{'numeric':col.type==='decimal'}"><span>{{col.label}}</span><small v-if="col.column">{{col.column}}</small></th><th v-if="actions" class="row-action">记录</th></tr></thead>
       <tbody>
         <tr v-for="row in rows" :key="row.id" :class="{'new-record':!row.isSource,'voided-record':row.voided}">

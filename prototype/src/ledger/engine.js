@@ -1,6 +1,7 @@
 import { add, sub, mul, div, sum, compare, decimal, negate } from './decimal.js'
 import { CATEGORIES, PURPOSES, STATUSES, VERSION, ATTACHMENTS } from './schema.js'
 import { originalVessel, vesselById, scopeData, aggregateBaseline, selectedVessels, historyFor } from './vessels.js'
+import { DIRECTORY_TYPES, normalizeDirectory } from './directory.js'
 
 const copy=value=>JSON.parse(JSON.stringify(value))
 const zero=value=>value===null||value===undefined||value===''?'0':decimal(value)
@@ -23,7 +24,7 @@ function files(list=[]){
     return {id:String(f.id),name:String(f.name),kind:f.kind,size:f.size??0}
   })
 }
-export function createData(seed){return {version:VERSION,sourceSha256:seed.sourceSha256,revision:0,serial:0,vessels:[originalVessel(seed)],histories:{},entries:[],codes:copy(seed.codes),estimates:[],inventory:[],audit:[]}}
+export function createData(seed){return {version:VERSION,sourceSha256:seed.sourceSha256,revision:0,serial:0,vessels:[originalVessel(seed)],owners:[],ownerships:[],crewMembers:[],crewAssignments:[],histories:{},entries:[],codes:copy(seed.codes),estimates:[],inventory:[],audit:[]}}
 export function createLedger(data,context,seed){
   const previews=new Map(); let sequence=0
   const finance=()=>{if(context.role!=='finance')throw Error('仅财务身份可以录入或修改资料')}
@@ -118,12 +119,8 @@ export function createLedger(data,context,seed){
       if(before&&before.namespace!==payload.namespace)throw Error('已有编码的分组保持不变')
       if(before&&before.code!==payload.code)throw Error('已有编码编号保持不变，可修改名称与责任部门')
       sheets=['Account Code-2版']
-    }else if(action==='vessel'){
-      before=raw.id?vessel(raw.id):null
-      payload={...(before||{}),name:required(raw.name,'船名'),imo:String(raw.imo||'').trim(),company:String(raw.company||'').trim(),bankAccount:before?.bankAccount||'',needsReview:false}
-      if(payload.imo&&!/^\d{7}$/.test(payload.imo))throw Error('IMO 需填写7位数字，或留空')
-      if(data.vessels.some(v=>v.id!==before?.id&&(v.name.toLocaleLowerCase()===payload.name.toLocaleLowerCase()||(payload.imo&&v.imo===payload.imo))))throw Error('船名或 IMO 已存在')
-      sheets=['船舶档案']
+    }else if(Object.hasOwn(DIRECTORY_TYPES,action)){
+      ;({payload,before,sheets}=normalizeDirectory(action,raw,data))
     }else if(action==='estimate'){
       vessel(raw.vesselId)
       const existing=data.estimates.find(e=>e.id===raw.id)
@@ -172,9 +169,12 @@ export function createLedger(data,context,seed){
         e.settlements.push(s);e.updatedAt=at;e.fields.payment_status=compare(pending(e),'0')===0?'Completed':'Paying';result=e
       }else if(p.action==='void'){
         const e=find(p.payload.id);e.voided=true;e.voidReason=p.payload.reason;e.updatedAt=at;result=e
-      }else if(p.action==='vessel'){
-        const v={...copy(p.payload),id:p.payload.id||id('SHIP'),updatedAt:at};const i=data.vessels.findIndex(x=>x.id===v.id)
-        if(i<0)data.vessels.push(v);else data.vessels.splice(i,1,v);result=v
+      }else if(Object.hasOwn(DIRECTORY_TYPES,p.action)){
+        const config=DIRECTORY_TYPES[p.action],items=data[config.collection]
+        const item={...copy(p.payload),id:p.payload.id||id(config.prefix),updatedAt:at,createdAt:p.before?.createdAt||at}
+        const index=items.findIndex(x=>x.id===item.id)
+        if(index<0)items.push(item);else items.splice(index,1,item)
+        result=item
       }else if(p.action==='code'){
         const code=copy(p.payload);delete code.originalKey
         const i=data.codes.findIndex(c=>`${c.namespace}:${c.code}`===p.payload.originalKey)

@@ -48,6 +48,7 @@ export function migrateData(saved,seed){
  const data=copy(saved)
  data.vessels=data.vessels?.length?data.vessels:[originalVessel(seed)]
  data.histories=data.histories||{}
+ for(const key of ['owners','ownerships','crewMembers','crewAssignments'])data[key]=data[key]||[]
  if(data.version<2){
   const resolveName=name=>{
    if(!normalized(name))return ORIGINAL_VESSEL_ID
@@ -63,8 +64,8 @@ export function migrateData(saved,seed){
    log.vesselId=log.action==='code'?null:entities.get(log.entityId)||ORIGINAL_VESSEL_ID
    for(const key of ['before','after'])if(log[key]&&log.vesselId)log[key].vesselId=log.vesselId
   }
-  data.migration={from:data.version,to:VERSION,at:new Date().toISOString()}
  }
+ if(data.version<VERSION)data.migration={from:data.version,to:VERSION,at:new Date().toISOString()}
  data.version=VERSION
  return data
 }

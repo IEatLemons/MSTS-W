@@ -30,6 +30,6 @@ export const FIELD_GROUPS = [
 export const FIELD_LABELS = {posting_date:'入账日期',description:'摘要 / 类型',requisition_no:'RQA',supplier_id:'往来方 / Supplier',purchase_order_no:'PO Nos',account_code:'费用编码 / Account Code',original_amount:'原币金额 / PO Current',usd_conversion_rate:'Rating · 原币 × Rating = USD',purchase_order_usd:'PO Amount (USD)',goods_received_date:'GRN / Date',goods_received_usd:'GRN Amount (USD)',invoice_usd:'Invoice Amount (USD)',credit_note_accrual_usd:'C/N, Accrual',credit_note_profit_usd:'C/N Profit',profit_usd:'Profit',invoice_date:'Invoice Date',due_date:'Due Date',payment_status:'Payment Status',owner_settlement_amount:'已收金额',owner_settlement_status:'船东收取状态',owner_pending_placeholder:'待收金额',owner_paid_placeholder:'船东付',ctm_other:'Others',ctm_food:'Food',ctm_store:'Store'}
 export const CALCULATED = new Set(['purchase_order_usd',...BUCKETS,'cash_direction'])
 export const DATABASE_NAME = 'msts-excel-ledger-demo-v1'
-export const VERSION = 2
+export const VERSION = 3
 export function sheetById(id) { return SHEETS.find(s=>s.id===id)||SHEETS[0] }
 export function fieldsFor(seed,sheet) { return seed.fields.filter(f=>f.sheet===sheet) }
